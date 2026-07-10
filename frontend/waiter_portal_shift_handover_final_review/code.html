@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PartyPe Waiter Portal - Shift Handover</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#9f97ff",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "on-primary-fixed": "#140067",
+                    "tertiary-fixed": "#e4dfff",
+                    "wise-accent-green": "#9FE870",
+                    "outline": "#787584",
+                    "inverse-on-surface": "#f1f1ef",
+                    "primary-fixed": "#e3dfff",
+                    "inverse-primary": "#c5c0ff",
+                    "surface-container-highest": "#e3e2e0",
+                    "surface": "#faf9f7",
+                    "surface-bright": "#faf9f7",
+                    "surface-variant": "#e3e2e0",
+                    "outline-variant": "#c8c4d5",
+                    "celebration-coral": "#D85A30",
+                    "on-tertiary-container": "#d1ccff",
+                    "secondary-fixed": "#e4dfff",
+                    "tertiary-container": "#554ea4",
+                    "on-tertiary-fixed": "#150264",
+                    "on-background": "#1a1c1b",
+                    "surface-dim": "#dadad8",
+                    "surface-tint": "#584fbc",
+                    "on-secondary-fixed": "#140067",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "on-secondary-container": "#33288d",
+                    "on-surface-variant": "#474553",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e9e8e6",
+                    "inverse-surface": "#2f3130",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "primary": "#3b309e",
+                    "success-teal": "#1D9E75",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "background": "#faf9f7",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "deep-forest": "#163300",
+                    "secondary": "#5951b4",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#d1ccff",
+                    "tertiary": "#3e368b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-low": "#f4f3f1",
+                    "surface-container": "#efeeec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-4": "32px",
+                    "unit-6": "48px",
+                    "gutter": "16px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "unit-3": "24px",
+                    "unit-1": "8px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9f7;
+            color: #1a1c1b;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @media (max-width: 768px) {
+            .sidebar-hidden {
+                transform: translateX(-100%);
+            }
+        }
+        .active-nav-item {
+            background-color: #3b309e;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Navigation Drawer (Retractable Sidebar) -->
+<aside class="fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low border-r border-outline-variant shadow-xl sidebar-transition md:translate-x-0 sidebar-hidden flex flex-col py-unit-4 gap-base" id="main-sidebar">
+<!-- Header Profile Section -->
+<div class="px-6 pb-6 flex flex-col gap-1 items-start">
+<div class="w-12 h-12 rounded-full overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a professional smiling waiter in a sleek black vest and white shirt, warm studio lighting, soft cream background, corporate modern photography style, high quality commercial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYed8X0cLmhmfyClCPPImUw_n-WQcaSyDmwjZ2DSkNUfojOYf2uekIcQaSA-MGXAc6suSkRAV3kwSMKP__2wv5tDskQ_F3MMCZwYAuIDf8nZFDxIbQhjh7mTk0UkC3N3tEuM__ZO6BJQj8m1wt7cbDpoAA4I2GgpDmJSe3oE_kVRK5tO9MvI3qCFgl2OA_YUZ9i8ZVupPfnZtldOY-ljiEnVnOlxwGHgqktDuMksrw_NqT0oZ176J-"/>
+</div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Waitstaff Portal</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Merchant ID: 8829</p>
+<span class="font-label-sm text-label-sm text-outline px-2 py-1 bg-surface-container rounded-md mt-2">Shift: Evening</span>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-grow">
+<ul class="flex flex-col gap-1">
+<li class="mx-2 p-3 flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-highest transition-all cursor-pointer rounded-lg">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Floor Plan</span>
+</li>
+<li class="mx-2 p-3 flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-highest transition-all cursor-pointer rounded-lg">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</li>
+<li class="mx-2 p-3 flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-highest transition-all cursor-pointer rounded-lg">
+<span class="material-symbols-outlined">cable_car</span>
+<span class="font-label-md text-label-md">Table Map</span>
+</li>
+<li class="mx-2 p-3 flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-highest transition-all cursor-pointer rounded-lg">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</li>
+<li class="mx-2 p-3 flex items-center gap-2 bg-primary text-on-primary rounded-lg shadow-md cursor-pointer">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Shift Handover</span>
+</li>
+</ul>
+</nav>
+<!-- Footer Actions -->
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center gap-3 p-3 text-error font-label-md hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Overlay for mobile sidebar -->
+<div class="fixed inset-0 bg-black/40 z-50 hidden md:hidden" id="sidebar-overlay"></div>
+<!-- Main Content Area -->
+<main class="md:ml-72 min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-0 md:left-72 h-16 z-50 bg-surface flex items-center justify-between px-6">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary" id="sidebar-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tighter">PartyPe</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex flex-col items-end">
+<span class="font-label-md font-bold">Rohan Sharma</span>
+<span class="font-label-sm text-outline">Lead Server</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<section class="mt-20 px-margin-mobile md:px-margin-desktop py-8 flex-grow">
+<div class="max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-1">Shift Handover Summary</h2>
+<p class="text-on-surface-variant font-body-md">Review your performance and complete the closing checklist.</p>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-lg font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Oct 24, 2023
+                        </span>
+<span class="bg-wise-accent-green/20 text-deep-forest px-3 py-1.5 rounded-lg font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                            16:00 - 23:30
+                        </span>
+</div>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<!-- Total Sales -->
+<div class="bg-white p-6 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex flex-col justify-between group hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-success-teal font-label-sm">+12% vs avg</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md mb-1">Total Sales Generated</p>
+<h3 class="font-display-lg text-headline-lg text-primary">₹ 42,850</h3>
+</div>
+</div>
+<!-- Tables Handled -->
+<div class="bg-white p-6 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex flex-col justify-between group hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md mb-1">Tables Handled</p>
+<h3 class="font-display-lg text-headline-lg">24</h3>
+</div>
+</div>
+<!-- Tips Earned -->
+<div class="md:col-span-2 bg-primary text-on-primary p-6 rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between">
+<!-- Abstract glow effect -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
+<span class="material-symbols-outlined">volunteer_activism</span>
+</div>
+<button class="bg-wise-accent-green text-deep-forest px-4 py-1.5 rounded-full font-label-md shadow-sm active:scale-95 transition-transform">
+                                Withdraw Tips
+                            </button>
+</div>
+<div class="relative z-10">
+<p class="text-on-primary/80 font-label-md mb-1">Tips Earned Today</p>
+<div class="flex items-baseline gap-3">
+<h3 class="font-display-lg text-display-lg">₹ 5,240</h3>
+<span class="font-label-md text-wise-accent-green">Great Performance!</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Checklist & Details -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Checklist -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant/30 bg-surface-container-low flex justify-between items-center">
+<h4 class="font-title-md text-title-md">Shift Closing Checklist</h4>
+<span class="text-label-sm font-bold text-primary">4/7 COMPLETED</span>
+</div>
+<div class="p-6">
+<ul class="space-y-4">
+<li class="flex items-center gap-4 p-3 bg-surface-container-lowest border border-outline-variant/20 rounded-lg group cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center text-primary bg-primary/10">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<span class="flex-grow font-body-md line-through text-outline">Clear all pending KOTs from the kitchen display</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">drag_handle</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-surface-container-lowest border border-outline-variant/20 rounded-lg group cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center text-primary bg-primary/10">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<span class="flex-grow font-body-md line-through text-outline">Verify split-bill payments and settlements</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">drag_handle</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-white border border-outline-variant/30 rounded-lg group cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-6 h-6 rounded border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<span class="flex-grow font-body-md">Handover physical cash drawer to the manager</span>
+<span class="bg-celebration-coral/10 text-celebration-coral px-2 py-0.5 rounded text-[10px] font-bold">HIGH PRIORITY</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-white border border-outline-variant/30 rounded-lg group cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-6 h-6 rounded border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<span class="flex-grow font-body-md">Restock station condiments and cutlery</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">drag_handle</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-white border border-outline-variant/30 rounded-lg group cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-6 h-6 rounded border-2 border-outline-variant group-hover:border-primary flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<span class="flex-grow font-body-md">Update inventory report for premium bar items</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">drag_handle</span>
+</li>
+</ul>
+<button class="mt-6 w-full py-4 bg-primary text-on-primary rounded-xl font-title-md shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">verified</span>
+                                    Submit Handover Report
+                                </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Shift Notes & Activity -->
+<div class="space-y-6">
+<div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/30">
+<h4 class="font-title-md text-title-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">note_alt</span>
+                                Shift Notes
+                            </h4>
+<textarea class="w-full h-32 bg-surface-container rounded-lg border-transparent focus:border-primary focus:ring-0 p-4 font-body-md resize-none placeholder:text-outline" placeholder="Any table issues or VIP requests for the next shift?"></textarea>
+<p class="text-label-sm text-outline mt-2 italic">Visibility: Shared with Night Shift Team</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/30">
+<h4 class="font-title-md text-title-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                                Recent Activity
+                            </h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="w-2 bg-success-teal rounded-full"></div>
+<div>
+<p class="font-label-md">Table 12: High Tip Received</p>
+<p class="text-label-sm text-outline">15 mins ago • ₹ 850 Tip</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 bg-primary-container rounded-full"></div>
+<div>
+<p class="font-label-md">Split Bill Settled: Table 04</p>
+<p class="text-label-sm text-outline">42 mins ago • 6 Guests</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 bg-celebration-coral rounded-full"></div>
+<div>
+<p class="font-label-md">Inventory Warning</p>
+<p class="text-label-sm text-outline">1 hour ago • Red Wine Low</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Footer (Simple Status) -->
+<footer class="h-12 bg-surface-container-low flex items-center justify-center px-6 border-t border-outline-variant/20">
+<p class="text-label-sm text-outline">System Status: <span class="text-success-teal font-bold uppercase tracking-widest">Online</span> • Handover version 2.4.1</p>
+</footer>
+</main>
+<!-- Success Modal (Hidden by default) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden" id="success-modal">
+<div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+<div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl relative z-10 p-8 text-center animate-in zoom-in duration-300">
+<div class="w-20 h-20 bg-wise-accent-green/20 rounded-full flex items-center justify-center text-success-teal mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg-mobile mb-2">Shift Closed!</h3>
+<p class="text-on-surface-variant font-body-md mb-8">Your handover report has been successfully submitted and sent to management.</p>
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-title-md hover:bg-primary/90 transition-colors" onclick="document.getElementById('success-modal').classList.add('hidden')">
+                Return to Login
+            </button>
+</div>
+</div>
+<script>
+        // Sidebar toggle logic
+        const sidebar = document.getElementById('main-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('sidebar-hidden');
+            overlay.classList.toggle('hidden');
+        }
+
+        toggleBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Simulated handover submission
+        const submitBtn = document.querySelector('button.bg-primary.text-on-primary.rounded-xl');
+        submitBtn.addEventListener('click', () => {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('hidden');
+            
+            // Add some "confetti" or celebratory scale interaction
+            submitBtn.classList.add('scale-95');
+            setTimeout(() => submitBtn.classList.remove('scale-95'), 150);
+        });
+
+        // Interactive checklist items
+        const checklistItems = document.querySelectorAll('ul li');
+        checklistItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const check = item.querySelector('div');
+                const text = item.querySelector('span:nth-child(2)');
+                
+                if(text.classList.contains('line-through')) {
+                    text.classList.remove('line-through', 'text-outline');
+                    check.classList.replace('bg-primary/10', 'bg-transparent');
+                    check.classList.replace('text-primary', 'text-transparent');
+                    check.classList.replace('border-primary', 'border-outline-variant');
+                } else {
+                    text.classList.add('line-through', 'text-outline');
+                    check.classList.replace('bg-transparent', 'bg-primary/10');
+                    check.classList.replace('text-transparent', 'text-primary');
+                    check.classList.replace('border-outline-variant', 'border-primary');
+                }
+            });
+        });
+
+        // Withdrawal interaction
+        const withdrawBtn = document.querySelector('button.bg-wise-accent-green');
+        withdrawBtn.addEventListener('click', () => {
+            withdrawBtn.textContent = 'Processing...';
+            withdrawBtn.classList.add('opacity-80');
+            setTimeout(() => {
+                withdrawBtn.innerHTML = '<span class="material-symbols-outlined text-sm">check</span> Done';
+                withdrawBtn.classList.replace('bg-wise-accent-green', 'bg-white');
+                withdrawBtn.classList.add('text-success-teal');
+            }, 1500);
+        });
+    </script>
+</body></html>

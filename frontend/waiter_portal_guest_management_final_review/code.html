@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe Waiter Portal - Guest Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#9f97ff",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "on-primary-fixed": "#140067",
+                    "tertiary-fixed": "#e4dfff",
+                    "wise-accent-green": "#9FE870",
+                    "outline": "#787584",
+                    "inverse-on-surface": "#f1f1ef",
+                    "primary-fixed": "#e3dfff",
+                    "inverse-primary": "#c5c0ff",
+                    "surface-container-highest": "#e3e2e0",
+                    "surface": "#faf9f7",
+                    "surface-bright": "#faf9f7",
+                    "surface-variant": "#e3e2e0",
+                    "outline-variant": "#c8c4d5",
+                    "celebration-coral": "#D85A30",
+                    "on-tertiary-container": "#d1ccff",
+                    "secondary-fixed": "#e4dfff",
+                    "tertiary-container": "#554ea4",
+                    "on-tertiary-fixed": "#150264",
+                    "on-background": "#1a1c1b",
+                    "surface-dim": "#dadad8",
+                    "surface-tint": "#584fbc",
+                    "on-secondary-fixed": "#140067",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "on-secondary-container": "#33288d",
+                    "on-surface-variant": "#474553",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e9e8e6",
+                    "inverse-surface": "#2f3130",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "primary": "#3b309e",
+                    "success-teal": "#1D9E75",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "background": "#faf9f7",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "deep-forest": "#163300",
+                    "secondary": "#5951b4",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#d1ccff",
+                    "tertiary": "#3e368b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-low": "#f4f3f1",
+                    "surface-container": "#efeeec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-4": "32px",
+                    "unit-6": "48px",
+                    "gutter": "16px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "unit-3": "24px",
+                    "unit-1": "8px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            user-select: none;
+        }
+        body {
+            background-color: #faf9f7;
+            font-family: 'Inter', sans-serif;
+            color: #1a1c1b;
+        }
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- Navigation Drawer (Retractable Sidebar) -->
+<!-- JSON Component: NavigationDrawer -->
+<aside class="sidebar-transition fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low border-r border-outline-variant shadow-xl flex flex-col py-unit-4 gap-base" id="sidebar">
+<!-- Header Section -->
+<div class="px-6 pb-6 border-b border-outline-variant mb-4">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</div>
+<div>
+<h1 class="font-title-md text-title-md text-primary font-bold">PartyPe</h1>
+<p class="text-xs text-outline font-medium tracking-wide">WAITSTAFF PORTAL</p>
+</div>
+<button class="ml-auto md:hidden text-on-surface-variant p-2 hover:bg-surface-container-highest rounded-full" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu_open</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A close-up, high-quality portrait of a professional male server wearing a clean white shirt and dark apron. He has a friendly, welcoming expression suitable for a high-end restaurant staff profile. The lighting is soft and warm, highlighting the professional atmosphere of a luxury dining establishment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC958JsfxyWw-o7gZutPOyxXI45BdqTliOwnYTGXBhCl5lzccZOPqAN1wO7IzD4i01nO1I0ORn59zc7I__Ovj3MzQ1G9Y6YAYNZGeuatUI7omPsCFME0zfRFCG-v7ZupSi5kwS1CqY7nn1P4eINvz97Na_eYO03zZVobrYJpJl0k8Rh1k5P3fHz29_ZQQl8ittRXO8FDiE7sPWH90yNxWh8S4wEtaMxCLvzXsoVNsxL9bryjK-tX4Ce"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold">Marcus Chen</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-widest">Merchant ID: 8829</span>
+<span class="text-[10px] bg-wise-accent-green/20 text-deep-forest px-2 py-0.5 rounded-full w-fit mt-1">Shift: Evening</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1 overflow-y-auto px-2">
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 rounded-lg hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Floor Plan</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 rounded-lg hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<a class="flex items-center gap-unit-2 bg-primary text-on-primary rounded-lg mx-2 p-3 shadow-md" href="#">
+<span class="material-symbols-outlined">cable_car</span>
+<span class="font-label-md text-label-md">Table Map</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 rounded-lg hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 rounded-lg hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="px-6 pt-4 border-t border-outline-variant mt-auto">
+<button class="flex items-center gap-3 text-error w-full p-2 hover:bg-error-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">End Shift</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:ml-72 min-h-screen bg-surface">
+<!-- TopAppBar -->
+<!-- JSON Component: TopAppBar -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-50 bg-surface h-16 flex items-center justify-between px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<h2 class="font-title-md text-title-md text-primary font-bold leading-tight">Guest Management</h2>
+<p class="text-xs text-on-surface-variant font-medium">Table 24 • Rooftop Lounge</p>
+</div>
+</div>
+<div class="flex items-center gap-unit-2">
+<button class="flex items-center gap-1 bg-wise-accent-green hover:opacity-90 text-deep-forest px-4 py-2 rounded-full text-label-sm transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined !text-[18px]">person_add</span>
+<span>Invite Friends</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full border-2 border-primary/20 p-0.5 overflow-hidden">
+<img class="w-full h-full rounded-full object-cover" data-alt="A professional male user profile photo for a restaurant management application. The subject is a well-groomed male server in his late 20s, smiling warmly and looking directly at the camera. The background is a blurred high-end bistro interior with warm ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRkO5_FxoesEqwL5VrOiD-eBEBbordpv4JJTifkfiF0QTHJf5cADOK9tRgul16R9_y0lv27d7Qw0wyTaYacIXLFCYAoYK3XmLF6SK601-nFEZ8F7L7TrROjjImNAxIprNL5zNOq0SHceac0mSQN6jIsCajqVAPTSLS0MrF7TwQgO3WQzFGdDOBN-8C5dBv7cz5JaLLH0pF_zRS45Qwbdfy-X_7lZV9A_uB8LVAduVWsBMaMsXVi6G8"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<section class="mt-16 p-margin-mobile md:p-margin-desktop flex-1 flex flex-col gap-unit-4 overflow-y-auto scrollbar-hide pb-24">
+<!-- Quick Stats Bento Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="bento-card p-unit-3 flex flex-col justify-between border-l-4 border-primary">
+<span class="text-on-surface-variant font-label-md">Active Guests</span>
+<div class="flex items-end justify-between mt-4">
+<span class="text-display-lg font-display-lg leading-none">08</span>
+<span class="text-success-teal text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined !text-sm">groups</span>
+                            Full Table
+                        </span>
+</div>
+</div>
+<div class="bento-card p-unit-3 flex flex-col justify-between border-l-4 border-success-teal">
+<span class="text-on-surface-variant font-label-md">Paid Status</span>
+<div class="flex items-end justify-between mt-4">
+<span class="text-display-lg font-display-lg leading-none">62%</span>
+<span class="text-primary text-label-sm font-bold flex items-center gap-1">
+                            $420.50
+                        </span>
+</div>
+</div>
+<div class="bento-card p-unit-3 flex flex-col justify-between border-l-4 border-celebration-coral">
+<span class="text-on-surface-variant font-label-md">Open Requests</span>
+<div class="flex items-end justify-between mt-4">
+<span class="text-display-lg font-display-lg leading-none">03</span>
+<span class="text-celebration-coral text-label-sm font-bold blink flex items-center gap-1">
+<span class="material-symbols-outlined !text-sm">warning</span>
+                            Priority
+                        </span>
+</div>
+</div>
+<div class="bento-card p-unit-3 bg-primary text-on-primary flex flex-col justify-between shadow-primary/20">
+<span class="font-label-md opacity-80">Table Session</span>
+<div class="flex flex-col mt-4">
+<span class="text-headline-lg font-headline-lg">01:42:15</span>
+<span class="text-xs opacity-70 mt-1 uppercase tracking-tighter">Avg. Stay: 02:15:00</span>
+</div>
+</div>
+</div>
+<!-- Guest List Header -->
+<div class="flex items-center justify-between mt-4">
+<h3 class="font-title-md text-title-md text-primary font-bold">Guest List &amp; Status</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container-highest text-on-surface-variant rounded-lg text-label-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined !text-[18px]">filter_list</span>
+                        All Status
+                    </button>
+<button class="p-2 bg-surface-container-highest text-on-surface-variant rounded-lg">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+<!-- Detailed Guest Management Table/Cards -->
+<div class="flex flex-col gap-unit-2">
+<!-- Guest Item 1 -->
+<div class="bento-card p-4 flex flex-col md:flex-row md:items-center gap-4 hover:border-primary/20 border border-transparent transition-all">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img class="w-14 h-14 rounded-xl object-cover ring-2 ring-success-teal" data-alt="A stylish young woman in her mid-20s with a modern fashion sense, sitting in a dimly lit restaurant. She has a happy, engaged expression as if talking to friends. The photograph has a rich, cinematic quality with deep shadows and warm highlights, embodying the social energy of PartyPe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0gh3FPzH8LgDweIFyiu42DtoiLCvF6RDbDOxtAZbAbPyiTiZzAqZIj1O1xIsgrYsmriHmWFuwMr2J4IMFcf4WX_K_A7kcOIPo3JBAusPrhMpXFBSzt6KfCLa112L2-3in5lz5krCwIpJCKUS0qlTrt1r0LfeICAZ2M3kzTUrKEjP3hnA7wAsLNulg4BBdWnRl0EJQVE8tYK5nC0dBrXVScBboMB1JG72C04L6e4XE21yqRGsOeooj"/>
+<div class="absolute -bottom-1 -right-1 bg-success-teal text-white w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined !text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-primary font-bold">Sarah Jenkins</span>
+<span class="px-2 py-0.5 bg-success-teal/10 text-success-teal text-[10px] font-bold rounded-full">CHECKED IN</span>
+</div>
+<span class="text-sm text-on-surface-variant">Host • Seated 45m ago</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-4 md:gap-8">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-bold">Personal Total</span>
+<span class="text-lg font-headline-lg text-primary">$124.00</span>
+</div>
+<div class="flex flex-col max-w-[200px]">
+<span class="text-[10px] text-outline uppercase font-bold">Special Requests</span>
+<div class="flex flex-wrap gap-1 mt-1">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-bold rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined !text-[12px]">medical_services</span>
+                                    NUT ALLERGY
+                                </span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary/5 rounded-full transition-all">
+<span class="material-symbols-outlined">receipt_long</span>
+</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg text-label-sm font-bold shadow-md hover:bg-primary-container transition-all">
+                                Update
+                            </button>
+</div>
+</div>
+</div>
+<!-- Guest Item 2 -->
+<div class="bento-card p-4 flex flex-col md:flex-row md:items-center gap-4 hover:border-primary/20 border border-transparent transition-all opacity-90">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img class="w-14 h-14 rounded-xl object-cover ring-2 ring-primary/20" data-alt="A young man in his late 20s with short hair and a trendy streetwear jacket, looking relaxed in a modern bar environment. He is leaning slightly forward, captured in a candid moment of laughter. The aesthetic is cool and urban with vibrant neon accent lights in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8R3qjK9nsm9JBoM80IUO7tgUhWJqVYmHnJNZjo3ZS5DzqKfPEFZj5vtHeB0Iw1AdgbHDjyKPc68F3lF5IZRIvnaqZ92SioQ1KncspeXyIztRTgGcYqgaqO56DOrnEJPxaTegK-1GbAhkDHkD41XCvBnamLU4qv132koYE2B5TK0gVG_obyl_53dE4hkuy6MqGzmYNvo49sRcbAxV7Hm7OXUedjI1qw3tMifafAfkrs6FwCRqBvRGL"/>
+<div class="absolute -bottom-1 -right-1 bg-surface-variant text-on-surface-variant w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined !text-[12px]">schedule</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-primary font-bold">David Miller</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold rounded-full">PENDING ARRIVAL</span>
+</div>
+<span class="text-sm text-on-surface-variant">Friend • ETA 5 min</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-4 md:gap-8">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-bold">Personal Total</span>
+<span class="text-lg font-headline-lg text-outline">$0.00</span>
+</div>
+<div class="flex flex-col max-w-[200px]">
+<span class="text-[10px] text-outline uppercase font-bold">Special Requests</span>
+<span class="text-xs text-on-surface-variant italic mt-1">No requests</span>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 border-2 border-primary text-primary rounded-lg text-label-sm font-bold hover:bg-primary/5 transition-all">
+                                Check-In
+                            </button>
+</div>
+</div>
+</div>
+<!-- Guest Item 3 -->
+<div class="bento-card p-4 flex flex-col md:flex-row md:items-center gap-4 border-2 border-celebration-coral/20 bg-celebration-coral/[0.02] transition-all">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img class="w-14 h-14 rounded-xl object-cover ring-2 ring-success-teal" data-alt="A sophisticated young professional man in a tailored blazer, holding a glass and looking thoughtfully at something off-camera. The setting is an elegant, upscale restaurant with warm wood paneling and crystal glassware. The overall feel is one of modern luxury and financial confidence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzyKVg6sY4exlV0gPMSuRBbROHZw92AiFgUj8SnTAIjxEVKW13FT0RF-9CKrXf9FSJOO3WPvaWhpx6vg3OuqkPn2bXU5lPuL7UgP5uRhxdMGOfNaQmCr4dj-o1lWEkeQRlpLFb_3GXSfpMZ6jUdi7-9YvAt6bozeIk6H-fInGZsCGD8-EKLXcnWhnlTp0Aih9cRGScuBFiS66JmMGxhfgXK21wdxSP97lsUCZo9t5VLMbCaLlFQX-e"/>
+<div class="absolute -bottom-1 -right-1 bg-success-teal text-white w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined !text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-primary font-bold">James Wilson</span>
+<span class="px-2 py-0.5 bg-success-teal/10 text-success-teal text-[10px] font-bold rounded-full">CHECKED IN</span>
+</div>
+<span class="text-sm text-on-surface-variant">Friend • Seated 30m ago</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-4 md:gap-8">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-bold">Personal Total</span>
+<span class="text-lg font-headline-lg text-primary">$86.50</span>
+</div>
+<div class="flex flex-col max-w-[200px]">
+<span class="text-[10px] text-outline uppercase font-bold">Special Requests</span>
+<div class="flex flex-wrap gap-1 mt-1">
+<span class="px-2 py-0.5 bg-celebration-coral/10 text-celebration-coral text-[10px] font-bold rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined !text-[12px]">local_bar</span>
+                                    LOW ALCOHOL
+                                </span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary/5 rounded-full transition-all">
+<span class="material-symbols-outlined">receipt_long</span>
+</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg text-label-sm font-bold shadow-md hover:bg-primary-container transition-all">
+                                Update
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Actions Floating -->
+<div class="fixed bottom-0 right-0 left-0 md:left-72 bg-white/80 backdrop-blur-md border-t border-outline-variant p-4 flex items-center justify-between z-40">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-success-teal rounded-full animate-pulse"></span>
+<span class="text-label-sm font-bold text-on-surface">Table Active</span>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 border-2 border-primary text-primary rounded-xl font-bold text-label-md active:scale-95 transition-all">
+                        Split Bill
+                    </button>
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-bold text-label-md shadow-lg shadow-primary/20 active:scale-95 transition-all">
+                        Complete Session
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay for mobile sidebar -->
+<div class="fixed inset-0 bg-black/50 z-[55] hidden md:hidden" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Handle initial responsive state
+        function checkScreen() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+            }
+        }
+
+        window.addEventListener('resize', checkScreen);
+        window.addEventListener('load', checkScreen);
+
+        // Micro-interaction: Blink effect for critical alerts
+        const blinks = document.querySelectorAll('.blink');
+        setInterval(() => {
+            blinks.forEach(el => {
+                el.style.opacity = el.style.opacity === '0' ? '1' : '0';
+            });
+        }, 1000);
+    </script>
+</body></html>

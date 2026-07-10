@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe - Profile &amp; Wallet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#584fbc",
+                    "on-secondary-fixed": "#140067",
+                    "deep-forest": "#163300",
+                    "success-teal": "#1D9E75",
+                    "tertiary-fixed": "#e4dfff",
+                    "background": "#faf9f7",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "on-primary-fixed": "#140067",
+                    "surface-dim": "#dadad8",
+                    "primary-fixed": "#e3dfff",
+                    "surface-bright": "#faf9f7",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#d1ccff",
+                    "inverse-primary": "#c5c0ff",
+                    "error": "#ba1a1a",
+                    "surface": "#faf9f7",
+                    "primary": "#3b309e",
+                    "on-surface": "#1a1c1b",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "inverse-surface": "#2f3130",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "surface-container-high": "#e9e8e6",
+                    "on-primary-container": "#d1ccff",
+                    "celebration-coral": "#D85A30",
+                    "wise-accent-green": "#9FE870",
+                    "surface-variant": "#e3e2e0",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-tertiary-fixed": "#150264",
+                    "outline-variant": "#c8c4d5",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#e4dfff",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "secondary-container": "#9f97ff",
+                    "secondary": "#5951b4",
+                    "on-surface-variant": "#474553",
+                    "primary-container": "#534ab7",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#787584",
+                    "on-secondary-container": "#33288d",
+                    "surface-container": "#efeeec",
+                    "tertiary-container": "#554ea4",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary": "#3e368b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-2": "16px",
+                    "gutter": "16px",
+                    "unit-3": "24px",
+                    "unit-1": "8px",
+                    "margin-desktop": "40px",
+                    "unit-4": "32px",
+                    "base": "8px",
+                    "unit-6": "48px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .tab-active {
+            color: #3b309e;
+        }
+        .tab-active-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #3b309e;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .teal-gradient {
+            background: linear-gradient(135deg, #1D9E75 0%, #157e5d 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface custom-scrollbar">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-[56px] bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline max-w-[1140px] mx-auto">
+<div class="flex items-center gap-unit-2">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-size: 24px;">restaurant</span>
+<h1 class="font-display-lg text-[24px] font-bold text-primary dark:text-primary-fixed-dim">PartyPe</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr9oRiEprU5j8xqejYDoGH5G8WZ5JJ0kVcYVBH9ZKoiqrzqMD7nCISEdKQPv20O8g_EMC3DDWC_FVCGzwXZ7BoI12ylHQHhy3fHcxfZPdEmmnzh74yf9MI0qiSRrTc9U_0jxl6NutdAjHGptEvUjoPV9TC59B-yrodj_9vc-iuvpjREad2uNX_YnSfsZYR0_Ocy05tP2E8F7dPoPaiv9nAvfK0HchPPjkcs6hSDzY3qhs7VEf21BUQnc5FOcbmnmeXduhkNAKlZxA"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-[1140px] mx-auto pb-24">
+<!-- Tabs Navigation -->
+<div class="flex w-full bg-surface border-b border-outline-variant">
+<button class="relative flex-1 py-4 font-label-md text-label-md text-center tab-active transition-all duration-200" id="profile-tab-btn" onclick="switchTab('profile')">
+                Profile
+                <div class="tab-active-indicator" id="profile-indicator"></div>
+</button>
+<button class="relative flex-1 py-4 font-label-md text-label-md text-center text-on-surface-variant transition-all duration-200" id="wallet-tab-btn" onclick="switchTab('wallet')">
+                Wallet
+                <div class="tab-active-indicator hidden" id="wallet-indicator"></div>
+</button>
+</div>
+<!-- Tab Content: Profile -->
+<div class="px-margin-mobile mt-unit-4 block animate-in fade-in duration-300" id="profile-section">
+<div class="flex flex-col items-center gap-unit-3 mb-unit-6 pt-unit-2">
+<div class="relative">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-white font-headline-lg text-headline-lg border-4 border-white shadow-lg overflow-hidden">
+                        RV
+                    </div>
+<div class="absolute bottom-1 right-1 bg-success-teal text-white rounded-full p-1 border-2 border-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="text-center">
+<h2 class="font-headline-lg text-headline-lg-mobile text-on-surface">Rahul Verma</h2>
+<p class="font-body-md text-on-surface-variant">Active since March 2024</p>
+</div>
+</div>
+<div class="space-y-4 max-w-lg mx-auto">
+<!-- Info Cards -->
+<div class="bg-surface-container-lowest p-unit-3 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center justify-between border border-outline-variant/30">
+<div class="flex items-center gap-unit-3">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low">
+<span class="material-symbols-outlined text-outline">call</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Phone Number</p>
+<p class="font-title-md text-body-md text-on-surface font-semibold">+91 98765 43210</p>
+</div>
+</div>
+<span class="text-success-teal font-label-md font-semibold">Verified</span>
+</div>
+<div class="bg-surface-container-lowest p-unit-3 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex items-center justify-between border border-outline-variant/30">
+<div class="flex items-center gap-unit-3">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low">
+<span class="material-symbols-outlined text-outline">mail</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Email Address</p>
+<p class="font-title-md text-body-md text-on-surface font-semibold">rahul.verma@example.com</p>
+</div>
+</div>
+<span class="text-success-teal font-label-md font-semibold">Verified</span>
+</div>
+<div class="pt-unit-4 space-y-3">
+<button class="w-full py-4 px-gutter rounded-2xl bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface font-label-md flex items-center justify-between transition-colors">
+<span class="font-semibold text-on-surface">Account Settings</span>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full py-4 px-gutter rounded-2xl bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface font-label-md flex items-center justify-between transition-colors">
+<span class="font-semibold text-on-surface">Privacy &amp; Security</span>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<a class="w-full py-4 px-gutter rounded-2xl bg-error-container/20 hover:bg-error-container/30 text-error font-label-md flex items-center justify-center gap-2 mt-4 transition-colors border border-error/10" href="{{DATA:SCREEN:SCREEN_17}}">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-bold">Logout</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Tab Content: Wallet -->
+<div class="px-margin-mobile mt-unit-4 hidden animate-in fade-in duration-300" id="wallet-section">
+<!-- Balance Card -->
+<div class="teal-gradient rounded-3xl p-unit-4 text-white shadow-xl relative overflow-hidden">
+<!-- Decorative pattern -->
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<p class="font-label-md text-white/80 mb-1">Current Balance</p>
+<h2 class="font-display-lg text-[40px] font-bold mb-unit-3">₹2,450</h2>
+<div class="flex gap-unit-2">
+<button class="flex-1 bg-white text-success-teal py-3 rounded-xl font-label-md font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                            Add Money
+                        </button>
+<button class="flex-1 bg-white/20 backdrop-blur-md text-white py-3 rounded-xl font-label-md font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                            Withdraw
+                        </button>
+</div>
+</div>
+</div>
+<!-- Recent Transactions -->
+<div class="mt-unit-6">
+<div class="flex justify-between items-end mb-unit-3">
+<h3 class="font-title-md text-title-md">Recent Transactions</h3>
+<button class="text-primary font-label-sm font-semibold">View All</button>
+</div>
+<div class="space-y-2">
+<!-- Transaction 1 -->
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl flex items-center justify-between border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-unit-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">restaurant</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-medium">The Gourmet Bistro</p>
+<p class="font-label-sm text-outline">Today, 2:40 PM</p>
+</div>
+</div>
+<p class="font-title-md text-celebration-coral font-bold">-₹840.00</p>
+</div>
+<!-- Transaction 2 -->
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl flex items-center justify-between border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-unit-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-medium">Split from Ananya</p>
+<p class="font-label-sm text-outline">Yesterday, 10:15 PM</p>
+</div>
+</div>
+<p class="font-title-md text-success-teal font-bold">+₹1,200.00</p>
+</div>
+<!-- Transaction 3 -->
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl flex items-center justify-between border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-unit-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-medium">Added to Wallet</p>
+<p class="font-label-sm text-outline">24 Mar, 11:30 AM</p>
+</div>
+</div>
+<p class="font-title-md text-success-teal font-bold">+₹2,000.00</p>
+</div>
+<!-- Transaction 4 -->
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl flex items-center justify-between border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-unit-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">local_bar</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-medium">Liquid Therapy Bar</p>
+<p class="font-label-sm text-outline">22 Mar, 11:45 PM</p>
+</div>
+</div>
+<p class="font-title-md text-celebration-coral font-bold">-₹1,560.00</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-2 px-gutter bg-surface-container-lowest shadow-md md:hidden rounded-t-xl border-t border-outline-variant/30">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high rounded-full px-4 py-1" href="{{DATA:SCREEN:SCREEN_4}}">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high rounded-full px-4 py-1" href="{{DATA:SCREEN:SCREEN_23}}">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high rounded-full px-4 py-1" href="{{DATA:SCREEN:SCREEN_11}}">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        function switchTab(tab) {
+            const profileSection = document.getElementById('profile-section');
+            const walletSection = document.getElementById('wallet-section');
+            const profileBtn = document.getElementById('profile-tab-btn');
+            const walletBtn = document.getElementById('wallet-tab-btn');
+            const profileIndicator = document.getElementById('profile-indicator');
+            const walletIndicator = document.getElementById('wallet-indicator');
+
+            if (tab === 'profile') {
+                profileSection.classList.remove('hidden');
+                walletSection.classList.add('hidden');
+                
+                profileBtn.classList.add('tab-active');
+                profileBtn.classList.remove('text-on-surface-variant');
+                profileIndicator.classList.remove('hidden');
+                
+                walletBtn.classList.remove('tab-active');
+                walletBtn.classList.add('text-on-surface-variant');
+                walletIndicator.classList.add('hidden');
+            } else {
+                profileSection.classList.add('hidden');
+                walletSection.classList.remove('hidden');
+                
+                walletBtn.classList.add('tab-active');
+                walletBtn.classList.remove('text-on-surface-variant');
+                walletIndicator.classList.remove('hidden');
+                
+                profileBtn.classList.remove('tab-active');
+                profileBtn.classList.add('text-on-surface-variant');
+                profileIndicator.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>

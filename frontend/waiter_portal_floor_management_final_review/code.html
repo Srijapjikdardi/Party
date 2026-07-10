@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe Waiter Portal - Floor Management</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Hanken Grotesk & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#9f97ff",
+                        "on-primary-fixed-variant": "#3f35a3",
+                        "on-primary-fixed": "#140067",
+                        "tertiary-fixed": "#e4dfff",
+                        "wise-accent-green": "#9FE870",
+                        "outline": "#787584",
+                        "inverse-on-surface": "#f1f1ef",
+                        "primary-fixed": "#e3dfff",
+                        "inverse-primary": "#c5c0ff",
+                        "surface-container-highest": "#e3e2e0",
+                        "surface": "#faf9f7",
+                        "surface-bright": "#faf9f7",
+                        "surface-variant": "#e3e2e0",
+                        "outline-variant": "#c8c4d5",
+                        "celebration-coral": "#D85A30",
+                        "on-tertiary-container": "#d1ccff",
+                        "secondary-fixed": "#e4dfff",
+                        "tertiary-container": "#554ea4",
+                        "on-tertiary-fixed": "#150264",
+                        "on-background": "#1a1c1b",
+                        "surface-dim": "#dadad8",
+                        "surface-tint": "#584fbc",
+                        "on-secondary-fixed": "#140067",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c5c0ff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#534ab7",
+                        "on-secondary-container": "#33288d",
+                        "on-surface-variant": "#474553",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e9e8e6",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#423a8f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#41379b",
+                        "primary": "#3b309e",
+                        "success-teal": "#1D9E75",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#c5c0ff",
+                        "background": "#faf9f7",
+                        "tertiary-fixed-dim": "#c5c0ff",
+                        "deep-forest": "#163300",
+                        "secondary": "#5951b4",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#d1ccff",
+                        "tertiary": "#3e368b",
+                        "on-surface": "#1a1c1b",
+                        "surface-container-low": "#f4f3f1",
+                        "surface-container": "#efeeec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit-4": "32px",
+                        "unit-6": "48px",
+                        "gutter": "16px",
+                        "unit-2": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "unit-3": "24px",
+                        "unit-1": "8px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "title-md": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .floor-grid {
+            background-image: radial-gradient(#c8c4d5 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .table-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .table-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Navigation Drawer (SideNav) -->
+<aside class="fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low border-r border-outline-variant shadow-xl flex flex-col py-unit-4 gap-base transform transition-transform duration-300" id="sidebar">
+<!-- Header -->
+<div class="px-6 mb-6">
+<h1 class="font-title-md text-title-md text-primary font-bold">PartyPe</h1>
+<div class="mt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a restaurant staff member in a clean, modern uniform. The lighting is soft and warm, reflecting a high-end dining environment with a blurred restaurant background. The aesthetic is corporate yet friendly, following the PartyPe brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHL_8HQ7ZRjc7lo24rTTX_gXYAp20KpWNHeTx6gWN6ekU0IrmuKw0bCI8RYPxnS8qGIKP9_T6ufn-B3eakoI2yN0EnqQjXdYZmKcs7yO8ywimoUoX3vwl8Jx5BssFH-SzZJwueVA-6iSFLlgEvhaHcm9AH2eB0nG0pDUNppz0Uy_EEXXTcw7tZJjfNuETY6gmIFQ02tVLbleF2sDaiZ2X0hsZRAYCU-jb8KktNc1UqZtCD52QOHNva"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Waitstaff Portal</p>
+<p class="text-xs text-on-surface-variant">Merchant ID: 8829</p>
+</div>
+</div>
+<div class="mt-2 inline-flex items-center px-2 py-1 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">
+                Shift: Evening
+            </div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Floor Plan</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-unit-2 bg-primary text-on-primary rounded-lg mx-2 p-3 cursor-pointer shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">cable_car</span>
+<span class="font-label-md text-label-md">Table Map</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant mx-2 p-3 hover:bg-surface-container-highest transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 p-3 text-error font-label-md hover:bg-error-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-50 bg-surface flex items-center justify-between px-margin-mobile h-16 transition-all duration-300">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-title-md text-title-md text-on-surface font-bold">Floor Management</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex flex-col items-end mr-2">
+<span class="text-xs font-bold text-success-teal">System Online</span>
+<span class="text-[10px] text-outline">Last Sync: Just now</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-full active:scale-95 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">
+                JD
+            </div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-16 md:pl-72 min-h-screen transition-all duration-300">
+<div class="p-margin-mobile md:p-margin-desktop">
+<!-- Floor Status Header -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between mb-unit-4 gap-4">
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full">
+<div class="w-2.5 h-2.5 rounded-full bg-success-teal"></div>
+<span class="font-label-md text-label-md">Available: 12</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+<span class="font-label-md text-label-md">Occupied: 8</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary-container"></div>
+<span class="font-label-md text-label-md">Reserved: 4</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full">
+<div class="w-2.5 h-2.5 rounded-full bg-celebration-coral"></div>
+<span class="font-label-md text-label-md">Dirty: 2</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-label-md shadow-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                        New Reservation
+                    </button>
+</div>
+</div>
+<!-- Floor Map View -->
+<div class="relative floor-grid min-h-[600px] border border-outline-variant rounded-3xl overflow-hidden p-8">
+<!-- Bento Grid for Tables -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<!-- Table 01 (Occupied) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<span class="font-display-lg text-2xl text-primary font-bold">T-01</span>
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary text-[10px] font-bold uppercase tracking-widest">Occupied</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-lg">person</span>
+<span class="font-label-md text-on-surface">Marcus Thorne</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-bold">Session PIN</span>
+<span class="font-headline-lg-mobile text-lg text-on-surface font-mono tracking-widest">8842</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-outline uppercase font-bold">Time</span>
+<span class="font-label-sm text-on-surface">45m</span>
+</div>
+</div>
+<div class="pt-2">
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+</div>
+<div class="flex justify-between mt-1">
+<span class="text-[10px] text-outline">Order Progress</span>
+<span class="text-[10px] text-primary font-bold">Dessert</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Table 02 (Available) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-success-teal opacity-90 hover:opacity-100">
+<div class="flex justify-between items-start mb-4">
+<span class="font-display-lg text-2xl text-success-teal font-bold">T-02</span>
+<span class="px-2 py-1 rounded bg-success-teal/10 text-success-teal text-[10px] font-bold uppercase tracking-widest">Available</span>
+</div>
+<div class="flex flex-col items-center justify-center py-6 text-outline">
+<span class="material-symbols-outlined text-4xl mb-2">event_seat</span>
+<span class="text-xs font-medium">Ready for guests</span>
+</div>
+<button class="w-full py-2 bg-surface-container-high text-on-surface-variant font-label-md rounded-lg text-sm hover:bg-surface-container-highest transition-colors">
+                            Assign Walk-in
+                        </button>
+</div>
+<!-- Table 03 (Reserved) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-secondary-container">
+<div class="flex justify-between items-start mb-4">
+<span class="font-display-lg text-2xl text-secondary-container font-bold">T-03</span>
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">Reserved</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-lg">schedule</span>
+<span class="font-label-md text-on-surface">19:30 PM</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-lg">group</span>
+<span class="font-label-md text-on-surface">6 Guests</span>
+</div>
+<p class="text-xs font-medium text-on-surface-variant mt-2 italic">"Birthday Dinner - Window side requested"</p>
+</div>
+<button class="w-full mt-4 py-2 bg-secondary-container text-on-secondary-container font-label-md rounded-lg text-sm hover:brightness-105 transition-colors">
+                            Check In
+                        </button>
+</div>
+<!-- Table 04 (Occupied) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<span class="font-display-lg text-2xl text-primary font-bold">T-04</span>
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary text-[10px] font-bold uppercase tracking-widest">Occupied</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-lg">person</span>
+<span class="font-label-md text-on-surface">Elena Rodriguez</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline uppercase font-bold">Session PIN</span>
+<span class="font-headline-lg-mobile text-lg text-on-surface font-mono tracking-widest">2910</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-outline uppercase font-bold">Split</span>
+<span class="font-label-sm text-on-surface">Active</span>
+</div>
+</div>
+<div class="pt-2">
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 20%"></div>
+</div>
+<div class="flex justify-between mt-1">
+<span class="text-[10px] text-outline">Order Progress</span>
+<span class="text-[10px] text-primary font-bold">Appetizers</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Table 05 (Dirty) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-celebration-coral">
+<div class="flex justify-between items-start mb-4">
+<span class="font-display-lg text-2xl text-celebration-coral font-bold">T-05</span>
+<span class="px-2 py-1 rounded bg-celebration-coral/10 text-celebration-coral text-[10px] font-bold uppercase tracking-widest">Dirty</span>
+</div>
+<div class="flex flex-col items-center justify-center py-6 text-on-surface-variant">
+<span class="material-symbols-outlined text-4xl mb-2">cleaning_services</span>
+<span class="text-xs font-medium">Needs clearing</span>
+</div>
+<button class="w-full py-2 bg-celebration-coral text-on-primary font-label-md rounded-lg text-sm hover:brightness-110 transition-all">
+                            Mark Clean
+                        </button>
+</div>
+<!-- More Tables (Simplified) -->
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-success-teal">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-2xl text-success-teal font-bold">T-06</span>
+<span class="px-2 py-1 rounded bg-success-teal/10 text-success-teal text-[10px] font-bold">4 Seats</span>
+</div>
+</div>
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-2xl text-primary font-bold">T-07</span>
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary text-[10px] font-bold">PIN: 1150</span>
+</div>
+</div>
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-success-teal">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-2xl text-success-teal font-bold">T-08</span>
+<span class="px-2 py-1 rounded bg-success-teal/10 text-success-teal text-[10px] font-bold">2 Seats</span>
+</div>
+</div>
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-secondary-container">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-2xl text-secondary-container font-bold">T-09</span>
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-on-secondary-container text-[10px] font-bold">20:00</span>
+</div>
+</div>
+<div class="table-card bg-surface-container-lowest p-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-success-teal">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-2xl text-success-teal font-bold">T-10</span>
+<span class="px-2 py-1 rounded bg-success-teal/10 text-success-teal text-[10px] font-bold">6 Seats</span>
+</div>
+</div>
+</div>
+<!-- Floating Legend / Controls (Bottom Right) -->
+<div class="absolute bottom-6 right-6 flex flex-col gap-3">
+<button class="p-4 bg-surface-container-lowest text-primary rounded-full shadow-lg border border-outline-variant hover:bg-primary-container hover:text-on-primary transition-all active:scale-90">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-4 bg-surface-container-lowest text-primary rounded-full shadow-lg border border-outline-variant hover:bg-primary-container hover:text-on-primary transition-all active:scale-90">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<button class="p-4 bg-primary text-on-primary rounded-full shadow-xl hover:scale-105 transition-all active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sync</span>
+</button>
+</div>
+</div>
+<!-- Footer Quick Info -->
+<div class="mt-unit-4 grid grid-cols-1 md:grid-cols-3 gap-unit-2">
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">group_add</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Upcoming (1h)</p>
+<p class="font-title-md text-title-md">12 Guests</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-success-teal/20 flex items-center justify-center text-success-teal">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Current Total Bill</p>
+<p class="font-title-md text-title-md">$1,420.50</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-celebration-coral/20 flex items-center justify-center text-celebration-coral">
+<span class="material-symbols-outlined">assignment_late</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-outline">Action Required</p>
+<p class="font-title-md text-title-md">2 Tables</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container-lowest shadow-[0_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center h-20 pb-safe px-4 border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-sm text-label-sm">Floor</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">cable_car</span>
+<span class="font-label-sm text-label-sm">Map</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple Sidebar Toggle Logic
+        let isSidebarOpen = true;
+        const sidebar = document.getElementById('sidebar');
+        const main = document.querySelector('main');
+        const header = document.querySelector('header');
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            if (window.innerWidth >= 768) {
+                if (isSidebarOpen) {
+                    sidebar.style.transform = 'translateX(0)';
+                    main.style.paddingLeft = '18rem';
+                    header.style.left = '18rem';
+                } else {
+                    sidebar.style.transform = 'translateX(-100%)';
+                    main.style.paddingLeft = '0';
+                    header.style.left = '0';
+                }
+            } else {
+                // Mobile behavior
+                if (isSidebarOpen) {
+                    sidebar.style.transform = 'translateX(0)';
+                } else {
+                    sidebar.style.transform = 'translateX(-100%)';
+                }
+            }
+        }
+
+        // Initialize state for mobile
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 768) {
+                isSidebarOpen = false;
+                sidebar.style.transform = 'translateX(-100%)';
+                main.style.paddingLeft = '0';
+                header.style.left = '0';
+            } else {
+                isSidebarOpen = true;
+                sidebar.style.transform = 'translateX(0)';
+                main.style.paddingLeft = '18rem';
+                header.style.left = '18rem';
+            }
+        });
+        
+        // Immediate check on load
+        if (window.innerWidth < 768) {
+            isSidebarOpen = false;
+            sidebar.style.transform = 'translateX(-100%)';
+            main.style.paddingLeft = '0';
+            header.style.left = '0';
+        }
+    </script>
+</body></html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#140067",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "secondary-container": "#9f97ff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "primary-fixed": "#e3dfff",
+                    "surface-container-highest": "#e3e2e0",
+                    "wise-accent-green": "#9FE870",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#33288d",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e3e2e0",
+                    "surface": "#faf9f7",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadad8",
+                    "on-secondary-fixed": "#140067",
+                    "background": "#faf9f7",
+                    "surface-container-high": "#e9e8e6",
+                    "secondary-fixed": "#e4dfff",
+                    "tertiary": "#3e368b",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-surface-variant": "#474553",
+                    "on-tertiary-container": "#d1ccff",
+                    "surface-container": "#efeeec",
+                    "on-primary-container": "#d1ccff",
+                    "on-surface": "#1a1c1b",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary-fixed": "#e4dfff",
+                    "tertiary-container": "#554ea4",
+                    "inverse-surface": "#2f3130",
+                    "surface-tint": "#584fbc",
+                    "surface-container-lowest": "#ffffff",
+                    "deep-forest": "#163300",
+                    "outline-variant": "#c8c4d5",
+                    "primary": "#3b309e",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "on-tertiary-fixed": "#150264",
+                    "on-background": "#1a1c1b",
+                    "primary-container": "#534ab7",
+                    "success-teal": "#1D9E75",
+                    "celebration-coral": "#D85A30",
+                    "secondary": "#5951b4",
+                    "outline": "#787584",
+                    "surface-bright": "#faf9f7",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#c5c0ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "unit-1": "8px",
+                    "unit-6": "48px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "unit-2": "16px",
+                    "unit-4": "32px",
+                    "unit-3": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .paper-shadow {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .scannable-pattern {
+            background-image: radial-gradient(#3b309e 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<!-- Top AppBar -->
+<header class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md flex items-center px-margin-mobile md:px-margin-desktop h-[56px] justify-between max-w-[1140px] mx-auto">
+<div class="flex items-center gap-unit-2">
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors" onclick="window.history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Reserve Table</h1>
+</div>
+<div class="hidden md:flex items-center gap-unit-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Spice Route • fine dining</span>
+</div>
+</header>
+<main class="max-w-[1140px] mx-auto px-margin-mobile md:px-margin-desktop mt-unit-4 pb-unit-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-unit-4 items-start">
+<!-- Left Column: Booking Form -->
+<section class="md:col-span-7 flex flex-col gap-unit-4">
+<div class="bg-surface-container-lowest rounded-xl p-unit-3 paper-shadow border border-outline-variant/30">
+<h2 class="font-title-md text-title-md text-primary mb-unit-3">Reservation Details</h2>
+<form class="flex flex-col gap-unit-3">
+<div class="grid grid-cols-2 gap-unit-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline px-1">Date</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline focus:border-primary px-3 py-2.5 rounded-t-lg transition-all outline-none" type="date" value="2024-11-25"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline px-1">Time</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline focus:border-primary px-3 py-2.5 rounded-t-lg transition-all outline-none" type="time" value="20:00"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline px-1">Party Size</label>
+<div class="flex items-center gap-2 bg-surface-container-low p-1.5 rounded-lg border-b-2 border-outline">
+<button class="w-10 h-10 flex items-center justify-center rounded-md bg-surface-container-highest text-primary hover:bg-surface-dim transition-colors" type="button"><span class="material-symbols-outlined">remove</span></button>
+<span class="flex-1 text-center font-title-md text-title-md">4 Guests</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-md bg-primary text-on-primary hover:bg-primary-container transition-colors" type="button"><span class="material-symbols-outlined">add</span></button>
+</div>
+</div>
+<div class="flex flex-col gap-2 bg-primary/5 p-unit-2 rounded-lg border border-primary/20 mt-unit-1">
+<div class="flex items-center justify-between gap-unit-2">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Designate myself as Group Leader</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">The leader manages the final order and bill split.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline px-1">Guest Name</label>
+<input class="w-full bg-surface-container-low border-b-2 border-outline focus:border-primary px-3 py-2.5 rounded-t-lg transition-all outline-none" placeholder="Alex Sterling" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline px-1">Contact Number</label>
+<div class="flex gap-2">
+<div class="w-16 bg-surface-container-low border-b-2 border-outline px-2 py-2.5 rounded-t-lg flex items-center justify-center font-label-md shrink-0">
+                                +91
+                            </div>
+<input class="flex-1 bg-surface-container-low border-b-2 border-outline focus:border-primary px-3 py-2.5 rounded-t-lg transition-all outline-none" placeholder="98765 43210" type="tel"/>
+</div>
+</div>
+</form>
+</div>
+<!-- Session PIN Section -->
+<div class="bg-primary/5 rounded-xl p-unit-3 border-2 border-dashed border-primary/20 flex flex-col items-center gap-unit-3">
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Live Bill Session PIN</p>
+<div class="flex items-center justify-center gap-unit-2 mt-unit-1">
+<span class="font-display-lg text-primary tracking-tighter">A7B3C9X</span>
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors text-primary" onclick="alert('PIN Copied!')">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+</div>
+<div class="relative group cursor-pointer flex flex-col items-center">
+<div class="w-32 h-32 bg-white p-3 rounded-xl shadow-sm border border-outline-variant flex items-center justify-center overflow-hidden">
+<div class="relative w-full h-full">
+<div class="absolute inset-0 scannable-pattern rounded-sm opacity-60"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">qr_code_2</span>
+</div>
+</div>
+</div>
+<p class="mt-2 font-label-sm text-label-sm text-center text-outline-variant">Friends can scan to join</p>
+</div>
+</div>
+</section>
+<!-- Right Column: Summary Card -->
+<aside class="md:col-span-5 sticky top-20">
+<div class="bg-surface-container-lowest rounded-xl paper-shadow overflow-hidden border border-outline-variant/30">
+<!-- Restaurant Header -->
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<img alt="Spice Route Interior" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqcdltpkggZLbNPPoEkfs0cqiLCQEMB43X9v41ZcB3iTZi7b9uV2pC12m8HA5MU6x8Kc3-vu6Y9QenU0eGMgdBwRjuQ2S_SSeYavJgyXNuS1ylzsdYxrG1VH76W2hxw5s7MnuZW_WyvqTJLNM6fxdtQq8aFZ8WM1MqLj3AXvPoV-mSh9SdZCeADwD_Zjji7ku33H7DatvQZ9h4FigjjymZ4VJfq2wwGLUDCV3xlkWnTpHseKpy6l9aLfqbHqaQh369NYQDG5MjzAI"/>
+<div class="absolute bottom-3 left-3 z-20">
+<h3 class="font-title-md text-title-md text-white">Spice Route</h3>
+<p class="font-label-sm text-label-sm text-white/80">Imperial Estate, Mumbai</p>
+</div>
+</div>
+<div class="p-unit-3 flex flex-col gap-unit-3">
+<div class="flex flex-col gap-unit-1 pb-unit-2 border-b border-outline-variant/30">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Scheduled for</span>
+<span class="font-body-md text-body-md font-semibold">20:00, Nov 25</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Table for</span>
+<span class="font-body-md text-body-md font-semibold">4 Guests</span>
+</div>
+</div>
+<div class="flex flex-col gap-unit-1">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Platform Fee</span>
+<span class="font-body-md text-body-md">₹100.00</span>
+</div>
+<div class="flex justify-between items-center text-success-teal">
+<span class="font-label-md text-label-md">Your Individual Share (Est.)</span>
+<span class="font-body-md text-body-md font-bold">₹25.00</span>
+</div>
+</div>
+<div class="bg-surface-container p-unit-2 rounded-lg flex items-start gap-unit-2">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Platform fee covers live bill splitting and real-time session tracking.</p>
+</div>
+<button class="w-full text-on-primary py-4 rounded-xl font-title-md text-title-md shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform bg-primary hover:bg-primary-container" onclick="window.location.href='{{DATA:SCREEN:SCREEN_11}}'">
+                        Reserve Table
+                    </button>
+<p class="text-center font-label-sm text-label-sm text-outline">By tapping reserve, you agree to our Terms &amp; Privacy Policy.</p>
+</div>
+</div>
+<!-- Secondary Info -->
+<div class="mt-unit-4 flex items-center justify-center gap-unit-4 opacity-60">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="font-label-sm text-label-sm uppercase">Secure Pay</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="font-label-sm text-label-sm uppercase">24/7 Support</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-unit-6 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-unit-4 bg-deep-forest">
+<div class="font-headline-lg text-headline-lg font-bold text-wise-accent-green">PartyPe</div>
+<div class="flex gap-unit-4">
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white transition-colors" href="#">About</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white transition-colors" href="#">Contact</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white transition-colors" href="#">Terms</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white transition-colors" href="#">Privacy</a>
+</div>
+<p class="font-label-sm text-label-sm text-surface-variant">© 2024 PartyPe. All rights reserved.</p>
+</footer>
+</body></html>

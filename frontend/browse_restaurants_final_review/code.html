@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#140067",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "secondary-container": "#9f97ff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "primary-fixed": "#e3dfff",
+                    "surface-container-highest": "#e3e2e0",
+                    "wise-accent-green": "#9FE870",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#33288d",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e3e2e0",
+                    "surface": "#faf9f7",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadad8",
+                    "on-secondary-fixed": "#140067",
+                    "background": "#faf9f7",
+                    "surface-container-high": "#e9e8e6",
+                    "secondary-fixed": "#e4dfff",
+                    "tertiary": "#3e368b",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-surface-variant": "#474553",
+                    "on-tertiary-container": "#d1ccff",
+                    "surface-container": "#efeeec",
+                    "on-primary-container": "#d1ccff",
+                    "on-surface": "#1a1c1b",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary-fixed": "#e4dfff",
+                    "tertiary-container": "#554ea4",
+                    "inverse-surface": "#2f3130",
+                    "surface-tint": "#584fbc",
+                    "surface-container-lowest": "#ffffff",
+                    "deep-forest": "#163300",
+                    "outline-variant": "#c8c4d5",
+                    "primary": "#3b309e",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "on-tertiary-fixed": "#150264",
+                    "on-background": "#1a1c1b",
+                    "primary-container": "#534ab7",
+                    "success-teal": "#1D9E75",
+                    "celebration-coral": "#D85A30",
+                    "secondary": "#5951b4",
+                    "outline": "#787584",
+                    "surface-bright": "#faf9f7",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#c5c0ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "unit-1": "8px",
+                    "unit-6": "48px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "unit-2": "16px",
+                    "unit-4": "32px",
+                    "unit-3": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #faf9f7; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopAppBar Shell -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-[56px] bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-unit-2">
+<span class="material-symbols-outlined text-primary" data-icon="restaurant">restaurant</span>
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed-dim text-[24px] leading-tight">PartyPe</h1>
+</div>
+<nav class="hidden md:flex items-center gap-unit-4">
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary py-1 font-label-md text-label-md" href="#">Explore</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md" href="#" onclick="window.location.href='{{DATA:SCREEN:SCREEN_23}}'">Orders</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md" href="#" onclick="window.location.href='{{DATA:SCREEN:SCREEN_11}}'">Split</a>
+</nav>
+<div class="flex items-center gap-unit-2">
+<img alt="User" class="w-8 h-8 rounded-full border border-outline-variant cursor-pointer" data-alt="A professional high-fidelity avatar portrait of a modern tech professional with a warm smile, set against a soft-focus minimalist interior with premium paper-toned walls and subtle ambient lighting that matches a corporate modern design aesthetic." onclick="window.location.href='{{DATA:SCREEN:SCREEN_14}}'" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgjU3Lus81WRTqNry-4RNWxjBxy97nA1Y-nPQoElKNWzaJm9RH68IubuXSd25NxKe5JHvQk2-RLJajOqtlEhAyS5O3IcAyTpV_gBMAXrd2We_mbwBFYI6qhsoQfsFOrmJ_4kz6XyTEQwjdGDU25jFRysqBZzUiJatiIQjnn5XpAhq4FhizAFMzaaZVC-2FHUoqgSuDL6X6eOWEZKNFDqu7q3AvyFOpoyYAutSnyY9Y3UHB40QD9xaf_XWLhvvvn8y8c0OKO5lQzJw"/>
+</div>
+</header>
+<main class="max-w-[1140px] mx-auto px-margin-mobile md:px-margin-desktop pt-unit-4 pb-unit-6">
+<!-- Search & Filter Header -->
+<section class="mb-unit-4">
+<div class="flex flex-col gap-unit-3">
+<div class="relative w-full max-w-2xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md shadow-sm" placeholder="Search cuisines, restaurants, or dishes..." type="text"/>
+</div>
+<!-- Horizontal Scrollable Filters -->
+<div class="flex items-center gap-unit-2 overflow-x-auto hide-scrollbar pb-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md shrink-0">
+<span class="material-symbols-outlined text-[18px]" data-icon="tune">tune</span>
+<span class="">Filters</span>
+</button>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface-variant appearance-none cursor-pointer focus:border-primary">
+<option>Cuisine</option>
+<option>Italian</option>
+<option>North Indian</option>
+<option>Japanese</option>
+<option>Mediterranean</option>
+</select>
+<div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface-variant shrink-0">
+<span class="">Price: ₹300 - ₹800</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[18px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">Rating 4.0+</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Restaurant Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-unit-3">
+<!-- Card 1: Spice Route -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Interior of a premium Indian restaurant named Spice Route featuring warm amber mood lighting, intricate wooden carvings on the walls, and elegantly set tables with brass accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC4IqU0Yzozi3FmVD8eAqPNwK0XJgX-RPXiC1vA-kAjQxqr3J7LCXiQDhI5iiBEKlWSYHDFe0SzcUWQxpnA6tmGEcRi9Gy6_QQQ9DWXkyN27Q_nysK1h-jDV66RpQlxtzpMFzOkdCcnKYaXCyamL-EunXarnII_pVYwaH0qOeEW5Et89btJSQwbUnkuPg0BpHGhEJltQ1i1zZBD3BruxDBVBxYirAG3QJ2AjRK39IL9_GvJNIbu0UNAw7qVtk2fWLZa_IxRGmOXA8"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.6</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Spice Route</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹300-800</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">Modern Indian • Connaught Place</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Artisan Kitchen -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A brightly lit, minimalist Italian bistro named Artisan Kitchen with clean white walls and light oak wood furniture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6lRWwX7rqdLNKzDEN0NiJhLnOQvRcVm307pV3Mb_oJcTlkDWcH2klWZ4Rc3x6XFScxqHvmPS3zkUU5XyYO2_3mbOQyQOURSFfBQs3NNockoYAXSSQKvSbfYn8wfKGBJOD4QDDb4mj6Mo7SeJOIq1SUTNv7IxrUb-1v-x7gKrRL22WQFluVBQSiNyDF_x9y1hrSax8ZnrUcX6qujmoYgDW6QvDH8CSn5P2T-IFX396o8uJx5TwEH_OsCawytIqqNNpXnTY9e2wXps"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.8</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Artisan Kitchen</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹500-1200</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">Farm-to-Table • Indiranagar</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Tokyo Tales -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek Japanese sushi bar called Tokyo Tales with dark obsidian counters and soft neon violet accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCboTUOOOCc8vJwJQvhI48TF2nU2MLLNG_nM3jY1xhbBVWlH_YxcPvQDJJNlzy7grjtc8SnYlhI_J6TZi2nQovyF8AJshmkPfkDAhN4Rl26nXu553WG3AU-Gd52NI6_NhVN4nLaEgHVwnVEbiw5ukRlsj8mRBjuaobQpyg4pu6qS6RffdAOjnLPNkDXBf0bh4Vxn_YfaJ_KVfXqmiotB_P3dS9y67HBS8uvBpj8zuJ2uhPNE2T9qLfUtbJuUY5cIqyIM7Y_WmFxmpw"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.4</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Tokyo Tales</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹800-2000</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">Japanese • Powai</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Verde Terrace -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sun-drenched rooftop terrace restaurant called Verde Terrace with Mediterranean tiling and lush greenery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXiQB-5ZF7LH8XoC65SvuSQ8YbaXwGsmxAddZMxNLQbiEmn02-Fqhu579xnQiv77LxdUabfspYy6x1sDhCqc0XJ2m3I9gEnrD4_ZlBNGRD9p5os6lo_TK1mQ4o4J5BXliElTdQe24JWQyKXLERkvABSmtmtocqC3UrWg9wlwHXsLL33eh3xyrtXvx6hSm2ZQBt3Jr0328oW57K6LV-mCMPXbawEQXU-OKmJwZvL2elQxn8-BbS07-ABsbvsGEUwnJcCoqdl4pjyCU"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.7</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Verde Terrace</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹600-1500</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">Mediterranean • Bandra</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+<!-- Card 5: Smoke & Soul -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rustic yet polished BBQ house called Smoke &amp; Soul with exposed brick walls and leather booth seating." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-A0zMsdfJDRl1nLCYXIWEW7ksSx5y8DtdUVc7ZyCJW3jCp1OhrU-IPjt0NAkPQLzrS0bqqZcQ6kFy5YYV-hZcJMJzRTr-aFE83gveEnu3UZxMD1LAHQ9K7PjdHsPMg65U4Xv2DjUjuplMMxW-y9kiGU34MgmLjfhwur66q1T619m4IDL3MyZm74axhIXp5w8Skrm6q-fA-08QBfBvAI7wfTZDvbO0lM1Oc2Pw-k8gZqlbgOEmyMNrHqaaNyUwP2-dLodY70DiZOc"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.5</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Smoke &amp; Soul</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹400-900</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">American BBQ • Koramangala</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+<!-- Card 6: Little Italy -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all flex flex-col cursor-pointer -translate-y-1" onclick="window.location.href='{{DATA:SCREEN:SCREEN_40}}'">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cozy, authentic Italian pizzeria with red checkered tablecloths and hanging copper pans." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBp922TUYyqs9_3lDIUbvz_ny_Uz7O22FC1PqEd47s3bkOWoXQL5fBX1dL6q2aXCh6PWRZda_tN6oms_RKjt84SKxBXJJGSYpf_4Fk_biWtSHYVs5A2O5v2R94EwK5C2M8CopRTTPqI4Egj-7I-4vp-FKIYqipbEkQK9XQ3vVzRJB0xKVITi-Dp_hdz3yS7OE2ltKvUeHeBHdG97iivY1L2DJjUe7sO0juJIS-4Rla-rks-VmvPiCDzqWYuEyGco4IOvkPSl7bVWQ"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-celebration-coral" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">4.3</span>
+</div>
+</div>
+<div class="p-unit-2 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Little Italy</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹350-750</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-unit-3">Italian • Jubilee Hills</p>
+<div class="mt-auto">
+<button class="w-full py-unit-1 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="event.stopPropagation(); window.location.href='{{DATA:SCREEN:SCREEN_40}}'">Reserve Now</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-2 px-gutter md:hidden bg-surface-container-lowest dark:bg-surface-container-lowest shadow-md rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_17}}'">
+<span class="material-symbols-outlined text-[24px]" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 transition-transform duration-150">
+<span class="material-symbols-outlined text-[24px]" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_23}}'">
+<span class="material-symbols-outlined text-[24px]" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_11}}'">
+<span class="material-symbols-outlined text-[24px]" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_14}}'">
+<span class="material-symbols-outlined text-[24px]" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<!-- Footer for Desktop -->
+<footer class="hidden md:flex w-full py-unit-6 px-margin-desktop bg-deep-forest dark:bg-surface-container-lowest flex-col md:flex-row justify-between items-center gap-unit-4 mt-unit-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-wise-accent-green">PartyPe</span>
+</div>
+<div class="flex gap-unit-4">
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-white transition-colors font-label-sm text-label-sm" href="#">About</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-white transition-colors font-label-sm text-label-sm" href="#">Contact</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-white transition-colors font-label-sm text-label-sm" href="#">Terms</a>
+<a class="text-surface-variant dark:text-on-surface-variant hover:text-white transition-colors font-label-sm text-label-sm" href="#">Privacy</a>
+</div>
+<p class="font-label-sm text-label-sm text-surface-variant dark:text-on-surface-variant">© 2024 PartyPe. All rights reserved.</p>
+</footer>
+<script>
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        if(searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+            });
+        }
+    </script>
+</body></html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>PartyPe Waiter Portal</title>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#9f97ff",
+                      "on-primary-fixed-variant": "#3f35a3",
+                      "on-primary-fixed": "#140067",
+                      "tertiary-fixed": "#e4dfff",
+                      "wise-accent-green": "#9FE870",
+                      "outline": "#787584",
+                      "inverse-on-surface": "#f1f1ef",
+                      "primary-fixed": "#e3dfff",
+                      "inverse-primary": "#c5c0ff",
+                      "surface-container-highest": "#e3e2e0",
+                      "surface": "#faf9f7",
+                      "surface-bright": "#faf9f7",
+                      "surface-variant": "#e3e2e0",
+                      "outline-variant": "#c8c4d5",
+                      "celebration-coral": "#D85A30",
+                      "on-tertiary-container": "#d1ccff",
+                      "secondary-fixed": "#e4dfff",
+                      "tertiary-container": "#554ea4",
+                      "on-tertiary-fixed": "#150264",
+                      "on-background": "#1a1c1b",
+                      "surface-dim": "#dadad8",
+                      "surface-tint": "#584fbc",
+                      "on-secondary-fixed": "#140067",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#c5c0ff",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#534ab7",
+                      "on-secondary-container": "#33288d",
+                      "on-surface-variant": "#474553",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e9e8e6",
+                      "inverse-surface": "#2f3130",
+                      "on-tertiary-fixed-variant": "#423a8f",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#d1ccff",
+                      "tertiary": "#3e368b",
+                      "on-surface": "#1a1c1b",
+                      "surface-container-low": "#f4f3f1",
+                      "surface-container": "#efeeec",
+                      "success-teal": "#1D9E75",
+                      "background": "#faf9f7",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit-4": "32px",
+                      "unit-6": "48px",
+                      "gutter": "16px",
+                      "unit-2": "16px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "20px",
+                      "unit-3": "24px",
+                      "unit-1": "8px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Hanken Grotesk"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "title-md": ["Hanken Grotesk"],
+                      "label-sm": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9f7;
+            color: #1a1c1b;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .sidebar-transition { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-overlay { background: rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .sidebar-active .sidebar-overlay { opacity: 1; pointer-events: auto; }
+        
+        .active-tab { background-color: #3b309e !important; color: white !important; }
+        
+        .card-shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface-dim fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-unit-2">
+<button class="p-2 hover:bg-surface-container-high transition-colors rounded-full active:scale-95 transition-transform" onclick="toggleSidebar()">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tighter" style="font-size: 24px; line-height: 28px;">PartyPe</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface">Table 12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 Guests</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional close-up headshot of a waiter in a clean, crisp white shirt with a dark apron. He has a friendly, welcoming expression suitable for a high-end restaurant staff portal. The lighting is bright and even, highlighting the clean and professional atmosphere of the hospitality industry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-a0KeAetwBz44KyrysS3ZN_-qL7jYzsxlBBIbR846e523J03aCF4Iq3eCVUM0p_wKrI4vhhdX68jKPxGAotQDhXLi-A7GyekM3XZZ69-OyfBHZXLT9MT9_kIPtmc41DJ8Nep2huBKVRUaDCZHYS_GEVntb5IgJOnVjsWkdaZUqeAW8fq0XlCFaQTlut4h9pnRQsbL__yL1RUGmm3IcvP_eMrqZli7TbjBXuq7u_TYYfPGCr2C_7S3"/>
+</div>
+<span class="material-symbols-outlined text-primary">notifications</span>
+</div>
+</header>
+<!-- Drawer Navigation (Retractable) -->
+<div class="sidebar-active relative z-[60]" id="sidebar-container">
+<div class="sidebar-overlay fixed inset-0 z-50" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<aside class="fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant sidebar-transition -translate-x-full lg:translate-x-0 flex flex-col h-full py-unit-4 gap-base shadow-xl" id="sidebar">
+<!-- Header Profile Section -->
+<div class="px-6 py-4 flex flex-col gap-1 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-primary font-bold">Waitstaff Portal</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Merchant ID: 8829</p>
+</div>
+</div>
+<div class="mt-2 text-label-sm text-on-surface-variant bg-surface-container p-2 rounded-lg">
+                    Shift: <span class="font-bold">Evening</span>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Floor Plan</span>
+</a>
+<a class="flex items-center gap-unit-2 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-lg mx-2 p-3 shadow-md" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined">cable_car</span>
+<span class="font-label-md text-label-md">Table Map</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all cursor-pointer rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-4">
+<button class="flex items-center gap-2 text-error font-label-md">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </button>
+</div>
+</aside>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-72 pt-16 flex flex-col md:flex-row h-screen">
+<!-- Menu Selection Area -->
+<div class="flex-1 flex flex-col p-margin-mobile overflow-hidden">
+<!-- Category Tabs -->
+<div class="flex gap-2 overflow-x-auto pb-4 hide-scrollbar">
+<button class="category-btn active-tab flex-shrink-0 px-6 py-2 rounded-full font-label-md text-label-md border border-outline-variant transition-all" onclick="filterCategory('all')">All Items</button>
+<button class="category-btn bg-surface-container-low flex-shrink-0 px-6 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:bg-surface-variant transition-all" onclick="filterCategory('appetizers')">Appetizers</button>
+<button class="category-btn bg-surface-container-low flex-shrink-0 px-6 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:bg-surface-variant transition-all" onclick="filterCategory('mains')">Mains</button>
+<button class="category-btn bg-surface-container-low flex-shrink-0 px-6 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:bg-surface-variant transition-all" onclick="filterCategory('drinks')">Drinks</button>
+<button class="category-btn bg-surface-container-low flex-shrink-0 px-6 py-2 rounded-full font-label-md text-label-md border border-outline-variant hover:bg-surface-variant transition-all" onclick="filterCategory('desserts')">Desserts</button>
+</div>
+<!-- Search and Context -->
+<div class="mb-4 flex gap-4">
+<div class="flex-1 bg-white rounded-xl border border-outline-variant flex items-center px-4 py-3 card-shadow">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="ml-3 bg-transparent border-none outline-none focus:ring-0 w-full text-body-md font-body-md" placeholder="Search menu items..." type="text"/>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-4 rounded-xl flex items-center justify-center card-shadow active:scale-95 transition-transform">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<!-- Items Grid -->
+<div class="flex-1 overflow-y-auto pr-2 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-20 md:pb-4">
+<!-- Item Card 1 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Truffle Fries', 450)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A gourmet presentation of golden, crispy truffle fries served in a stylish wire basket. Garnished with freshly grated parmesan cheese and finely chopped parsley, with a small dish of creamy garlic aioli on the side. The lighting is soft and warm, conveying a high-quality bistro dining experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8RbTNan5YpfQlBMw5dtbZ5kc9Uj12eII7a62Y7qiCPkKmvWiXVuZbgox00rTzyz6aqrKAoB677zyyJnbptA1J_1Gi2028Yug7_0fwEUCvddEMc5GqoyiQWvy680dEhlawsVC5DXfCfDVvYbTTlrvE7TZrkBDOLrlhbbqXV1p0MckHU5kvznyCNJe7UOyB_DCWZs7IIDtXsZUkhWVkiH7wKz38hQGt9dFmSzd3MTiXj--KeV-H5wK0"/>
+<div class="absolute top-2 right-2 bg-wise-accent-green text-deep-forest text-[10px] font-bold px-2 py-0.5 rounded-full">POPULAR</div>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Truffle Fries</p>
+<p class="text-primary font-bold">₹450</p>
+</div>
+</div>
+<!-- Item Card 2 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Paneer Tikka', 680)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Succulent cubes of grilled Paneer Tikka marinated in aromatic spices and yogurt, served on a modern white ceramic platter. Accompanied by charred bell peppers, onions, and a vibrant green mint chutney swirl. The visual style is contemporary Indian fine dining with high-contrast, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlQXODyZJzDmQN18pTtvfIGGCxLvNRwrl2FUwrF1HINqVtRfeBBdxnnj6nLDbIlEnNMDYOoQegQyGrlsz2965EKmL9HE6KchLNR1JCCfRZo_GsNl0NWQAV_hdFgUXEyix1yHeOJLL4sKFz8KwIu3r3jnVWqM3MtaD8hnWywIaWkECLATZc2IXF_0qR0F8hUPpGB41ISpavg4mSJtlPPNDoWDAJHx2UMFrbeSQ2mKaMz_84JgeKo7Tf"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Paneer Tikka</p>
+<p class="text-primary font-bold">₹680</p>
+</div>
+</div>
+<!-- Item Card 3 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Butter Chicken Pizza', 850)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A fusion-style thin-crust pizza topped with creamy butter chicken pieces, mozzarella cheese, and fresh coriander leaves. The crust is perfectly charred around the edges. Set against a clean, minimalist background with warm, inviting lighting suitable for a high-end casual dining app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpT-07jef6nqG89Qk_rzxvNYs8AJV9eFTveFP2IZgB-L2Wky0vc0SxLCy2_UWf2-uXtTwRo6tUxfIsMQmqMh7_tnGNzbm1IwHcPHrF_BSAjXkmQbpCj8BpPIyoqbtJUe1LsdiAKfhhdRv2cpYiLiTPZsmUROY8jTV3sSgsSOJWDVQ94KOKV6KYsj6M-K7yKdLjiVcOSMooZZU3vLbWqLPmsxgrPV3nJ57iZd0hBiJtQRbov7skTg2U"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Butter Chicken Pizza</p>
+<p class="text-primary font-bold">₹850</p>
+</div>
+</div>
+<!-- Item Card 4 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Classic Mojito', 320)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A refreshing classic Mojito cocktail in a tall highball glass, filled with crushed ice, fresh mint leaves, and lime wedges. Droplets of condensation cling to the glass, suggesting an ice-cold beverage. The background is a sophisticated bar setting with soft bokeh lighting and a premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA97ST2HsbI6H7nfZCX_qR9ixVpa16Q1TFDD4dj0rCR0cAEZsxrVnxBpjuxPGUW9_pVX7dBsu0LcaJSb3bSq07Y96MAFmcuIFntsiDFSih0toFoAOBR6rAVRnGcccOc_WIMKdDMK2e7lC5NmYUp6dz6NPsbEkdQgd679LF7q3FYSU93r1KopXLk180n_yH-jxWKj5z0CwYHbf5HOwCsqooqvExubXmLKK_gx8DKwjZ7OYMDOSSpNZvx"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Classic Mojito</p>
+<p class="text-primary font-bold">₹320</p>
+</div>
+</div>
+<!-- Item Card 5 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Wild Mushroom Risotto', 720)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A creamy, artisanal wild mushroom risotto served in a wide-brimmed gourmet bowl. Topped with shaved parmesan and a drizzle of truffle oil. The texture of the dish is velvety and rich, captured with high-end food photography techniques in a clean, brightly lit studio environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG96pCYDPM8B77-RI6oSx71E4Qe3CCyDEK9KJw0MphRvUriuhwMJQ-YOFiuAyG1IQSsRVt98piYv8Du14l76mHzLR1amfHX1Ofy5fyOjmh1BJ6sVA0l4HfEUjInM1zHhCS2NR6BdZnlwhprmkoYQGwcEnzosQfw88A8wgYATiT3zu8SaUjqeI_Y4SfU8BWpmTJqbPa4T8jrGZXbW8ek_tqmfKFZx8UjlGyJq9YFWjaMLsJK5v4HQOn"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Mushroom Risotto</p>
+<p class="text-primary font-bold">₹720</p>
+</div>
+</div>
+<!-- Item Card 6 -->
+<div class="bg-white rounded-xl border border-outline-variant p-3 card-shadow cursor-pointer hover:border-primary transition-all flex flex-col gap-2 group active:scale-95" onclick="addItem('Virgin Colada', 280)">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A frothy, creamy Virgin Pina Colada served in a chilled glass, garnished with a fresh pineapple wedge and a maraschino cherry. The lighting is sunny and bright, evoking a celebratory and tropical mood. Pristine white background highlights the vibrant colors of the drink." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkdcdkAXZLMT245EyWd4QcUn1cvQEKrPcAjUcgNK9CYF0ZJrcf8UeaoDphjbrgCfdmAqJD8jC474A-HoO8todsPGXMl7DUt2cN0q-hsCrdMQmLLRmUm01RAzyQYXaoKGqspnc-We-FqFH-1EzlAYUMrbuZsJPTsZaXvKoNRVnsayByme5V-yzIz9zeM8WJIdvYuWLsxwiG1LppjBEpzz0ZQ6RX1OcXj4y71s713EKROIKekFrbnXeI"/>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface line-clamp-1">Virgin Colada</p>
+<p class="text-primary font-bold">₹280</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Table Cart Area -->
+<div class="w-full md:w-80 lg:w-96 bg-white border-l border-outline-variant flex flex-col h-full card-shadow z-40">
+<div class="p-6 border-b border-outline-variant bg-surface">
+<div class="flex justify-between items-center mb-1">
+<h2 class="font-headline-lg text-headline-lg text-primary">Cart</h2>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-sm font-bold">3 items</span>
+</div>
+<p class="text-on-surface-variant font-label-sm">Table #12 • Staff: Rahul</p>
+</div>
+<!-- Cart Items List -->
+<div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items">
+<!-- Sample Cart Item -->
+<div class="flex items-center gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Truffle Fries</p>
+<p class="text-label-sm text-on-surface-variant">Qty: 2</p>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-label-md text-primary font-bold">₹900</p>
+<button class="text-error" onclick="this.parentElement.parentElement.remove(); updateTotal();">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Classic Mojito</p>
+<p class="text-label-sm text-on-surface-variant">Qty: 1</p>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-label-md text-primary font-bold">₹320</p>
+<button class="text-error" onclick="this.parentElement.parentElement.remove(); updateTotal();">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Empty State Message (Hidden by default) -->
+<div class="hidden h-full flex flex-col items-center justify-center text-center py-12" id="empty-cart">
+<span class="material-symbols-outlined text-outline-variant text-[64px] mb-4">shopping_basket</span>
+<p class="text-on-surface-variant font-body-md">Cart is empty.<br/>Tap items to add.</p>
+</div>
+</div>
+<!-- Summary & Footer -->
+<div class="p-6 bg-surface-container-low border-t border-outline-variant space-y-4">
+<div class="flex justify-between items-center text-on-surface-variant font-label-md">
+<span>Subtotal</span>
+<span id="subtotal">₹1220</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-md">
+<span>Tax (18%)</span>
+<span id="tax">₹219</span>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-outline-variant">
+<span class="font-title-md text-title-md text-on-surface">Total</span>
+<span class="font-headline-lg text-headline-lg text-primary" id="total">₹1439</span>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary py-4 rounded-xl font-title-md text-title-md shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2" onclick="sendOrder()">
+<span>Send Order</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Success Toast (Hidden) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-success-teal text-white px-6 py-3 rounded-full shadow-2xl z-[100] transform translate-y-20 transition-transform duration-500 flex items-center gap-2 pointer-events-none" id="success-toast">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md">Order sent to kitchen!</span>
+</div>
+<!-- Bottom Nav for Mobile Visibility -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest dark:bg-inverse-surface rounded-t-xl shadow-lg flex justify-around items-center h-20 pb-safe px-4">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined">call_split</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high transition-colors active:scale-90 transition-all cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const container = document.getElementById('sidebar-container');
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                container.classList.remove('sidebar-active');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                container.classList.add('sidebar-active');
+            }
+        }
+
+        function filterCategory(cat) {
+            const btns = document.querySelectorAll('.category-btn');
+            btns.forEach(btn => btn.classList.remove('active-tab'));
+            event.target.classList.add('active-tab');
+        }
+
+        const cart = [
+            { name: 'Truffle Fries', price: 450, qty: 2 },
+            { name: 'Classic Mojito', price: 320, qty: 1 }
+        ];
+
+        function addItem(name, price) {
+            const existing = cart.find(i => i.name === name);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            renderCart();
+            updateTotal();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const emptyState = document.getElementById('empty-cart');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyState);
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            container.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-4 animate-in fade-in slide-in-from-right-4 duration-300";
+                div.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-label-md text-on-surface">${item.name}</p>
+                        <div class="flex items-center gap-2">
+                           <button onclick="decrement(${index})" class="text-primary hover:bg-surface-container-high rounded px-1">-</button>
+                           <p class="text-label-sm text-on-surface-variant">Qty: ${item.qty}</p>
+                           <button onclick="increment(${index})" class="text-primary hover:bg-surface-container-high rounded px-1">+</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <p class="font-label-md text-primary font-bold">₹${item.price * item.qty}</p>
+                        <button onclick="removeItem(${index})" class="text-error">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function increment(index) {
+            cart[index].qty++;
+            renderCart();
+            updateTotal();
+        }
+
+        function decrement(index) {
+            if (cart[index].qty > 1) {
+                cart[index].qty--;
+            } else {
+                cart.splice(index, 1);
+            }
+            renderCart();
+            updateTotal();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const tax = Math.round(subtotal * 0.18);
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = `₹${subtotal}`;
+            document.getElementById('tax').textContent = `₹${tax}`;
+            document.getElementById('total').textContent = `₹${total}`;
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) return;
+            
+            const btn = event.currentTarget;
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> Processing...`;
+
+            setTimeout(() => {
+                const toast = document.getElementById('success-toast');
+                toast.classList.remove('translate-y-20');
+                toast.classList.add('translate-y-0');
+
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0');
+                    toast.classList.add('translate-y-20');
+                    
+                    // Reset UI
+                    cart.length = 0;
+                    renderCart();
+                    updateTotal();
+                    btn.disabled = false;
+                    btn.innerHTML = `<span>Send Order</span><span class="material-symbols-outlined">send</span>`;
+                }, 3000);
+            }, 1000);
+        }
+
+        // Initialize
+        updateTotal();
+    </script>
+</body></html>

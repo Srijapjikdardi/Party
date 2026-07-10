@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PartyPay | Social Discovery</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9f7",
+                    "tertiary": "#3e368b",
+                    "surface-container": "#efeeec",
+                    "on-primary-fixed": "#140067",
+                    "on-tertiary-container": "#d1ccff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "surface-tint": "#584fbc",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "primary-fixed": "#e3dfff",
+                    "on-surface-variant": "#474553",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary-fixed": "#150264",
+                    "secondary": "#5951b4",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "primary": "#3b309e",
+                    "deep-forest": "#163300",
+                    "surface": "#faf9f7",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-background": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e2e0",
+                    "inverse-surface": "#2f3130",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "background": "#faf9f7",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "secondary-fixed": "#e4dfff",
+                    "outline": "#787584",
+                    "inverse-primary": "#c5c0ff",
+                    "success-teal": "#1D9E75",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c8c4d5",
+                    "on-secondary-fixed": "#140067",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "surface-dim": "#dadad8",
+                    "tertiary-container": "#554ea4",
+                    "secondary-container": "#9f97ff",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-high": "#e9e8e6",
+                    "celebration-coral": "#D85A30",
+                    "on-primary-container": "#d1ccff",
+                    "on-secondary-container": "#33288d",
+                    "on-error": "#ffffff",
+                    "wise-accent-green": "#9FE870",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary-fixed": "#e4dfff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-3": "24px",
+                    "margin-mobile": "20px",
+                    "unit-1": "8px",
+                    "gutter": "16px",
+                    "unit-6": "48px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "unit-4": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-overlay {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+        }
+        .reels-container {
+            height: 100dvh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+        .reel-item {
+            scroll-snap-align: start;
+            position: relative;
+            height: 100dvh;
+        }
+        .safe-pb {
+            padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+        }
+        @keyframes pulse-custom {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-custom {
+            animation: pulse-custom 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-surface overflow-hidden">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-transparent">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-white text-headline-lg-mobile">restaurant</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-white tracking-tight">PartyPay</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white p-2">search</span>
+<div class="w-8 h-8 rounded-full border-2 border-white/50 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up headshot of a stylish young woman in a high-end restaurant setting. She has a warm, inviting smile and is lit by soft, cinematic ambient golden light. The background is a beautifully blurred upscale lounge with a sophisticated corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT9HftWhDs8BJBqGVtEZSPwf4cxAZ_f2bIEH84oKH1DLFTJbGhsC1mFTWp6ce2jysZriZ_q3IoQCxgAPYxi72Jm7cssJl1q7yoYAhM4Kh1-LT3HsQXgrioOOYml0hGnayRgCwTZ2WxeIPgvrDmyo847HJcV1Cn9El71HflXLYwWJjCU765SUczaSsFOVTU5bydZf-9eciBBa2NsE7dSutYIcxNWx5OilAqthpkG7RIlLu8xEH1_qq0"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Reels Scroll Container -->
+<main class="reels-container hide-scrollbar">
+<!-- Reel 1 -->
+<section class="reel-item w-full">
+<!-- Background Video/Image Placeholder -->
+<div class="absolute inset-0 bg-black">
+<div class="w-full h-full opacity-90" data-alt="A high-energy, vertical cinematic shot of a diverse group of four friends laughing and raising glasses for a toast in a dimly lit, upscale urban bistro. Warm string lights and mahogany wood textures fill the background. The scene is illuminated by glowing candlelight and amber backlighting, creating a sense of celebration and premium social connection." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9460sT0wChrSkwFwv3IzNAZM27Wf0PX1vAnxkaj0BrKE2eqceHPsg7t7xWDiHS7cIp_5rtJB2CCXSW1O2GZ7dz4ku-q1ELoohK8R1ONHFTsOdy9n49CKy6qR0K2g2bBMeIOr_xrEqZgV9O6lMtu6_PzwCpmZMGyQCpGkhciVc1_qPSKcR7tBMhDg00COs_udmuNwau5u3ZeXpicG_iVjWnL6jp7MQTFuwIfsXRw8AVUu4YcVOLbmN')"></div>
+<div class="absolute inset-0 glass-overlay"></div>
+</div>
+<!-- UI Overlay Content -->
+<div class="absolute inset-0 flex flex-col justify-end px-margin-mobile safe-pb">
+<div class="flex justify-between items-end gap-4">
+<!-- Left Content: Info -->
+<div class="flex-1 text-white">
+<div class="flex items-center gap-2 mb-unit-1">
+<span class="bg-success-teal px-2 py-0.5 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] fill-icon">star</span>
+                                4.8
+                            </span>
+<span class="font-label-md text-label-md text-white/80">Lumina Rooftop Bar</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold mb-unit-1 tracking-tight">Sunset Sangrias &amp; Tapas</h2>
+<p class="font-body-md text-body-md text-white/90 line-clamp-2 max-w-[80%]">The perfect group vibe. Order the signature pitcher and split the bill instantly with friends. #FridayNight</p>
+</div>
+<!-- Right Actions: Icons -->
+<div class="flex flex-col items-center gap-unit-3 pb-unit-1">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white text-[28px]">favorite</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">12.4k</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white text-[28px]">chat_bubble</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">458</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white text-[28px]">share</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">Share</span>
+</div>
+</div>
+</div>
+<!-- Floating CTA -->
+<button class="mt-unit-4 w-full py-4 bg-wise-accent-green text-deep-forest font-title-md text-title-md rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-all animate-pulse-custom">
+<span class="material-symbols-outlined">calendar_month</span>
+                    Reserve Now
+                </button>
+</div>
+</section>
+<!-- Reel 2 (Dish Focus) -->
+<section class="reel-item w-full">
+<div class="absolute inset-0 bg-black">
+<div class="w-full h-full opacity-90" data-alt="A stunning, vibrant close-up of a plate of lobster risotto served in a high-end white porcelain bowl. The risotto is creamy golden yellow, topped with succulent lobster meat and garnished with edible purple flowers. Wisps of steam rise from the dish. The lighting is bright and crisp, highlighting the textures of the food against a dark, minimalist restaurant background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZ7E_10REiPlViipHJv4LuNZj6ox9TM-IKegfkmpPpc3wPn1JrM4u_hsEOBDvjYYtxyl8R5ZFMYz1ukKbmRK0BOeEWGauKcxS2uJDMR5XzukKmoff-bOgq473KS53zCSFdYd4kDPXVHKjZo7XyNMzAROm5eAuPi9meqRU0Z5GZnVvScAxVZmcgXqScON_sz4d38D-DF4wc1ul_IrUeG_AsPfsmqQspxC9pz0wdoc3gzqpvPzTIWf_M')"></div>
+<div class="absolute inset-0 glass-overlay"></div>
+</div>
+<div class="absolute inset-0 flex flex-col justify-end px-margin-mobile safe-pb">
+<div class="flex justify-between items-end gap-4">
+<div class="flex-1 text-white">
+<div class="flex items-center gap-2 mb-unit-1">
+<span class="bg-success-teal px-2 py-0.5 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] fill-icon">star</span>
+                                4.9
+                            </span>
+<span class="font-label-md text-label-md text-white/80">Osteria Finanzi</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold mb-unit-1 tracking-tight">Saffron Lobster Risotto</h2>
+<p class="font-body-md text-body-md text-white/90 line-clamp-2 max-w-[80%]">Tastes like pure luxury. Every bite is a celebration. Book your weekend table before they're gone.</p>
+</div>
+<div class="flex flex-col items-center gap-unit-3 pb-unit-1">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[28px] fill-icon text-celebration-coral">favorite</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">8.2k</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[28px]">chat_bubble</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">212</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[28px]">bookmark</span>
+</div>
+<span class="font-label-sm text-label-sm text-white">Save</span>
+</div>
+</div>
+</div>
+<button class="mt-unit-4 w-full py-4 bg-white text-primary font-title-md text-title-md rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">restaurant_menu</span>
+                    View Menu
+                </button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe z-50 bg-surface dark:bg-surface-container-high shadow-[0_-4px_12px_rgba(0,0,0,0.1)] rounded-t-xl">
+<!-- Explore (Active) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined fill-icon">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</button>
+<!-- Orders -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</button>
+<!-- Split -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">call_split</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for heart icon
+        const hearts = document.querySelectorAll('.material-symbols-outlined:nth-child(1)');
+        hearts.forEach(heart => {
+            heart.parentElement.addEventListener('click', function() {
+                this.querySelector('.material-symbols-outlined').classList.toggle('fill-icon');
+                this.querySelector('.material-symbols-outlined').classList.toggle('text-celebration-coral');
+                
+                // Haptic-like effect
+                this.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Double tap to like simulation
+        let lastTap = 0;
+        document.querySelector('.reels-container').addEventListener('touchend', function(e) {
+            let currentTime = new Date().getTime();
+            let tapLength = currentTime - lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                // Show floating heart animation (conceptual)
+                console.log('Double Tapped!');
+                e.preventDefault();
+            }
+            lastTap = currentTime;
+        });
+    </script>
+</body></html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PartyPay - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-bright": "#faf9f7",
+                "tertiary": "#3e368b",
+                "surface-container": "#efeeec",
+                "on-primary-fixed": "#140067",
+                "on-tertiary-container": "#d1ccff",
+                "inverse-on-surface": "#f1f1ef",
+                "surface-tint": "#584fbc",
+                "secondary-fixed-dim": "#c5c0ff",
+                "primary-fixed": "#e3dfff",
+                "on-surface-variant": "#474553",
+                "on-tertiary-fixed-variant": "#423a8f",
+                "on-tertiary-fixed": "#150264",
+                "secondary": "#5951b4",
+                "on-primary": "#ffffff",
+                "tertiary-fixed-dim": "#c5c0ff",
+                "primary": "#3b309e",
+                "deep-forest": "#163300",
+                "surface": "#faf9f7",
+                "surface-container-highest": "#e3e2e0",
+                "on-background": "#1a1c1b",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "surface-variant": "#e3e2e0",
+                "inverse-surface": "#2f3130",
+                "on-primary-fixed-variant": "#3f35a3",
+                "background": "#faf9f7",
+                "on-error-container": "#93000a",
+                "primary-container": "#534ab7",
+                "secondary-fixed": "#e4dfff",
+                "outline": "#787584",
+                "inverse-primary": "#c5c0ff",
+                "success-teal": "#1D9E75",
+                "on-tertiary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#c8c4d5",
+                "on-secondary-fixed": "#140067",
+                "primary-fixed-dim": "#c5c0ff",
+                "surface-dim": "#dadad8",
+                "tertiary-container": "#554ea4",
+                "secondary-container": "#9f97ff",
+                "on-secondary-fixed-variant": "#41379b",
+                "on-surface": "#1a1c1b",
+                "surface-container-high": "#e9e8e6",
+                "celebration-coral": "#D85A30",
+                "on-primary-container": "#d1ccff",
+                "on-secondary-container": "#33288d",
+                "on-error": "#ffffff",
+                "wise-accent-green": "#9FE870",
+                "on-secondary": "#ffffff",
+                "surface-container-low": "#f4f3f1",
+                "tertiary-fixed": "#e4dfff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit-3": "24px",
+                "margin-mobile": "20px",
+                "unit-1": "8px",
+                "gutter": "16px",
+                "unit-6": "48px",
+                "unit-2": "16px",
+                "margin-desktop": "40px",
+                "unit-4": "32px",
+                "base": "8px"
+            },
+            "fontFamily": {
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "display-lg": ["Hanken Grotesk"],
+                "label-sm": ["Inter"],
+                "title-md": ["Hanken Grotesk"],
+                "headline-lg-mobile": ["Hanken Grotesk"],
+                "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf9f7;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .notification-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease;
+        }
+        .notification-card:active {
+            transform: scale(0.98);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c8c4d5;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-container-high border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="restaurant">restaurant</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed">PartyPay</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A clean professional studio portrait of a young adult with a friendly expression, soft cinematic lighting, neutral high-end fintech aesthetic background, sharp focus, 8k resolution, minimalist style consistent with premium financial application avatars." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJUuaNFUzwlrC2LoxALT8REklY1LRQJ1L9orDL-P7f5A9ysNrDjsQnvjJjSJiQYTpNSVzmmdg6zkz0dU11wwy9O9LeSSg0AzeNirR_CDOIuH2WQnRSlWAXPYKBc2ebCWALcKlsGXRIjV3nqk_mgY1oxj0ioiYT422XMI-UAULid6XMeZzoHWsBgqzI9ss9Q33kGo0jpT41YqPFNv_SPVjyG2DsMLlGilA0ldEBZ3Vec3i7zHc_a3tV"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-20 pb-24 min-h-screen max-w-2xl mx-auto px-margin-mobile">
+<!-- Header Section -->
+<section class="mb-unit-4 flex items-center justify-between">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Updates</h2>
+<button class="text-primary font-label-md hover:underline transition-all">Mark all as read</button>
+</section>
+<!-- Notification List -->
+<div class="space-y-unit-2">
+<!-- Category Tag: Today -->
+<p class="text-on-surface-variant font-label-sm py-unit-1">TODAY</p>
+<!-- Notification 1: Payment Confirmation -->
+<div class="notification-card bg-surface-container-lowest p-unit-3 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex gap-unit-3 items-start relative overflow-hidden">
+<div class="w-12 h-12 rounded-full bg-success-teal/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-success-teal" data-icon="receipt_long">receipt_long</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-body-md font-semibold text-on-surface">Payment Successful</h3>
+<span class="text-on-surface-variant text-label-sm">2m ago</span>
+</div>
+<p class="text-on-surface-variant text-body-md">Your bill at <span class="font-semibold text-on-surface">Spice Route</span> was settled successfully. ₹1,240 has been debited.</p>
+<div class="mt-3 flex gap-2">
+<button class="px-4 py-1.5 bg-primary text-on-primary rounded-full text-label-sm font-semibold hover:opacity-90 active:scale-95 transition-all">View Receipt</button>
+</div>
+</div>
+<div class="absolute right-0 top-0 h-full w-1 bg-success-teal"></div>
+</div>
+<!-- Notification 2: Reservation Reminder -->
+<div class="notification-card bg-surface-container-lowest p-unit-3 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex gap-unit-3 items-start relative overflow-hidden">
+<div class="w-12 h-12 rounded-full bg-celebration-coral/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-celebration-coral" data-icon="event_seat">event_seat</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-body-md font-semibold text-on-surface">Reservation Reminder</h3>
+<span class="text-on-surface-variant text-label-sm">15m ago</span>
+</div>
+<p class="text-on-surface-variant text-body-md">Your table for 4 is ready in 15 mins at <span class="font-semibold text-on-surface">The Glass House</span>. Check-in on arrival!</p>
+<div class="mt-3 flex gap-2">
+<button class="px-4 py-1.5 border border-outline text-primary rounded-full text-label-sm font-semibold hover:bg-surface-container-low active:scale-95 transition-all">View Directions</button>
+</div>
+</div>
+<div class="absolute right-0 top-0 h-full w-1 bg-celebration-coral"></div>
+</div>
+<!-- Category Tag: Yesterday -->
+<p class="text-on-surface-variant font-label-sm py-unit-1 mt-unit-4">YESTERDAY</p>
+<!-- Notification 3: Social Invite -->
+<div class="notification-card bg-surface-container-lowest p-unit-3 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex gap-unit-3 items-start">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a stylish young professional man smiling warmly, high-quality photography, soft natural outdoor lighting, shallow depth of field, vibrant colors, minimalist modern aesthetic for a fintech social interaction feature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8luEf1aZDuGXmxbaJG6SLS0WcknFo0tnFn7hBlHkTrI2k7ZEGImQAdy2oZxMhpTSSQaLjHXQr35ISb15OGryFqZApBcOX7eafgOH0QlAvd9y-wm8OE_1aKLbwW34Q31JjQsNAD1-wxohYCMFPjlh6P3hCExm_5fP4wOg8XfLI0tEDXKHI0aFZV8RD87bqjVuoftvtWtXe1L3aL8f4NFlgFBV-oPMD1BoXK3bz9erpJ8vP0vRJfBr5"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-body-md font-semibold text-on-surface">Invite to Join</h3>
+<span class="text-on-surface-variant text-label-sm">1d ago</span>
+</div>
+<p class="text-on-surface-variant text-body-md"><span class="font-semibold text-on-surface">Rahul</span> invited you to join a live bill-splitting session for "Bachelors Night Out".</p>
+<div class="mt-3 flex gap-2">
+<button class="px-4 py-1.5 bg-wise-accent-green text-deep-forest rounded-full text-label-sm font-bold hover:opacity-90 active:scale-95 transition-all">Accept Invite</button>
+<button class="px-4 py-1.5 text-on-surface-variant rounded-full text-label-sm font-semibold hover:bg-surface-container-low transition-all">Decline</button>
+</div>
+</div>
+</div>
+<!-- Notification 4: Wallet Alert -->
+<div class="notification-card bg-surface-container-lowest p-unit-3 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex gap-unit-3 items-start">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-title-md text-body-md font-semibold text-on-surface">Wallet Updated</h3>
+<span class="text-on-surface-variant text-label-sm">1d ago</span>
+</div>
+<p class="text-on-surface-variant text-body-md">Success! <span class="font-semibold text-on-surface text-success-teal">₹500</span> added to your PartyPe wallet via UPI. New balance: ₹4,250.</p>
+</div>
+</div>
+<!-- Empty State Illustration Placeholder (Hidden but defined for visual balance) -->
+<div class="hidden py-unit-6 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-outline-variant text-6xl mb-4" data-icon="notifications_off">notifications_off</span>
+<p class="text-title-md font-bold text-on-surface-variant">All Caught Up!</p>
+<p class="text-label-md text-outline">We'll let you know when something new happens.</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe bg-surface dark:bg-surface-container-high shadow-[0_-4px_12px_rgba(0,0,0,0.1)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="call_split">call_split</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</a>
+<!-- Active Tab: Profile (Assuming notifications live under profile or are accessed from here) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- FAB (Suppressed on Notifications as per Design System rules for "Details/Transaction focus") -->
+<script>
+        // Micro-interaction for notification cards
+        document.querySelectorAll('.notification-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // In a real app, this would navigate to detail
+                card.classList.remove('border-l-4'); // Visual cue for "read"
+                card.style.opacity = '0.7';
+                setTimeout(() => card.style.opacity = '1', 150);
+            });
+        });
+
+        // Simple scroll observer to hide header shadow on top
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

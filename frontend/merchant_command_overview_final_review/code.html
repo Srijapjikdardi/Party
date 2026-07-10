@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe Merchant Command - Overview</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#9f97ff",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "on-primary-fixed": "#140067",
+                    "tertiary-fixed": "#e4dfff",
+                    "wise-accent-green": "#9FE870",
+                    "outline": "#787584",
+                    "inverse-on-surface": "#f1f1ef",
+                    "primary-fixed": "#e3dfff",
+                    "inverse-primary": "#c5c0ff",
+                    "surface-container-highest": "#e3e2e0",
+                    "surface": "#faf9f7",
+                    "surface-bright": "#faf9f7",
+                    "surface-variant": "#e3e2e0",
+                    "outline-variant": "#c8c4d5",
+                    "celebration-coral": "#D85A30",
+                    "on-tertiary-container": "#d1ccff",
+                    "secondary-fixed": "#e4dfff",
+                    "tertiary-container": "#554ea4",
+                    "on-tertiary-fixed": "#150264",
+                    "on-background": "#1a1c1b",
+                    "surface-dim": "#dadad8",
+                    "surface-tint": "#584fbc",
+                    "on-secondary-fixed": "#140067",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "on-secondary-container": "#33288d",
+                    "on-surface-variant": "#474553",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e9e8e6",
+                    "inverse-surface": "#2f3130",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "primary": "#3b309e",
+                    "success-teal": "#1D9E75",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "background": "#faf9f7",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "deep-forest": "#163300",
+                    "secondary": "#5951b4",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#d1ccff",
+                    "tertiary": "#3e368b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-low": "#f4f3f1",
+                    "surface-container": "#efeeec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-4": "32px",
+                    "unit-6": "48px",
+                    "gutter": "16px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "20px",
+                    "unit-3": "24px",
+                    "unit-1": "8px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #faf9f7; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .sidebar-transition { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .card-elevation { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+        .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Navigation Drawer (Predicted Component) -->
+<aside class="fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low border-r border-outline-variant sidebar-transition shadow-xl flex flex-col py-unit-4 gap-base" id="sidebar">
+<!-- Drawer Header -->
+<div class="px-6 pb-6 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-primary font-bold">PartyPe</span>
+<span class="text-label-sm text-on-surface-variant font-medium">Merchant ID: 8829</span>
+</div>
+<button class="md:hidden p-2 hover:bg-surface-container-highest rounded-full transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu_open</span>
+</button>
+</div>
+<!-- Profile Section -->
+<div class="mx-4 p-4 mb-4 bg-surface-container-highest rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">Waitstaff Portal</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Shift: Evening</span>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto px-2">
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md">Floor Plan</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md">Active Orders</span>
+<span class="ml-auto bg-celebration-coral text-white text-[10px] px-2 py-0.5 rounded-full">12</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">cable_car</span>
+<span class="font-label-md">Table Map</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Reports</span>
+</a>
+</nav>
+<!-- Footer Actions -->
+<div class="mt-auto px-4 py-4 border-t border-outline-variant flex flex-col gap-2">
+<button class="flex items-center gap-3 w-full p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md">Settings</span>
+</button>
+<button class="flex items-center gap-3 w-full p-2 text-error hover:opacity-80 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-bold">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-0 md:ml-72 min-h-screen transition-all duration-300" id="main-content">
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-50 bg-surface h-16 px-margin-mobile md:px-margin-desktop flex items-center justify-between border-b border-surface-container-high">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-primary tracking-tight">Merchant Command</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex flex-col text-right">
+<span class="font-label-md text-on-surface">The Grand Bistro</span>
+<span class="text-[10px] text-success-teal flex items-center justify-end gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-success-teal animate-pulse"></span> Live Syncing
+                    </span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a restaurant manager in a clean, modern studio setting with warm directional lighting. The person is smiling confidently, reflecting the premium and organized brand identity of PartyPe. High resolution and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSwbcRARre2Om5M8Yx4jCo4WyA1jy89nNoGDs5-l-QKEBbuYdQ4p8Fop_4aeFxga5d3qPFntCS5VIF1-Iue74GQWOCCsosGcGdF37piCHomLMyBFXFpJHtgdpPWZkdw3DFbeV0t1X853YjvL1DbygMZOwCbwLINIRK4x6Xe8cayp6iicdPAQa8dRsIdNFF6YTXZcGSAEW5wA_HpBEU0mtheKf0O4LcoVTrFO8dUcseBLs8XCalno0w"/>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<section class="pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Quick Actions Bar -->
+<div class="flex flex-wrap gap-4 mb-8">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+                    New Session
+                </button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">print</span>
+                    Daily Report
+                </button>
+<button class="bg-wise-accent-green text-deep-forest px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-md hover:brightness-95 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+                    Invite Staff
+                </button>
+</div>
+<!-- Bento Dashboard -->
+<div class="bento-grid flex flex-col lg:grid lg:grid-cols-12">
+<!-- Main Sales Metric -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-8 rounded-3xl card-elevation relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-on-surface-variant font-label-md uppercase tracking-widest mb-1">Total Sales Today</p>
+<h2 class="font-display-lg text-display-lg text-primary">₹2,48,590</h2>
+<p class="text-success-teal font-label-md flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-sm">trending_up</span> +14.2% from yesterday
+                                </p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">bar_chart</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Simple Chart Visualization (Visual Placeholder) -->
+<div class="h-48 w-full flex items-end justify-between gap-1 mt-8">
+<div class="bg-primary-container opacity-20 w-full h-[40%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary-container opacity-30 w-full h-[60%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary-container opacity-20 w-full h-[35%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary-container opacity-50 w-full h-[80%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary-container opacity-40 w-full h-[55%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary-container opacity-70 w-full h-[90%] rounded-t-lg hover:opacity-60 transition-opacity"></div>
+<div class="bg-primary w-full h-[100%] rounded-t-lg relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] py-1 px-2 rounded whitespace-nowrap">Current Peak</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Sessions Mini Card -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-primary p-6 rounded-3xl card-elevation text-on-primary">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined bg-white/20 p-2 rounded-xl">groups</span>
+<span class="text-xs uppercase tracking-widest font-bold opacity-70">Live Sessions</span>
+</div>
+<div class="text-4xl font-headline-lg mb-2">24</div>
+<p class="text-on-primary/60 text-sm">18 tables billing now</p>
+<div class="mt-4 bg-white/10 h-1.5 w-full rounded-full overflow-hidden">
+<div class="bg-wise-accent-green h-full w-[75%] rounded-full"></div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl card-elevation">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-celebration-coral bg-error-container p-2 rounded-xl">timer</span>
+<span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant">Avg. Table Time</span>
+</div>
+<div class="text-3xl font-headline-lg text-on-surface mb-1">54m</div>
+<p class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-error">trending_down</span> -8m this week
+                        </p>
+</div>
+</div>
+<!-- Top Items List -->
+<div class="lg:col-span-5 bg-surface-container-lowest p-6 rounded-3xl card-elevation">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-md text-on-surface">Top Moving Items</h3>
+<a class="text-primary font-label-md hover:underline" href="#">View Menu</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 p-2 hover:bg-surface-container-low rounded-xl transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A gourmet wood-fired pizza with fresh basil and melted mozzarella on a dark rustic table. High-contrast food photography with warm, professional lighting, capturing the textures of the crust and fresh toppings. Minimalist and appetizing style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1GsUDRkeiGZSeuTg5AiLUukX7XLjMyJq2hfJ9bxaZgn_s3S7oteoNum6zh0ZShWHkha0BdoRwwKG2Jymd3Xo3o0n2rmg454nHHhph2w4y3ugCCIl-ntUVyfGQl5559nI0c21cBPIKEv563b2fMYV4LLSm25VA54HjABqUdUZXqesH3ashjpWMnj97F35WeG_85XykawbFe9naVELy4cJdx0BIJzqruX6Qi4ucfMBcL8BS5w5tCMN"/>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Truffle Mushroom Pizza</p>
+<p class="text-xs text-on-surface-variant">Sold: 142 units</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">₹84,500</p>
+<span class="text-[10px] text-success-teal bg-success-teal/10 px-1.5 py-0.5 rounded">+12%</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-2 hover:bg-surface-container-low rounded-xl transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A vibrant, refreshing craft cocktail with citrus slices and mint leaves, served in a crystal glass with elegant condensation. Bright, high-key lighting creates a celebratory and premium social dining atmosphere. Minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9JcDC_I8gy_VSTAb2KdaBpJlgvHjxfqiClb1KkrHXCfXqWLRqR9znsjNS4N6XG_dPPbfy82sLzqMIr4x48bR9zUUGAkPuA089FzudcasfKdLCC0M83r06zvO5nvpunRSGDBpsw4UKJdAfK9fU0Om1yQSoeMD_XuVy_b1mw9OkbTPXjEqWlfb_OjbIBT9SQIX5hWNEX22840io98ov6axF4Jtzd9I7_hWXQx0LboAPq35Rkp6Q0daN"/>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Spiced Gin &amp; Tonic</p>
+<p class="text-xs text-on-surface-variant">Sold: 98 units</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">₹44,100</p>
+<span class="text-[10px] text-success-teal bg-success-teal/10 px-1.5 py-0.5 rounded">+5%</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-2 hover:bg-surface-container-low rounded-xl transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A platter of artfully arranged mezze including hummus, olives, and pita bread on a light stone surface. Soft, natural daylight creates a warm, inviting social dining mood. Premium texture and clean composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCUBvpZHApPzs62N4stFKroUFlfZ4RpWphoQswyYxFpfyCratnsBjeTb5RzinqwLavrZeZpoDUOMNSfoi-n6mEEH6SfNStbJm2f9pSIvSLJcTqyrTih7TWnL61HCw6uyVlbuz9b8HddGlXHdl77TjCNnhd4IcjDTm3sFhQxkvwVbBPciHpkUUBnV2Rgx1vsaklbZs6UA07XH2glKaEzC7Dvky_wgyOPE6IOJhAan-9oZbjAubI9GmK"/>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Mediterranean Platter</p>
+<p class="text-xs text-on-surface-variant">Sold: 76 units</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">₹38,000</p>
+<span class="text-[10px] text-celebration-coral bg-error-container px-1.5 py-0.5 rounded">-2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Table Status Grid -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-6 rounded-3xl card-elevation overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-md text-on-surface">Live Table Map</h3>
+<div class="flex items-center gap-4 text-[10px] uppercase font-bold text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-success-teal"></span> Available</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-celebration-coral"></span> Occupied</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Billing</span>
+</div>
+</div>
+<div class="grid grid-cols-4 sm:grid-cols-6 gap-4">
+<!-- Table 1 -->
+<div class="aspect-square bg-celebration-coral/10 border-2 border-celebration-coral flex flex-col items-center justify-center rounded-2xl relative group cursor-pointer hover:shadow-md transition-all">
+<span class="text-celebration-coral font-bold text-lg">T01</span>
+<span class="text-[10px] text-celebration-coral/80">4/4</span>
+<div class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-celebration-coral opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-celebration-coral"></span>
+</div>
+</div>
+<!-- Table 2 -->
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl cursor-pointer hover:bg-success-teal/20 transition-all">
+<span class="text-success-teal font-bold text-lg">T02</span>
+<span class="text-[10px] text-success-teal/60">0/2</span>
+</div>
+<!-- Table 3 -->
+<div class="aspect-square bg-primary/10 border-2 border-primary flex flex-col items-center justify-center rounded-2xl relative cursor-pointer hover:shadow-md transition-all">
+<span class="text-primary font-bold text-lg">T03</span>
+<span class="text-[10px] text-primary/80">6/6</span>
+<span class="material-symbols-outlined absolute top-1 right-1 text-primary text-sm">receipt_long</span>
+</div>
+<!-- Table 4 -->
+<div class="aspect-square bg-celebration-coral/10 border-2 border-celebration-coral flex flex-col items-center justify-center rounded-2xl cursor-pointer">
+<span class="text-celebration-coral font-bold text-lg">T04</span>
+<span class="text-[10px] text-celebration-coral/80">2/4</span>
+</div>
+<!-- Table 5 -->
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl cursor-pointer">
+<span class="text-success-teal font-bold text-lg">T05</span>
+<span class="text-[10px] text-success-teal/60">0/4</span>
+</div>
+<!-- Table 6 -->
+<div class="aspect-square bg-celebration-coral/10 border-2 border-celebration-coral flex flex-col items-center justify-center rounded-2xl cursor-pointer">
+<span class="text-celebration-coral font-bold text-lg">T06</span>
+<span class="text-[10px] text-celebration-coral/80">3/4</span>
+</div>
+<!-- Table 7 -->
+<div class="aspect-square bg-primary/10 border-2 border-primary flex flex-col items-center justify-center rounded-2xl cursor-pointer">
+<span class="text-primary font-bold text-lg">T07</span>
+<span class="text-[10px] text-primary/80">2/2</span>
+</div>
+<!-- Table 8 -->
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl cursor-pointer">
+<span class="text-success-teal font-bold text-lg">T08</span>
+<span class="text-[10px] text-success-teal/60">0/8</span>
+</div>
+<!-- More table slots for visual density -->
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl opacity-40">
+<span class="text-success-teal font-bold text-lg">T09</span>
+</div>
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl opacity-40">
+<span class="text-success-teal font-bold text-lg">T10</span>
+</div>
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl opacity-40">
+<span class="text-success-teal font-bold text-lg">T11</span>
+</div>
+<div class="aspect-square bg-success-teal/10 border border-success-teal/20 flex flex-col items-center justify-center rounded-2xl opacity-40">
+<span class="text-success-teal font-bold text-lg">T12</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay for mobile sidebar -->
+<div class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity duration-300" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const mainContent = document.getElementById('main-content');
+            
+            const isHidden = sidebar.classList.contains('-translate-x-full');
+            
+            if (window.innerWidth < 768) {
+                if (sidebar.style.transform === 'translateX(-100%)' || sidebar.style.transform === '') {
+                    sidebar.style.transform = 'translateX(0)';
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.style.transform = 'translateX(-100%)';
+                    overlay.classList.add('hidden');
+                }
+            } else {
+                // Desktop toggle logic if needed - currently fixed as per design system
+                // But could be adapted for a "collapse" version
+            }
+        }
+
+        // Initialize sidebar position for mobile
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth < 768) {
+                sidebar.style.transform = 'translateX(-100%)';
+            } else {
+                sidebar.style.transform = 'translateX(0)';
+            }
+        });
+
+        // Set initial state
+        if (window.innerWidth < 768) {
+            document.getElementById('sidebar').style.transform = 'translateX(-100%)';
+        }
+
+        // Interactive highlight for table status
+        document.querySelectorAll('.aspect-square').forEach(table => {
+            table.addEventListener('click', () => {
+                const tableName = table.querySelector('span').innerText;
+                console.log(`Navigating to details for ${tableName}`);
+                // Add micro-interaction
+                table.classList.add('scale-95');
+                setTimeout(() => table.classList.remove('scale-95'), 100);
+            });
+        });
+    </script>
+</body></html>

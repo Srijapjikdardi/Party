@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PartyPe Food Ordering</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .restaurant { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .menu-item { border: 1px solid #eee; padding: 10px; margin: 10px 0; background: #f9f9f9; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        .menu-item button { background: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+        .menu-item button:hover { background: #45a049; }
+        .cart { position: fixed; top: 20px; right: 20px; width: 250px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .cart-item { display: flex; justify-content: space-between; margin: 5px 0; padding: 5px 0; border-bottom: 1px solid #eee; }
+        .cart-total { font-weight: bold; margin-top: 10px; }
+        .btn-checkout { background: #007bff; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; width: 100%; margin-top: 10px; }
+        .btn-checkout:hover { background: #0056b3; }
+        .hidden { display: none; }
+        .form-group { margin: 10px 0; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 3px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <h1>PartyPe Food Ordering</h1>
+    <div id="restaurants"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart" id="cart">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: ₹<span id="cart-total">0</span></div>
+        <button class="btn-checkout" id="checkout-btn">Checkout</button>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="order-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 5px; width: 300px;">
+            <h2>Place Order</h2>
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="instructions">Special Instructions:</label>
+                    <textarea id="instructions" rows="3"></textarea>
+                </div>
+                <button type="submit" style="background: #28a745; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; width: 100%;">Place Order</button>
+                <button type="button" id="close-modal" style="margin-top: 10px; background: #6c757d; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; width: 100%;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let cart = []; // array of {itemId, name, price, quantity}
+
+        async function loadRestaurants() {
+            try {
+                const response = await fetch('/api/restaurants');
+                const restaurants = await response.json();
+                const container = document.getElementById('restaurants');
+                container.innerHTML = '';
+                restaurants.forEach(restaurant => {
+                    const div = document.createElement('div');
+                    div.className = 'restaurant';
+                    div.innerHTML = `<h2>${restaurant.name}</h2><p>${restaurant.cuisine_type} • Rating: ${restaurant.rating}/5</p><button onclick="loadMenu(${restaurant.id})">View Menu</button>`;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Failed to load restaurants:', err);
+            }
+        }
+
+        async function loadMenu(restaurantId) {
+            try {
+                const response = await fetch(`/api/restaurants/${restaurantId}/menu`);
+                const items = await response.json();
+                // Create modal
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.background = 'rgba(0,0,0,0.5)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.innerHTML = `
+                    <div style="background: white; padding: 20px; border-radius: 5px; width: 400px; max-width: 90%;">
+                        <h2>${items[0] ? items[0].restaurant_id ? '' : 'Menu' : 'Menu'}</h2>
+                        <div id="menu-items-${restaurantId}" style="margin-top: 15px;"></div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 15px; background: #6c757d; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; width: 100%;">Close</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                const menuContainer = document.getElementById(`menu-items-${restaurantId}`);
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'menu-item';
+                    div.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.category}</small><br>
+                            ₹${item.price.toFixed(2)}
+                        </div>
+                        <button onclick="addToCart(${item.id}, '${item.name}', ${item.price})">Add to Cart</button>
+                    `;
+                    menuContainer.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Failed to load menu:', err);
+            }
+        }
+
+        function addToCart(itemId, name, price) {
+            const existing = cart.find(i => i.itemId === itemId);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({itemId, name, price, quantity: 1});
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+                totalEl.textContent = '0';
+            } else {
+                let total = 0;
+                cartItemsDiv.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <span>${item.name} × ${item.quantity}</span>
+                        <span>₹${itemTotal.toFixed(2)}</span>
+                    `;
+                    cartItemsDiv.appendChild(div);
+                });
+                totalEl.textContent = total.toFixed(2);
+            }
+        }
+
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            document.getElementById('order-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('order-modal').classList.add('hidden');
+        });
+
+        document.getElementById('order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const instructions = document.getElementById('instructions').value.trim();
+
+            if (!name || !phone) {
+                alert('Please enter name and phone');
+                return;
+            }
+
+            // Determine restaurant from first item in cart (simplification: assume all items from same restaurant)
+            // In a real app, you'd need to select restaurant per order.
+            const restaurantId = cart.length > 0 ? 1 : 1; // placeholder
+
+            const orderItems = cart.map(item => ({
+                menu_item_id: item.itemId,
+                quantity: item.quantity
+            }));
+
+            const orderData = {
+                customer_name: name,
+                customer_phone: phone,
+                total_amount: parseFloat(document.getElementById('cart-total').textContent),
+                special_instructions: instructions,
+                restaurant_id: restaurantId
+            };
+
+            try {
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(`Order placed successfully! Order ID: ${result.id}`);
+                    cart = [];
+                    updateCartUI();
+                    document.getElementById('order-modal').classList.add('hidden');
+                } else {
+                    const error = await response.text();
+                    alert(`Failed to place order: ${error}`);
+                }
+            } catch (err) {
+                console.error('Error placing order:', err);
+                alert('An error occurred while placing the order.');
+            }
+        });
+
+        // Initialize
+        loadRestaurants();
+    </script>
+</body>
+</html>

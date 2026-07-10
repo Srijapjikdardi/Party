@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Merchant Command - Social Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9f7",
+                    "tertiary": "#3e368b",
+                    "surface-container": "#efeeec",
+                    "on-primary-fixed": "#140067",
+                    "on-tertiary-container": "#d1ccff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "surface-tint": "#584fbc",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "primary-fixed": "#e3dfff",
+                    "on-surface-variant": "#474553",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary-fixed": "#150264",
+                    "secondary": "#5951b4",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "primary": "#3b309e",
+                    "deep-forest": "#163300",
+                    "surface": "#faf9f7",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-background": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e2e0",
+                    "inverse-surface": "#2f3130",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "background": "#faf9f7",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "secondary-fixed": "#e4dfff",
+                    "outline": "#787584",
+                    "inverse-primary": "#c5c0ff",
+                    "success-teal": "#1D9E75",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c8c4d5",
+                    "on-secondary-fixed": "#140067",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "surface-dim": "#dadad8",
+                    "tertiary-container": "#554ea4",
+                    "secondary-container": "#9f97ff",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-high": "#e9e8e6",
+                    "celebration-coral": "#D85A30",
+                    "on-primary-container": "#d1ccff",
+                    "on-secondary-container": "#33288d",
+                    "on-error": "#ffffff",
+                    "wise-accent-green": "#9FE870",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary-fixed": "#e4dfff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-3": "24px",
+                    "margin-mobile": "20px",
+                    "unit-1": "8px",
+                    "gutter": "16px",
+                    "unit-6": "48px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "unit-4": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c8c4d5;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(200, 196, 213, 0.3);
+        }
+        .sidebar-transition {
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #engagement-canvas {
+            width: 100%;
+            height: 240px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Navigation Drawer (Merchant Sidebar) -->
+<aside class="h-screen w-72 flex-col fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline z-50 flex sidebar-transition overflow-hidden" id="sidebar">
+<div class="flex flex-col h-full py-unit-4">
+<!-- Profile Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional circular logo for The Grand Bistro, featuring minimalist golden cutlery and elegant typography against a deep royal purple background. High-fidelity branding for a premium social dining establishment, with soft studio lighting and sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdEIEd2HAhjtcDseL-fl9TJrJzThr_Pn3vQxUIhBznveeCy5jQn5dYbUK1Jh4sXS8ojHA9VGICynr6WuIcW6VlciC59fyO0H_Q_LZhwjI_huVojdVueL6UxJfPXgSTcwQp5EQ04wvyvS_YM86yrgPk6AIY9BNOSPEI5pfGOxxBUkQ6313jRHQI34H8lNbFg3-UQHCmlLgmgaP5SYXYJTyHelbCa1VZQzESDYpLCGhgjdieSzURHiA_"/>
+</div>
+<div class="overflow-hidden whitespace-nowrap">
+<h2 class="font-headline-lg text-headline-lg leading-tight text-primary">The Grand Bistro</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Merchant ID: 88294</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2 h-2 rounded-full bg-success-teal animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Status: Open</span>
+</div>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 space-y-1">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-4 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 scale-95 duration-100 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="table_bar">table_bar</span>
+<span class="font-label-md text-label-md">Table Management</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-label-md text-label-md">Financial Reports</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Merchant Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto border-t border-outline-variant pt-4">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined" data-icon="keyboard_double_arrow_left" id="toggle-icon">keyboard_double_arrow_left</span>
+<span class="font-label-md text-label-md">Collapse Menu</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 transition-all duration-300" id="main-content">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 sticky z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline px-margin-desktop py-unit-2 flex justify-between items-center w-full">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 rounded-full hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg font-black text-primary tracking-tighter">PartyPe</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-6">
+<span class="font-title-md text-title-md text-primary font-bold border-b-2 border-primary cursor-default">Analytics</span>
+<span class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-all cursor-pointer">Marketing</span>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low px-3 py-1.5 rounded-full border border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a professional restaurant manager with a friendly smile, dressed in a smart casual uniform. The background is a softly blurred modern restaurant interior with warm ambient lighting. Professional, high-quality headshot for a business dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtq282-mhwoPryA-syh8s08rRD031ccJR0rs4JNhSFFO6eL4z6CXmPQig0SN2XQX7XfYiudtgRY_0ZRu00tqo9aJm4xZ1STi20ZQ8PXSVCDRrix7MTMYVjZ2pAvvDtpk4gEMJR2vRipNr0i5LbjoCtmdkfgc0zS2A6DoHA4tbuJnNqCtWBCGkBDtci5YWw73DyQEoU7CKgPaEzzjouoWfT70tnplRC6csuWdkxrli3gYg_hJlXfW6R"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Staff Member</span>
+</div>
+</div>
+</header>
+<div class="p-unit-4 md:p-unit-6 max-w-7xl mx-auto space-y-unit-4">
+<!-- Dashboard Hero Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-unit-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface tracking-tight">Social Analytics</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Real-time reel engagement and sentiment insights.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-unit-3 py-unit-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="download">download</span> Export PDF
+                    </button>
+<button class="px-unit-3 py-unit-2 border border-outline text-on-surface rounded-lg font-label-md flex items-center gap-2 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span> Last 30 Days
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-unit-3">
+<!-- 1. Real-time Engagement Graph (8 columns) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl p-unit-3 shadow-sm border border-outline-variant flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Engagement Velocity</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Live interactions per minute</p>
+</div>
+<div class="flex items-center gap-2 text-success-teal">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-md font-bold">+12.4%</span>
+</div>
+</div>
+<div class="relative flex-1 min-h-[240px] bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant/30">
+<!-- Custom Animated Engagement Graph -->
+<canvas id="engagement-canvas"></canvas>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between text-[10px] font-semibold text-on-surface-variant opacity-50">
+<span>12:00 PM</span>
+<span>01:00 PM</span>
+<span>02:00 PM</span>
+<span>03:00 PM</span>
+<span>04:00 PM</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Avg. Watch Time</p>
+<p class="font-headline-lg text-headline-lg text-primary">14.2s</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Click-through Rate</p>
+<p class="font-headline-lg text-headline-lg text-primary">8.7%</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Rev. Generated</p>
+<p class="font-headline-lg text-headline-lg text-success-teal">₹84.2k</p>
+</div>
+</div>
+</div>
+<!-- 2. Customer Sentiment Analysis (4 columns) -->
+<div class="md:col-span-4 bg-primary text-on-primary rounded-xl p-unit-3 shadow-xl flex flex-col relative overflow-hidden">
+<!-- Subtle pattern background -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+<h3 class="font-title-md text-title-md mb-6 relative z-10">Guest Sentiment</h3>
+<div class="space-y-6 flex-1 relative z-10">
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md">Positive</span>
+<span class="font-label-md">72%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-wise-accent-green h-full rounded-full" style="width: 72%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md">Neutral</span>
+<span class="font-label-md">18%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-white/60 h-full rounded-full" style="width: 18%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-md">Negative</span>
+<span class="font-label-md">10%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-celebration-coral h-full rounded-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/10 relative z-10">
+<p class="italic text-sm text-on-primary-container font-medium">"Best paneer tikka in the city! The split bill feature made it so easy for our group of 10."</p>
+<p class="text-[10px] mt-2 opacity-70">— Recent Review</p>
+</div>
+</div>
+<!-- 3. Top Performing Reels (8 columns) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl p-unit-3 shadow-sm border border-outline-variant">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-on-surface">Top Performing Reels</h3>
+<a class="text-primary font-label-md hover:underline" href="#">View All Reels</a>
+</div>
+<div class="space-y-4">
+<!-- Reel Item 1 -->
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-xl transition-all border border-transparent hover:border-outline-variant/30 group">
+<div class="w-16 h-20 rounded-lg overflow-hidden bg-surface-container-highest shrink-0 relative shadow-md">
+<img class="w-full h-full object-cover" data-alt="A vibrant, slow-motion close-up of a chef garnishing a sizzling tandoori platter with fresh cilantro. The lighting is warm and cinematic, with golden highlights and rich shadows. Atmospheric social media style footage designed for high engagement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbJpK9ug35BlfTcLqZ92twSWiKcM_tmnw_gTfOIpwPt2Aon_JHBLhU4dKPI60bC9gRAyUvaU81vSU_aeuYLjYi1XmYsPfWexirt05sYq1RSQSyk-CfILT_QwXu5zPWZahS4H1-x05RIjaZ_nmNsHyNtChz-J-QvahlfnKopk-Kbs-gzyRaUh5L1MnGmWNMtUhsmzXcR57o78QZeckBYtezGdHWU0jTG37R9Ry9GgNiAdvKJcKo2fnP"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow">play_arrow</span>
+</div>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-on-surface font-bold">Midnight Curry Night</h4>
+<p class="text-xs text-on-surface-variant">Posted 2 days ago • 0:15s</p>
+</div>
+<div class="flex gap-8 text-center px-4">
+<div>
+<p class="text-xs text-on-surface-variant">Views</p>
+<p class="font-label-md font-bold">12.4k</p>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Bookings</p>
+<p class="font-label-md font-bold text-success-teal">42</p>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Revenue</p>
+<p class="font-label-md font-bold">₹18.5k</p>
+</div>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Reel Item 2 -->
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-xl transition-all border border-transparent hover:border-outline-variant/30 group">
+<div class="w-16 h-20 rounded-lg overflow-hidden bg-surface-container-highest shrink-0 relative shadow-md">
+<img class="w-full h-full object-cover" data-alt="Dynamic shot of a cocktail being shaken by a bartender, with colorful neon lights reflecting off the shaker and crystal glasses. Modern, energetic, and high-contrast, capturing a lively nightlife vibe for social media marketing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxlFnfF7pELqrl6cQZhjuSbL8YbGUNM6FSyI_WPm6WrGBNKl9KOj2jQMf5zJ66HtFzSJKr-wI8OLQRiLOmBTi41xkwuvPDQT2Woq-A3KPwop6GOqjgr7y4ejKJa7cOTQ5yb3XZof5ihrSUFaNvdGdCeEatKyN-gqpnjox0rd_tN-bmhm6JKGNvZWEcLj8Uko_fJpDlq5H2NsD-5bA8VUf9meZLFF95NyVGbQxLwMeyOOYe5JoSYFkG"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow">play_arrow</span>
+</div>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-on-surface font-bold">Weekend Happy Hours</h4>
+<p class="text-xs text-on-surface-variant">Posted 5 days ago • 0:08s</p>
+</div>
+<div class="flex gap-8 text-center px-4">
+<div>
+<p class="text-xs text-on-surface-variant">Views</p>
+<p class="font-label-md font-bold">9.1k</p>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Bookings</p>
+<p class="font-label-md font-bold text-success-teal">31</p>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Revenue</p>
+<p class="font-label-md font-bold">₹12.2k</p>
+</div>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4. Hashtag Performance (4 columns) -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl p-unit-3 shadow-sm border border-outline-variant flex flex-col">
+<h3 class="font-title-md text-title-md text-on-surface mb-6">Trending Hashtags</h3>
+<div class="space-y-3 custom-scrollbar overflow-y-auto max-h-[300px] pr-2">
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+<span class="font-label-md text-primary font-bold">#SpiceRoute</span>
+<div class="text-right">
+<p class="font-label-sm font-bold">4.2k reach</p>
+<p class="text-[10px] text-success-teal">+24% week</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+<span class="font-label-md text-primary font-bold">#Foodie</span>
+<div class="text-right">
+<p class="font-label-sm font-bold">3.8k reach</p>
+<p class="text-[10px] text-success-teal">+12% week</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+<span class="font-label-md text-primary font-bold">#BistroVibes</span>
+<div class="text-right">
+<p class="font-label-sm font-bold">2.1k reach</p>
+<p class="text-[10px] text-celebration-coral">-3% week</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+<span class="font-label-md text-primary font-bold">#PartyPeSplits</span>
+<div class="text-right">
+<p class="font-label-sm font-bold">1.5k reach</p>
+<p class="text-[10px] text-success-teal">+54% week</p>
+</div>
+</div>
+</div>
+<button class="mt-auto w-full py-2 text-primary font-label-md hover:bg-white rounded-lg transition-all border border-transparent hover:border-primary/20">
+                        Discover New Trends
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Sidebar Toggle Logic
+        let sidebarCollapsed = false;
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleIcon = document.getElementById('toggle-icon');
+            
+            sidebarCollapsed = !sidebarCollapsed;
+            
+            if (sidebarCollapsed) {
+                sidebar.style.width = '72px';
+                mainContent.style.marginLeft = '72px';
+                toggleIcon.innerText = 'keyboard_double_arrow_right';
+                // Hide text labels using CSS via sidebar-collapsed class
+                sidebar.classList.add('sidebar-collapsed');
+            } else {
+                sidebar.style.width = '288px'; // 72 units (w-72)
+                mainContent.style.marginLeft = '288px';
+                toggleIcon.innerText = 'keyboard_double_arrow_left';
+                sidebar.classList.remove('sidebar-collapsed');
+            }
+        }
+
+        // Animated Graph Logic
+        const canvas = document.getElementById('engagement-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        const numPoints = 20;
+
+        function initPoints() {
+            points = [];
+            for (let i = 0; i < numPoints; i++) {
+                points.push({
+                    x: (canvas.width / (numPoints - 1)) * i,
+                    y: Math.random() * (canvas.height * 0.6) + (canvas.height * 0.2),
+                    targetY: Math.random() * (canvas.height * 0.6) + (canvas.height * 0.2)
+                });
+            }
+        }
+
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            initPoints();
+        }
+
+        function animate() {
+            const rect = canvas.getBoundingClientRect();
+            ctx.clearRect(0, 0, rect.width, rect.height);
+
+            // Draw Background Area
+            ctx.beginPath();
+            ctx.moveTo(0, rect.height);
+            for (let i = 0; i < points.length; i++) {
+                const p = points[i];
+                // Smooth interpolation to target
+                p.y += (p.targetY - p.y) * 0.05;
+                if (Math.abs(p.y - p.targetY) < 1) {
+                    p.targetY = Math.random() * (rect.height * 0.6) + (rect.height * 0.2);
+                }
+                
+                if (i === 0) {
+                    ctx.lineTo(p.x, p.y);
+                } else {
+                    const xc = (points[i - 1].x + p.x) / 2;
+                    const yc = (points[i - 1].y + p.y) / 2;
+                    ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
+                }
+            }
+            ctx.lineTo(rect.width, rect.height);
+            ctx.closePath();
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, rect.height);
+            gradient.addColorStop(0, 'rgba(83, 74, 183, 0.2)');
+            gradient.addColorStop(1, 'rgba(83, 74, 183, 0)');
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Draw Line
+            ctx.beginPath();
+            for (let i = 0; i < points.length; i++) {
+                const p = points[i];
+                if (i === 0) {
+                    ctx.moveTo(p.x, p.y);
+                } else {
+                    const xc = (points[i - 1].x + p.x) / 2;
+                    const yc = (points[i - 1].y + p.y) / 2;
+                    ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
+                }
+            }
+            ctx.strokeStyle = '#534ab7';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animate();
+    </script>
+</body></html>

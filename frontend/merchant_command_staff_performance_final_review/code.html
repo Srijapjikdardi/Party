@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Merchant Command - Staff Performance</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9f7",
+                    "tertiary": "#3e368b",
+                    "surface-container": "#efeeec",
+                    "on-primary-fixed": "#140067",
+                    "on-tertiary-container": "#d1ccff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "surface-tint": "#584fbc",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "primary-fixed": "#e3dfff",
+                    "on-surface-variant": "#474553",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "on-tertiary-fixed": "#150264",
+                    "secondary": "#5951b4",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "primary": "#3b309e",
+                    "deep-forest": "#163300",
+                    "surface": "#faf9f7",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-background": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e2e0",
+                    "inverse-surface": "#2f3130",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "background": "#faf9f7",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#534ab7",
+                    "secondary-fixed": "#e4dfff",
+                    "outline": "#787584",
+                    "inverse-primary": "#c5c0ff",
+                    "success-teal": "#1D9E75",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c8c4d5",
+                    "on-secondary-fixed": "#140067",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "surface-dim": "#dadad8",
+                    "tertiary-container": "#554ea4",
+                    "secondary-container": "#9f97ff",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-high": "#e9e8e6",
+                    "celebration-coral": "#D85A30",
+                    "on-primary-container": "#d1ccff",
+                    "on-secondary-container": "#33288d",
+                    "on-error": "#ffffff",
+                    "wise-accent-green": "#9FE870",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f1",
+                    "tertiary-fixed": "#e4dfff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-3": "24px",
+                    "margin-mobile": "20px",
+                    "unit-1": "8px",
+                    "gutter": "16px",
+                    "unit-6": "48px",
+                    "unit-2": "16px",
+                    "margin-desktop": "40px",
+                    "unit-4": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c8c4d5;
+            border-radius: 10px;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden">
+<div class="flex h-screen w-full relative">
+<!-- NavigationDrawer (Shared Component Logic) -->
+<aside class="bg-surface-container-low dark:bg-surface-dim h-screen w-72 flex-col fixed left-0 top-0 border-r border-outline-variant dark:border-outline z-50 sidebar-transition flex" id="sidebar">
+<!-- Brand Header -->
+<div class="p-unit-4 flex flex-col gap-unit-1">
+<div class="flex items-center justify-between">
+<span class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed">PartyPe</span>
+<button class="md:hidden p-2 hover:bg-surface-container-high rounded-full" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="mt-unit-4 flex items-center gap-unit-2">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated gold and dark purple logo for a luxury dining establishment named The Grand Bistro, featuring minimalist line art of a cloche and a wine glass, set against a clean white studio background in a flat corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkGdd1n_VJeyetGdwZQeR5l0qB3w9Enh-gxyki2XxlC4NqDmMpDEWQh_qGPc0VGcSKFjmVENV2ROuH9FSMmg_lsiYkD8aKEy4AT3rMXLHZyHL26FyjeIEe7ORL-41cEZAUj96zPkUfAx2SRN45HoLyKzLP78l3OPV2WvsrCWaJv7nXVh4fb1u1DRKzjEusYwjYD70_QWrkkwfd59PrVewTMq5OfdkdSA9euUvwMiH-dfzCKPShGMYp"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg text-[18px] leading-tight font-bold text-on-surface">The Grand Bistro</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Merchant ID: 88294</span>
+</div>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 px-unit-2 space-y-1 mt-unit-4 overflow-y-auto custom-scrollbar">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Active Orders (Inactive) -->
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<!-- Table Management (Inactive) -->
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined">table_bar</span>
+<span class="font-label-md text-label-md">Table Management</span>
+</a>
+<!-- Financial Reports (Active State determined by Context: Staff Performance sits under performance/financials) -->
+<!-- Assuming Financial Reports is the closest parent for "Staff Performance" metrics -->
+<a class="flex items-center gap-4 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Financial Reports</span>
+</a>
+<!-- Merchant Settings (Inactive) -->
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Merchant Settings</span>
+</a>
+</nav>
+<div class="p-unit-4 border-t border-outline-variant">
+<div class="flex items-center gap-unit-2 text-success-teal">
+<span class="w-2 h-2 rounded-full bg-success-teal"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Status: Open</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col h-screen overflow-y-auto custom-scrollbar">
+<!-- TopAppBar (Shared Component Logic) -->
+<header class="bg-surface dark:bg-surface-dim docked full-width top-0 sticky z-40 border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-desktop py-unit-2">
+<div class="flex items-center gap-unit-4">
+<button class="md:hidden text-primary" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg font-black text-primary">Merchant Command</h1>
+</div>
+<div class="flex items-center gap-unit-4">
+<div class="hidden md:flex flex-col text-right">
+<span class="font-title-md text-title-md text-on-surface">Manager Access</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Shift: Dinner Rush</span>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="A professional portrait of a senior restaurant manager in a clean white shirt, standing in a brightly lit, high-end restaurant interior with blurred dining tables in the background. The style is clean, corporate-modern, and features warm tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDImNN1fIa4tr6dCwUXSnY_OsRRrzxSTeIM8Cw7BVF0JI-P9gRR2k1B8nJeL07AwAGFkLfLP0o954OonjHyYWixFEwRYO6loFw6yQP9sVD6m2QXtXQr6nsJg6b679T1iyUPgQMkbqt6wxQL9Pu_s7wO1sgMd02Z5pAcVBa52KSTU73rzPaIfTex8PMZfyhjoIhOB1GOzQpWuxhUODIQ5F0HKi9OKJD077T5kySfl3KdRzQqbssvD3CQ"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="px-margin-mobile md:px-margin-desktop py-unit-4 max-w-[1140px] w-full mx-auto space-y-unit-4">
+<!-- Performance Overview Hero (Asymmetric Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Shift Performance Chart -->
+<div class="md:col-span-8 bg-surface-container-lowest p-unit-3 rounded-xl border border-outline-variant card-shadow">
+<div class="flex justify-between items-center mb-unit-4">
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Shift Performance</h2>
+<p class="font-label-md text-on-surface-variant">Real-time table turnover efficiency</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full font-label-sm">Today</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">Yesterday</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2 relative">
+<!-- Simulated Chart Bars -->
+<div class="group flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container rounded-t-lg transition-all hover:bg-primary" style="height: 60%"></div>
+<span class="font-label-sm text-on-surface-variant">18:00</span>
+</div>
+<div class="group flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container rounded-t-lg transition-all hover:bg-primary" style="height: 85%"></div>
+<span class="font-label-sm text-on-surface-variant">19:00</span>
+</div>
+<div class="group flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-wise-accent-green rounded-t-lg transition-all" style="height: 95%"></div>
+<span class="font-label-sm text-on-surface-variant font-bold">20:00</span>
+</div>
+<div class="group flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container rounded-t-lg transition-all hover:bg-primary" style="height: 70%"></div>
+<span class="font-label-sm text-on-surface-variant">21:00</span>
+</div>
+<div class="group flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container rounded-t-lg transition-all hover:bg-primary" style="height: 45%"></div>
+<span class="font-label-sm text-on-surface-variant">22:00</span>
+</div>
+</div>
+</div>
+<!-- Key Efficiency Metrics (Tactile Warmth) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between h-full">
+<span class="font-label-md text-on-surface-variant">Avg. Table Turnaround</span>
+<div class="mt-2">
+<span class="font-display-lg text-[40px] text-primary">42 <span class="text-title-md">mins</span></span>
+<div class="flex items-center text-success-teal gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+<span class="font-label-sm">8% faster than avg</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between h-full">
+<span class="font-label-md text-on-surface-variant">Customer Happiness</span>
+<div class="mt-2">
+<span class="font-display-lg text-[40px] text-tertiary">4.8 <span class="text-title-md">/ 5</span></span>
+<div class="flex gap-1 mt-1 text-wise-accent-green">
+<span class="material-symbols-outlined text-fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-fill" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Waitstaff Leaderboard -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden flex flex-col">
+<div class="p-unit-3 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Top Waitstaff</h3>
+<button class="text-primary font-label-md flex items-center gap-1 hover:underline">
+                                View All <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-sm uppercase tracking-wider">
+<tr>
+<th class="px-unit-3 py-3">Server</th>
+<th class="px-unit-3 py-3">Tables</th>
+<th class="px-unit-3 py-3">Avg. Rating</th>
+<th class="px-unit-3 py-3">Tips Earned</th>
+<th class="px-unit-3 py-3">Efficiency</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-unit-3 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">R</div>
+<div>
+<div class="font-body-md font-bold text-on-surface">Rahul Sharma</div>
+<div class="font-label-sm text-on-surface-variant">Senior Server</div>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md">24</td>
+<td class="px-unit-3 py-4">
+<div class="flex items-center gap-1">
+<span class="font-bold">4.9</span>
+<span class="material-symbols-outlined text-[14px] text-wise-accent-green" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md text-primary font-bold">₹ 4,250</td>
+<td class="px-unit-3 py-4">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-wise-accent-green w-[92%]"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-unit-3 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold">P</div>
+<div>
+<div class="font-body-md font-bold text-on-surface">Priya Verma</div>
+<div class="font-label-sm text-on-surface-variant">Associate</div>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md">21</td>
+<td class="px-unit-3 py-4">
+<div class="flex items-center gap-1">
+<span class="font-bold">4.8</span>
+<span class="material-symbols-outlined text-[14px] text-wise-accent-green" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md text-primary font-bold">₹ 3,890</td>
+<td class="px-unit-3 py-4">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[88%]"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-unit-3 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold">A</div>
+<div>
+<div class="font-body-md font-bold text-on-surface">Arjun Singh</div>
+<div class="font-label-sm text-on-surface-variant">Junior Server</div>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md">18</td>
+<td class="px-unit-3 py-4">
+<div class="flex items-center gap-1">
+<span class="font-bold">4.6</span>
+<span class="material-symbols-outlined text-[14px] text-wise-accent-green" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="px-unit-3 py-4 font-body-md text-primary font-bold">₹ 2,150</td>
+<td class="px-unit-3 py-4">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%]"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Recent Feedback -->
+<div class="md:col-span-1 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow flex flex-col h-full">
+<div class="p-unit-3 border-b border-outline-variant">
+<h3 class="font-title-md text-title-md text-on-surface">Guest Feedback</h3>
+</div>
+<div class="p-unit-3 flex-1 space-y-unit-2 overflow-y-auto custom-scrollbar max-h-[400px]">
+<!-- Feedback Item -->
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-on-surface-variant">Table 12 • Priya</span>
+<div class="flex text-wise-accent-green">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface italic">"Priya was incredibly attentive and recommended the best cocktails!"</p>
+</div>
+<!-- Feedback Item -->
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-on-surface-variant">Table 04 • Rahul</span>
+<div class="flex text-wise-accent-green">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]">star</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface italic">"Fast service, split the bill perfectly without any hassle."</p>
+</div>
+<!-- Feedback Item -->
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30 border-l-4 border-l-celebration-coral">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-on-surface-variant">Table 08 • Arjun</span>
+<div class="flex text-celebration-coral">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[12px]">star</span>
+<span class="material-symbols-outlined text-[12px]">star</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface italic">"Food took a bit longer than expected to arrive."</p>
+</div>
+</div>
+<div class="p-unit-3 bg-surface-container-low mt-auto">
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-tertiary transition-colors">Response Hub</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Insights Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest p-unit-3 rounded-xl border border-outline-variant card-shadow">
+<div class="flex items-center gap-3 mb-unit-3">
+<div class="p-2 bg-primary-fixed text-on-primary-fixed rounded-lg">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<h3 class="font-title-md text-title-md">Manager's Insight</h3>
+</div>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            Based on tonight's trends, table turnaround peaks between 19:30 and 20:45. 
+                            <span class="font-bold text-primary">Recommendation:</span> Assign Rahul to Section A (Tables 10-15) for high-density turnover management. Suggest Priya focuses on premium upselling in Section B.
+                        </p>
+</div>
+<div class="bg-primary-container p-unit-3 rounded-xl card-shadow text-on-primary-container flex items-center justify-between">
+<div>
+<h3 class="font-title-md text-title-md mb-1">Active Staff Incentive</h3>
+<p class="font-label-md opacity-90">Highest rating server by midnight earns a ₹500 bonus!</p>
+<div class="mt-unit-3 flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-white/20 border-2 border-primary-container flex items-center justify-center font-bold text-xs">RS</div>
+<div class="w-8 h-8 rounded-full bg-white/20 border-2 border-primary-container flex items-center justify-center font-bold text-xs">PV</div>
+<div class="w-8 h-8 rounded-full bg-white/20 border-2 border-primary-container flex items-center justify-center font-bold text-xs">AS</div>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[48px] text-wise-accent-green animate-bounce">emoji_events</span>
+<span class="font-label-sm font-bold text-wise-accent-green">LIVE TRACKING</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Margin for scrolling -->
+<div class="h-unit-6"></div>
+</main>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const isHidden = sidebar.classList.contains('-translate-x-full');
+            if (isHidden) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        // Handle window resizing for responsive sidebar
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // Initialize state
+        if (window.innerWidth < 768) {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+        }
+    </script>
+</body></html>

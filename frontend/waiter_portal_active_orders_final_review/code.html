@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe Waiter Portal - Active Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#9f97ff",
+                        "on-primary-fixed-variant": "#3f35a3",
+                        "on-primary-fixed": "#140067",
+                        "tertiary-fixed": "#e4dfff",
+                        "wise-accent-green": "#9FE870",
+                        "outline": "#787584",
+                        "inverse-on-surface": "#f1f1ef",
+                        "primary-fixed": "#e3dfff",
+                        "inverse-primary": "#c5c0ff",
+                        "surface-container-highest": "#e3e2e0",
+                        "surface": "#faf9f7",
+                        "surface-bright": "#faf9f7",
+                        "surface-variant": "#e3e2e0",
+                        "outline-variant": "#c8c4d5",
+                        "celebration-coral": "#D85A30",
+                        "on-tertiary-container": "#d1ccff",
+                        "secondary-fixed": "#e4dfff",
+                        "tertiary-container": "#554ea4",
+                        "on-tertiary-fixed": "#150264",
+                        "on-background": "#1a1c1b",
+                        "surface-dim": "#dadad8",
+                        "surface-tint": "#584fbc",
+                        "on-secondary-fixed": "#140067",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c5c0ff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#534ab7",
+                        "on-secondary-container": "#33288d",
+                        "on-surface-variant": "#474553",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e9e8e6",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#423a8f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#41379b",
+                        "primary": "#3b309e",
+                        "success-teal": "#1D9E75",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#c5c0ff",
+                        "background": "#faf9f7",
+                        "tertiary-fixed-dim": "#c5c0ff",
+                        "deep-forest": "#163300",
+                        "secondary": "#5951b4",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#d1ccff",
+                        "tertiary": "#3e368b",
+                        "on-surface": "#1a1c1b",
+                        "surface-container-low": "#f4f3f1",
+                        "surface-container": "#efeeec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit-4": "32px",
+                        "unit-6": "48px",
+                        "gutter": "16px",
+                        "unit-2": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "unit-3": "24px",
+                        "unit-1": "8px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "title-md": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #faf9f7;
+            font-family: 'Inter', sans-serif;
+            color: #1a1c1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .order-card {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+        }
+        .order-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .sidebar-hidden {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen">
+<!-- Retractable Sidebar (NavigationDrawer Authority) -->
+<aside class="fixed left-0 top-0 h-full w-72 z-[60] bg-surface-container-low dark:bg-surface-container-high border-r border-outline-variant sidebar-transition shadow-xl overflow-y-auto" id="sidebar">
+<div class="flex flex-col h-full py-unit-4 gap-base">
+<!-- Header (Left Align Profile) -->
+<div class="px-6 pb-6 border-b border-outline-variant">
+<div class="flex items-center gap-4 mb-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A professional headshot of a friendly young waiter in a crisp white shirt and a dark purple apron, captured with soft, cinematic indoor lighting in a high-end restaurant setting. The style is modern corporate with a warm, welcoming vibe, featuring a shallow depth of field and a refined financial-meets-hospitality aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJXyDCv4ddeWggHT73OA8RsXXw7bxwRg0wSDxNUy1O5LkRFEK3m9OzseZh50Afe86kjSat1uf3L0-qq8BboVUyUH7c8Yj5sLe2ysw_Ogw8I8K20ljo0z0y3iyxX9bFrPg0b3uqCDgRrmSXi5JcJ6NL3Wx0eUvwsY7qAF3w3XSzvVaXk4vVaJ7bRQpBGspkqRgmZLB-C2jGP9I3aVwVLOyNcE2cH60vZniXaB2yjHIjryx3id4mnsDe"/>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-primary font-bold">Waitstaff Portal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Merchant ID: 8829</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-3">
+<p class="font-label-md text-label-md text-on-surface">Shift: Evening</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1 mt-4 px-2">
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Floor Plan</span>
+</a>
+<a class="flex items-center gap-unit-2 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-lg mx-2 p-3 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">cable_car</span>
+<span class="font-label-md text-label-md">Table Map</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-unit-2 text-on-surface-variant dark:text-on-surface mx-2 p-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<button class="md:hidden absolute top-4 right-4 text-on-surface-variant" id="close-sidebar">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 min-h-screen transition-all duration-300">
+<!-- TopAppBar (Small Center Aligned) -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-50 bg-surface dark:bg-surface-dim h-16 w-full flex items-center justify-between px-margin-mobile">
+<div class="flex items-center gap-3">
+<button class="md:hidden text-primary" id="open-sidebar">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary dark:text-primary-fixed tracking-tighter">PartyPe</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end mr-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Active Orders</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12 Tables Pending</span>
+</div>
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="Close-up avatar of a professional server in a high-end hospitality uniform. Minimalist lighting and clean background, matching the premium fintech-style dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTWtkQsnOc42sEstX56-cs7jbTA3BcHjzdqWdyP2X6euVc1Qu4bFx-RouAHUQZC0ZLIb5qafsEfvUtT2kkV7c-dTAbKq8Jc68XIDObFYcMGvGlKfggm83jdsT7QAJ7UZtNqA2I_HHDHnM-X3e2I2jVs3ZCcFYdy0gzzqWepaoEvbz2y5E-lROBP2Kufq09kEOdFNh0Ap3HuVhr_Z6libSwxICDSPZDZ7hFBFBfyIFMOrNFMLZd7y7i"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 pb-margin-desktop px-margin-mobile max-w-[1140px] mx-auto">
+<!-- Summary Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl order-card border border-outline-variant/30 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-md text-label-md">Total Active</span>
+<span class="font-headline-lg text-headline-lg text-primary">18</span>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-primary h-full w-3/4"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl order-card border border-outline-variant/30 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-md text-label-md">Ready to Serve</span>
+<span class="font-headline-lg text-headline-lg text-success-teal">05</span>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-success-teal h-full w-1/4"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl order-card border border-outline-variant/30 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-md text-label-md">Average Prep Time</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">14m</span>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-outline h-full w-1/2"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl order-card border border-outline-variant/30 flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-md text-label-md">Exp. Revenue</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">₹12,450</span>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-2">
+<div class="bg-primary-container h-full w-2/3"></div>
+</div>
+</div>
+</section>
+<!-- Filters & Search -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Live Queue</h2>
+<div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md">All Orders</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant">Ready</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant">Preparing</button>
+</div>
+</div>
+<!-- Orders Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Order Card 1: Ready -->
+<div class="bg-surface-container-lowest rounded-xl order-card border border-outline-variant/20 overflow-hidden flex flex-col">
+<div class="p-4 bg-primary/5 flex justify-between items-center border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold text-lg">
+                                12
+                            </div>
+<div>
+<h3 class="font-title-md text-title-md leading-tight">Table 12</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">4 Guests • Order #921</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-success-teal text-white font-label-sm text-label-sm">Ready</span>
+</div>
+<div class="p-5 flex-grow">
+<ul class="space-y-3">
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">2×</span>
+<span class="text-on-surface font-body-md text-body-md">Butter Chicken Deluxe</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹840</span>
+</li>
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">4×</span>
+<span class="text-on-surface font-body-md text-body-md">Garlic Naan</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹160</span>
+</li>
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">1×</span>
+<span class="text-on-surface font-body-md text-body-md">Dal Makhani</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹320</span>
+</li>
+</ul>
+<div class="mt-4 pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Bill</span>
+<span class="font-title-md text-title-md font-bold">₹1,320</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/20">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                            Mark as Served
+                        </button>
+</div>
+</div>
+<!-- Order Card 2: Preparing -->
+<div class="bg-surface-container-lowest rounded-xl order-card border border-outline-variant/20 overflow-hidden flex flex-col opacity-90">
+<div class="p-4 bg-surface-container flex justify-between items-center border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-lg">
+                                04
+                            </div>
+<div>
+<h3 class="font-title-md text-title-md leading-tight">Table 04</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 Guests • Order #925</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm animate-pulse">Preparing</span>
+</div>
+<div class="p-5 flex-grow">
+<ul class="space-y-3">
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">1×</span>
+<span class="text-on-surface font-body-md text-body-md">Paneer Tikka Platter</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹450</span>
+</li>
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">2×</span>
+<span class="text-on-surface font-body-md text-body-md">Virgin Mojito</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹380</span>
+</li>
+</ul>
+<div class="mt-4 pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Bill</span>
+<span class="font-title-md text-title-md font-bold">₹830</span>
+</div>
+<div class="mt-4 flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">Started 8 mins ago</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/20">
+<button class="w-full bg-outline-variant text-outline py-3 rounded-lg font-label-md text-label-md cursor-not-allowed flex items-center justify-center gap-2" disabled="">
+<span class="material-symbols-outlined text-[20px]">hourglass_empty</span>
+                            Preparing...
+                        </button>
+</div>
+</div>
+<!-- Order Card 3: Ready (Large Party) -->
+<div class="bg-surface-container-lowest rounded-xl order-card border border-outline-variant/20 overflow-hidden flex flex-col">
+<div class="p-4 bg-primary/5 flex justify-between items-center border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold text-lg">
+                                21
+                            </div>
+<div>
+<h3 class="font-title-md text-title-md leading-tight">Table 21</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">8 Guests • Order #918</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-success-teal text-white font-label-sm text-label-sm">Ready</span>
+</div>
+<div class="p-5 flex-grow">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Partial Ready (3/4 Trays)</p>
+<ul class="space-y-3">
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">8×</span>
+<span class="text-on-surface font-body-md text-body-md">Mutton Biryani</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹4,400</span>
+</li>
+<li class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="font-semibold text-primary">12×</span>
+<span class="text-on-surface font-body-md text-body-md">Assorted Bread Basket</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">₹1,200</span>
+</li>
+</ul>
+<div class="mt-4 pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Bill</span>
+<span class="font-title-md text-title-md font-bold">₹5,600</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/20">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                            Mark as Served
+                        </button>
+</div>
+</div>
+</div>
+<!-- Floating Action Button for New Order -->
+<button class="fixed bottom-margin-mobile right-margin-mobile w-14 h-14 bg-wise-accent-green text-deep-forest rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">add</span>
+</button>
+</div>
+</main>
+<script>
+        const sidebar = document.getElementById('sidebar');
+        const openSidebar = document.getElementById('open-sidebar');
+        const closeSidebar = document.getElementById('close-sidebar');
+
+        openSidebar?.addEventListener('click', () => {
+            sidebar.classList.remove('sidebar-hidden');
+        });
+
+        closeSidebar?.addEventListener('click', () => {
+            sidebar.classList.add('sidebar-hidden');
+        });
+
+        // Initialize mobile state
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('sidebar-hidden');
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('sidebar-hidden');
+            } else {
+                sidebar.classList.add('sidebar-hidden');
+            }
+        });
+
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.innerText.includes('Mark as Served')) {
+                    const card = this.closest('.order-card');
+                    card.style.opacity = '0.5';
+                    card.style.transform = 'scale(0.98)';
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Serving...';
+                    setTimeout(() => {
+                        card.remove();
+                    }, 800);
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Merchant Command - Menu Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #faf9f7;
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c8c4d5;
+            border-radius: 10px;
+        }
+        .bento-card {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        /* Toggle Switch Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #3b309e;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #9FE870;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#787584",
+                    "on-tertiary-fixed": "#150264",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "secondary-fixed": "#e4dfff",
+                    "primary": "#3b309e",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#33288d",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#d1ccff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "background": "#faf9f7",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "inverse-primary": "#c5c0ff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dadad8",
+                    "on-secondary-fixed": "#140067",
+                    "on-surface": "#1a1c1b",
+                    "outline-variant": "#c8c4d5",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e3dfff",
+                    "secondary-container": "#9f97ff",
+                    "primary-container": "#534ab7",
+                    "celebration-coral": "#D85A30",
+                    "surface-container-high": "#e9e8e6",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "tertiary": "#3e368b",
+                    "inverse-surface": "#2f3130",
+                    "deep-forest": "#163300",
+                    "on-primary-fixed": "#140067",
+                    "surface-tint": "#584fbc",
+                    "secondary": "#5951b4",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "surface-variant": "#e3e2e0",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#efeeec",
+                    "tertiary-fixed": "#e4dfff",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "on-tertiary-container": "#d1ccff",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#474553",
+                    "surface": "#faf9f7",
+                    "surface-container-low": "#f4f3f1",
+                    "on-primary": "#ffffff",
+                    "wise-accent-green": "#9FE870",
+                    "tertiary-container": "#554ea4",
+                    "surface-bright": "#faf9f7",
+                    "success-teal": "#1D9E75"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-4": "32px",
+                    "gutter": "16px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "40px",
+                    "unit-6": "48px",
+                    "unit-1": "8px",
+                    "unit-3": "24px",
+                    "unit-2": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Navigation Drawer (Shared Component) -->
+<aside class="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant py-unit-4 z-50">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</div>
+<h1 class="font-display-lg text-[24px] font-bold text-primary">Merchant Command</h1>
+</div>
+<div class="px-4 mb-8">
+<div class="bg-surface-container-highest rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Merchant Logo" class="w-full h-full object-cover" data-alt="A professional close-up photograph of a sophisticated restaurant logo printed on a clean white ceramic surface. The lighting is bright and airy, typical of a high-end bistro environment, using a palette of soft whites, deep charcoals, and subtle purple accents to convey a sense of modern culinary excellence and financial reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaTAk3GQtQcx1ZoRbqUIhzdXxWs3c7Qe0oLZ5WuI5Z0IjC0sVRquMB5OgMEYjKp24AzjWT_t-FJnh6r3geAtmSd6PvmtOvpATlmH3W7E57Ge0RqW7-B-tXOTQYh-eBuS1p_4t_E87_Bndr9tx51TpYCXM54ZOtPCylNSz_m2sT2ParVf9DNehwTWfWCBHtMS8_RP4Xi8t8PjHIWekTAJhXyHpeQzXPjlxRhwPVBIq5_IAfcgxK1PfGJGz-1rK8BzBn7BL-7OFOhYc"/>
+</div>
+<div>
+<p class="font-title-md text-label-md text-on-surface font-bold">The Grand Bistro</p>
+<p class="font-label-sm text-[10px] text-on-surface-variant">Merchant ID: 88294</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Active Orders</span>
+</a>
+<a class="flex items-center gap-4 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 scale-95 duration-100 ease-in-out" href="#">
+<span class="material-symbols-outlined">table_bar</span>
+<span class="font-label-md text-label-md">Table Management</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Financial Reports</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest px-4 py-3 mx-2 transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Merchant Settings</span>
+</a>
+</nav>
+<div class="px-6 py-4 mt-auto border-t border-outline-variant">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-label-sm font-label-sm">Status: Open</span>
+<div class="w-2 h-2 rounded-full bg-success-teal animate-pulse"></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 min-h-screen">
+<!-- Top App Bar (Shared Component) -->
+<header class="sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant flex justify-between items-center w-full px-4 md:px-margin-desktop py-unit-2">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-lg text-title-md text-primary font-black">Menu Manager</h2>
+</div>
+<div class="flex items-center gap-unit-3"><div class="hidden lg:flex items-center gap-4 mr-4 border-r border-outline-variant pr-4"><div class="flex flex-col items-end"><span class="text-[10px] font-label-sm text-on-surface-variant uppercase">Image Usage</span><div class="flex items-center gap-2"><div class="w-24 h-2 bg-surface-container-highest rounded-full overflow-hidden"><div class="bg-celebration-coral h-full w-full"></div></div><span class="text-label-sm font-bold text-celebration-coral">10/10</span></div></div><button class="bg-wise-accent-green/20 text-deep-forest px-3 py-1 rounded-lg text-label-sm font-bold hover:bg-wise-accent-green/30 transition-colors">Upgrade to Pro</button></div>
+<div class="hidden md:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-body-md w-64 transition-all" placeholder="Search menu items..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-label-md">Add Item</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5">
+<img alt="Staff Member" class="w-full h-full rounded-full object-cover" data-alt="A sharp, professional portrait of a restaurant manager in a minimalist office setting. The individual is wearing a modern charcoal blazer over a crisp white shirt, exuding confidence and high-tech efficiency. The lighting is soft and professional, emphasizing a clean corporate fintech aesthetic with warm paper tones in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5g1xLmMZgPxgH0zlf9tPyH4o-xzvWvgWtY5lC7paCVfvKqyjWjeJ8G5diOfrufG1nR9pqdIyUTS0Z-TKsRflG8hZeq9f6Dx3cr72eBiSo8hllhobCJbAfqXC_RTjF7s_8bClltGC3S4S6xYZiSW9aDEclIFWJkvsBhRvmhqxKtN42r41cyewACO7CzuO4Cqevyo3YUudVj2ajAjfpQ_OMfTxMwaOiir5_7NfZ2yC-AkWK4HeAl7aEI5KSb4pBJGe4wYSIrrPQRf0"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-4 md:p-margin-desktop space-y-unit-4">
+<!-- Category Tabs -->
+<div class="flex gap-4 overflow-x-auto pb-2 custom-scrollbar">
+<button class="px-6 py-2 bg-primary text-white rounded-full font-label-md whitespace-nowrap shadow-sm">All Items</button>
+<button class="px-6 py-2 bg-white text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md border border-outline-variant whitespace-nowrap transition-colors">Appetizers</button>
+<button class="px-6 py-2 bg-white text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md border border-outline-variant whitespace-nowrap transition-colors">Mains</button>
+<button class="px-6 py-2 bg-white text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md border border-outline-variant whitespace-nowrap transition-colors">Desserts</button>
+<button class="px-6 py-2 bg-white text-on-surface-variant hover:bg-surface-container-high rounded-full font-label-md border border-outline-variant whitespace-nowrap transition-colors">Drinks</button>
+</div>
+<!-- Bento Menu Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-gutter"><div class="xl:col-span-2 bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 mb-2"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-[32px]">workspace_premium</span><div><p class="font-title-md">Unlock Unlimited Menu Images</p><p class="text-label-md opacity-90">You've reached the 10-image limit for the Free plan. Upgrade to Pro for unlimited high-res photos.</p></div></div><button class="bg-white text-primary px-6 py-2 rounded-full font-label-md shadow-sm hover:bg-surface-container-low transition-colors whitespace-nowrap">View Pro Plans</button></div>
+<!-- Appetizers Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">restaurant</span>
+                            Appetizers
+                        </h3>
+<span class="bg-surface-container-highest px-3 py-1 rounded-full text-label-sm">4 Items</span>
+</div>
+<div class="space-y-unit-1">
+<!-- Menu Item Row 1 -->
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent hover:border-primary-container/30">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Truffle Fries" class="w-full h-full object-cover" data-alt="Top-down high-end food photography of gourmet truffle fries served in a minimalist ceramic bowl. The lighting is warm and directional, casting soft shadows on a premium white tablecloth. The scene uses a vibrant palette of golden yellows and deep earthy browns, evoking a sense of luxury and culinary precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmInLJrKhQppqAkOzc66ciZURc3k0rUrNmoIy_K1UG76ZHh7Ts_Th1sMemxXnR1pDi5lh2aQ7fZCkuTGCWRQU0YnBIkkDhalN4gfGlGn_PbX9yeAt-7tBogzWJRefR1gpJUVa9MeBHxYbM1w5ckGldOJh5C-FqVzk7McqRy4hKvh27pv84lV3zw9Fc8fqpEhCKzXJ7dHd2DAmYpdNs79H3jPn65T4vD6t3m24G14LPkVEtioDLMJkG_6oOJltiCUqS7_yB8VBA6bY"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-on-surface">Truffle Parmesan Fries</h4>
+<span class="bg-wise-accent-green/20 text-deep-forest px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Popular</span>
+</div>
+<p class="font-body-md text-label-md text-on-surface-variant">₹14.00</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label-sm text-on-surface-variant uppercase mb-1">In Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-1"></label>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Menu Item Row 2 -->
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Calamari" class="w-full h-full object-cover" data-alt="Vibrant close-up of crispy golden calamari rings garnished with fresh parsley and a wedge of lemon. The visual style is high-fidelity and crisp, with bright lighting reflecting off the textured breading. Set against a clean light background to emphasize freshness and high-quality ingredients in a modern fintech-inspired culinary dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbxsW_PUvogWL7DDEgAPNLdzZQZP-qGVk9FYRcIri1pWbwmNkM9mw_AdPuP1vOub7qA5IwQYH23b0Bx0ghbgh3iwqihbt0jOwhqjyDxMp0pqAanNQikq8rRHIy62Nulwil7eBQ9tFQwezgeXQOqSR9hXriwx9svdd_AsY8aQm3hTmZaxB3rr9OEW9F1jAWFlMIxwTxsSYE7IKXJRksrU9v3p6esCQhQiPha4tmVTvam7DFMgQLJBILnUdSXEvktCzVCpCBm0VnpNc"/>
+</div>
+<div>
+<h4 class="font-title-md text-on-surface">Crispy Calamari</h4>
+<p class="font-body-md text-label-md text-on-surface-variant">₹18.50</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label-sm text-on-surface-variant uppercase mb-1">In Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-2"></label>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Menu Item Row 3 (Out of Stock) -->
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent opacity-75 grayscale-[0.5]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Burrata" class="w-full h-full object-cover" data-alt="Artistic food plating of fresh burrata cheese with heirloom tomatoes and basil oil. The lighting is soft and atmospheric, highlighting the creamy texture of the cheese. The color palette is fresh with greens and reds, though the UI presenting it is slightly dimmed to indicate an out-of-stock status while maintaining a high-end gourmet aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfomZCW4c89MAjRLB8agFF-uXJ3RtHapCChTQ1xEUrcyEL4gqM_f3lHeH4lOjaGcmKkJ0At0sFrD5uY1WkgzQoG_U6dSR3hlC5d3omczb-A6xjsZYrFxzTfnW1Xf_131yjuh47bH_Wdjk2OPjXEh27FjZFV8iDS44c8xB6AbEieh_oB8PMeYlyfWTCusKIxa4gVEGtCoiW2xrPdUilq2KFDTI_Khljb0CpPL-QbcOsdJNPc3c2ihwPGeK4YcfTRsq8DjUzX0siAlM"/>
+</div>
+<div>
+<h4 class="font-title-md text-on-surface">Burrata Caprese</h4>
+<p class="font-body-md text-label-md text-on-surface-variant">₹16.00</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label-sm text-celebration-coral uppercase mb-1">Out of Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-3" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-3"></label>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Mains Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">flatware</span>
+                            Mains
+                        </h3>
+<span class="bg-surface-container-highest px-3 py-1 rounded-full text-label-sm">12 Items</span>
+</div>
+<div class="space-y-unit-1">
+<!-- Menu Item Row 4 -->
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Steak" class="w-full h-full object-cover" data-alt="A premium grilled wagyu steak sliced on a dark stone platter, showing a perfect medium-rare center. The lighting is dramatic and warm, with intense focus on the texture of the meat and sea salt crystals. The visual style is luxurious and sophisticated, aligning with a high-end financial app for elite restaurant management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfK-x9fjiobzKDBQ1CsFg_FuIDD17mGgBuqC5hGBD6Ml7Bi2OBYt5oy05ZncWaiCw-qSU4PtRHUnymnxVAMU4c2j6aHmbFyEDqgvggs-k6cpmeE6EJhvKDCLH03bdm-G0I-2FV2VIPMxvwFEcxc8-TBwqPAb9h87E1umQlB2WGsyRluY0DFzQQGrJUjxdiqf__6_P1h5roFw3AuNbmezlp5dwjwdKnAjn5aJu8E2Iw0sUvHbFIAPax4WRkET_32igsTrGqZv5PNPQ"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-on-surface">Signature Wagyu Ribeye</h4>
+<span class="bg-wise-accent-green/20 text-deep-forest px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Popular</span>
+</div>
+<p class="font-body-md text-label-md text-on-surface-variant">₹62.00</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label-sm text-on-surface-variant uppercase mb-1">In Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-4" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-4"></label>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Menu Item Row 5 -->
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Ravioli" class="w-full h-full object-cover" data-alt="Handmade lobster ravioli in a creamy saffron sauce, served in a shallow white porcelain bowl. The lighting is soft and golden, accentuating the rich colors of the saffron and fresh herbs. The image is clean and minimalist, following a sophisticated corporate fintech aesthetic for a premium merchant dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcgu5enxV9pXTbIJjmcFVub8DmYPPLQYUqviKYqeBi2tFbXjqL-KhmTAYOxCQQXEhyfy2AuiziIN7A4J_5hWpTOZaVNTlSx2TlotACR7wbS4bGmTaD10kfWWrazcj0TybZgOblzJ37sLalxgGgqiH5v6PnzhTIb-LAfy1ZRZH8540l8hS01_yalqGs3L33EW-qHqTyiasxy0o3bJQTlbd6rJ90CWVLLvOY_nbFMFdPwu1aBwovk6yCQZl8dQHVS92gBjWcl5Y06eE"/>
+</div>
+<div>
+<h4 class="font-title-md text-on-surface">Lobster Ravioli</h4>
+<p class="font-body-md text-label-md text-on-surface-variant">₹34.00</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label-sm text-on-surface-variant uppercase mb-1">In Stock</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-5" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-5"></label>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Drinks & Desserts (Asymmetric Layout) -->
+<section class="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Desserts -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">icecream</span>
+                                Desserts
+                            </h3>
+</div>
+<div class="space-y-unit-1">
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Tiramisu" class="w-full h-full object-cover" data-alt="Exquisite presentation of a classic Tiramisu, dusted with fine cocoa powder and garnished with a sprig of mint. The lighting is high-key and bright, emphasizing a clean and premium social dining feel. The composition is modern and minimalist, tailored for a high-density merchant list interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6i2kCkaIy14g5__nuiwpR2S_TsTc8PHINQIMZoP7CmypASDLfBPEuaItE0-8Lm8BePDenIpSi5rZL_bR6kqLOeD0QsbyTE26mGY8k-RnVOi1LlS39pu-p46Xyucu7QjvUXZByJV89j0czILawqzIfhPWZ8PccdQH4LERL6JYSHr2Jofei_xjExHndvAslulSetSkAwNogcxQnmvPTzQa59jVP4kNmP6AA8q8Eu6UnfA7VeaXzDMxX8_WX9RWX-S5m1LpdmTL2ixk"/>
+</div>
+<div>
+<h4 class="font-title-md text-on-surface">Artisan Tiramisu</h4>
+<p class="font-body-md text-label-md text-on-surface-variant">₹12.00</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-6" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-6"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Drinks -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">local_bar</span>
+                                Drinks
+                            </h3>
+</div>
+<div class="space-y-unit-1">
+<div class="bento-card p-unit-2 rounded-xl flex items-center justify-between border border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Cocktail" class="w-full h-full object-cover" data-alt="A sophisticated handcrafted cocktail with a vibrant citrus peel garnish, served in a crystal coupe glass. The lighting is crisp with sharp highlights on the glassware, conveying a high-end luxury bar atmosphere. The aesthetic is modern, clean, and perfectly suited for a premium fintech billing platform for social dining." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPDWaQJ3cbnm7_It6QFCcnpu7C22f_HXTiARsBGSbjRVwrVHgRLC1gk_nbGR5v6WkaHeTIxfJUuD_dZEItHY0cPDSJte92KXArCnWqtK2YZerQhlTjwGEHNm0O3XkCOJ6cBddzX3WlzZEUTfUUqRqYFtzacqjlL7gvZ9s4SvTyQM37Ys7aCFO5JSwQHqurdXSBbzGmW2la3gmuYzzZrUofkb1LdtDymD-4k1VdsAGynd89jXBBhMdqdHNg7CVWu1yXXjJT2mnXT9w"/>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-on-surface">Smoked Old Fashioned</h4>
+<span class="bg-wise-accent-green/20 text-deep-forest px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Popular</span>
+</div>
+<p class="font-body-md text-label-md text-on-surface-variant">₹19.00</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle-7" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors" for="toggle-7"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Quick Action Floating Button (Contextual Suppression Logic Applied) -->
+<div class="fixed bottom-6 right-6 md:hidden">
+<button class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+</div>
+<section class="p-4 md:p-margin-desktop border-t border-outline-variant bg-surface-container-low"><div class="max-w-4xl mx-auto text-center space-y-4"><h3 class="font-headline-lg text-primary">Choose Your Growth Plan</h3><p class="text-on-surface-variant">Scale your restaurant's digital presence with more visual power.</p><div class="grid md:grid-cols-2 gap-6 mt-8"><div class="bento-card p-6 rounded-2xl border-2 border-primary text-left relative"><span class="absolute -top-3 right-6 bg-primary text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase">Current Plan</span><h4 class="font-title-md mb-2">Free Starter</h4><p class="text-display-lg text-primary mb-4">₹0<span class="text-label-md text-on-surface-variant font-normal">/mo</span></p><ul class="space-y-3 mb-8"><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> 10 Menu Images</li><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> Basic Analytics</li><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> 1 Staff Account</li></ul><button class="w-full py-3 rounded-xl border border-outline-variant text-on-surface-variant font-label-md cursor-not-allowed" disabled="">Active Plan</button></div><div class="bento-card p-6 rounded-2xl border-2 border-transparent hover:border-wise-accent-green text-left bg-white"><h4 class="font-title-md mb-2">Merchant Pro</h4><p class="text-display-lg text-primary mb-4">₹1,499<span class="text-label-md text-on-surface-variant font-normal">/mo</span></p><ul class="space-y-3 mb-8"><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> Unlimited Menu Images</li><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> Advanced Financial Reports</li><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> Unlimited Staff Accounts</li><li class="flex items-center gap-2 text-label-md"><span class="material-symbols-outlined text-success-teal">check_circle</span> Priority Support</li></ul><button class="w-full py-3 rounded-xl bg-primary text-white font-label-md hover:opacity-90 transition-all shadow-md">Upgrade Now</button></div></div></div></section></main>
+<script>
+        // Micro-interactions for toggles and buttons
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const parentCard = this.closest('.bento-card');
+                const statusText = this.parentElement.previousElementSibling;
+                
+                if(this.checked) {
+                    parentCard.classList.remove('opacity-75', 'grayscale-[0.5]');
+                    statusText.textContent = 'In Stock';
+                    statusText.classList.remove('text-celebration-coral');
+                    statusText.classList.add('text-on-surface-variant');
+                } else {
+                    parentCard.classList.add('opacity-75', 'grayscale-[0.5]');
+                    statusText.textContent = 'Out of Stock';
+                    statusText.classList.add('text-celebration-coral');
+                    statusText.classList.remove('text-on-surface-variant');
+                }
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

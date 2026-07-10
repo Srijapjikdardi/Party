@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PartyPe - Spice Route Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#faf9f7",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e3dfff",
+                    "on-surface-variant": "#474553",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#efeeec",
+                    "primary-container": "#534ab7",
+                    "on-secondary-fixed-variant": "#41379b",
+                    "surface-container-high": "#e9e8e6",
+                    "wise-accent-green": "#9FE870",
+                    "inverse-surface": "#2f3130",
+                    "on-secondary-container": "#33288d",
+                    "surface-dim": "#dadad8",
+                    "tertiary-container": "#554ea4",
+                    "surface-variant": "#e3e2e0",
+                    "on-primary": "#ffffff",
+                    "deep-forest": "#163300",
+                    "tertiary": "#3e368b",
+                    "secondary-fixed": "#e4dfff",
+                    "on-primary-fixed-variant": "#3f35a3",
+                    "surface-container-low": "#f4f3f1",
+                    "on-primary-fixed": "#140067",
+                    "surface-container-highest": "#e3e2e0",
+                    "celebration-coral": "#D85A30",
+                    "on-tertiary-fixed-variant": "#423a8f",
+                    "outline-variant": "#c8c4d5",
+                    "outline": "#787584",
+                    "on-tertiary-container": "#d1ccff",
+                    "tertiary-fixed": "#e4dfff",
+                    "inverse-on-surface": "#f1f1ef",
+                    "surface-tint": "#584fbc",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c5c0ff",
+                    "on-background": "#1a1c1b",
+                    "on-surface": "#1a1c1b",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "primary": "#3b309e",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf9f7",
+                    "secondary-container": "#9f97ff",
+                    "secondary": "#5951b4",
+                    "on-primary-container": "#d1ccff",
+                    "on-tertiary-fixed": "#150264",
+                    "error-container": "#ffdad6",
+                    "background": "#faf9f7",
+                    "primary-fixed-dim": "#c5c0ff",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "success-teal": "#1D9E75",
+                    "on-secondary-fixed": "#140067"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-3": "24px",
+                    "margin-mobile": "20px",
+                    "unit-6": "48px",
+                    "unit-4": "32px",
+                    "gutter": "16px",
+                    "unit-1": "8px",
+                    "base": "8px",
+                    "margin-desktop": "40px",
+                    "unit-2": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .item-list-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #787584;
+            display: inline-block;
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+        .bill-paper-texture {
+            background-image: radial-gradient(#e3e2e0 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: ripple-animation 0.6s linear;
+        }
+        @keyframes ripple-animation {
+            from { width: 0; height: 0; opacity: 0.5; }
+            to { width: 500px; height: 500px; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md overflow-x-hidden pb-32">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-[1140px] mx-auto bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline h-[56px]">
+<div class="flex items-center gap-unit-2">
+<a class="flex items-center gap-unit-1 text-on-surface hover:opacity-70 transition-opacity" href="{{DATA:SCREEN:SCREEN_11}}">
+<span class="material-symbols-outlined text-primary" data-icon="chevron_left">chevron_left</span>
+</a>
+<div class="flex flex-col leading-none">
+<span class="font-title-md text-title-md text-on-surface">Spice Route</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Table 12 • 4 Guests</span>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEGxi8CrnXglSAbjz2x6KhvXehrgMYontaf8lXv9OnCosR7rpW_ua4l_5-LBHepItoESC5GAHDzNvqCxIdNew2ZMO7kc0JqmkwGB_m9VcfgRYVxDpo7Rwkx48vUwFUf5yU3PCnlVrkYXBzs36CwVgv8JK9pfkW-CRrHMpQuOWH4iJD11XFg7iY6g_wIlPwQXx4ZgbXXTijWjTp906krMjUWfmKYn3BkGpLxuy83Jxx_P_FfqwzD4jyZXw7P1VEqQmIG-dWoBESL6s"/>
+</div>
+</header>
+<main class="max-w-[500px] mx-auto px-margin-mobile mt-unit-4">
+<!-- Bill Header Illustration / Visual -->
+<div class="mb-unit-4 text-center">
+<div class="inline-flex items-center justify-center p-unit-3 bg-primary-fixed rounded-full mb-unit-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="receipt_long">receipt_long</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Final Bill</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review your share and pay securely</p>
+</div>
+<!-- Main Bill Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] overflow-hidden border border-outline-variant relative mb-unit-4">
+<!-- Asymmetric Accent -->
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full pointer-events-none"></div>
+<div class="p-unit-3 border-b border-dashed border-outline-variant">
+<div class="flex justify-between items-center mb-unit-4">
+<span class="font-label-md text-label-md text-outline">ORDER #8821</span>
+<span class="font-label-md text-label-md text-outline">24 OCT, 21:45</span>
+</div>
+<!-- Itemized List -->
+<div class="space-y-unit-4">
+<!-- Your Items -->
+<div>
+<div class="mb-unit-2">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Your Items</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="max-w-[70%]">
+<span class="font-title-md text-title-md block leading-tight">Butter Chicken</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Qty: 1</span>
+</div>
+<span class="font-title-md text-title-md whitespace-nowrap">₹540</span>
+</div>
+</div>
+<!-- Shared Items -->
+<div>
+<div class="mb-unit-2">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Shared Items (Split 4 ways)</span>
+</div>
+<div class="space-y-unit-2">
+<div class="flex justify-between items-start">
+<div class="max-w-[70%]">
+<span class="font-title-md text-title-md block leading-tight">Paneer Tikka</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹420 total • Qty: 1</span>
+</div>
+<span class="font-title-md text-title-md whitespace-nowrap">₹105</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="max-w-[70%]">
+<span class="font-title-md text-title-md block leading-tight">Garlic Naan</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹160 total • Qty: 2</span>
+</div>
+<span class="font-title-md text-title-md whitespace-nowrap">₹40</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="max-w-[70%]">
+<span class="font-title-md text-title-md block leading-tight">Dal Makhani</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹380 total • Qty: 1</span>
+</div>
+<span class="font-title-md text-title-md whitespace-nowrap">₹95</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="max-w-[70%]">
+<span class="font-title-md text-title-md block leading-tight">Jeera Rice</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">₹210 total • Qty: 1</span>
+</div>
+<span class="font-title-md text-title-md whitespace-nowrap">₹52.5</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Breakdown -->
+<div class="p-unit-3 bg-surface-container-low/50 space-y-unit-1">
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Your Subtotal</span>
+<span>₹832.5</span>
+</div>
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>GST &amp; Taxes (5%)</span>
+<span>₹41.6</span>
+</div>
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Platform Fee (Split 4 ways)</span>
+<span>₹25</span>
+</div>
+</div>
+<!-- Total -->
+<div class="p-unit-3 flex justify-between items-center border-t border-outline-variant bg-surface-container-lowest">
+<span class="font-title-md text-title-md text-on-surface">Your Total Share</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary">₹899</span>
+</div>
+</section>
+<!-- Your Share Highlight Box -->
+<section class="mt-unit-4">
+<div class="flex bg-surface-container-low p-1 rounded-xl mb-unit-3" id="split-toggle-container">
+<button class="flex-1 py-2 text-label-md font-label-md text-on-surface-variant rounded-lg transition-all" id="btn-pay-full" onclick="toggleSplitMode('full')">Pay Full Bill</button>
+<button class="flex-1 py-2 text-label-md font-label-md bg-surface-container-lowest text-primary shadow-sm rounded-lg transition-all" id="btn-split-group" onclick="toggleSplitMode('split')">Split with Group</button>
+</div>
+<div class="bg-gradient-to-br from-success-teal to-[#157a5b] rounded-xl p-unit-3 text-white shadow-lg relative overflow-hidden">
+<!-- Abstract visual element -->
+<div class="absolute -bottom-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start mb-unit-3">
+<div>
+<p class="font-label-sm text-label-sm opacity-90 uppercase tracking-wider" id="share-label">YOUR SHARE</p>
+<h2 class="font-display-lg text-display-lg leading-tight mt-1" id="share-amount">₹899</h2>
+</div>
+<div class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Ready to pay</span>
+</div>
+</div>
+<div class="flex items-start gap-unit-2 text-sm bg-black/10 p-2 rounded-lg" id="share-info-box">
+<span class="material-symbols-outlined shrink-0 mt-0.5" data-icon="info">info</span>
+<p class="font-label-sm leading-tight" id="share-info-text">Your share includes your personal items (₹540) plus your 1/4 share of appetizers and the ₹100 platform fee.</p>
+</div>
+</div>
+</section>
+<!-- Payment CTA -->
+<div class="mt-unit-6 pb-unit-6">
+<button class="w-full bg-primary text-white font-title-md py-4 rounded-xl flex items-center justify-center gap-unit-2 hover:bg-primary-container transition-all active:scale-95 shadow-md relative overflow-hidden cursor-pointer" id="pay-button">
+<span id="pay-button-text">Complete Payment • ₹899</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center mt-unit-3 font-label-sm text-label-sm text-outline">Secured by PartyPe &amp; NPCI</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-2 px-gutter md:hidden bg-surface-container-lowest dark:bg-surface-container-lowest shadow-md rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" href="{{DATA:SCREEN:SCREEN_4}}">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" href="{{DATA:SCREEN:SCREEN_23}}">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 scale-95 transition-transform duration-150" href="{{DATA:SCREEN:SCREEN_11}}">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm">Split</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-full transition-all" href="{{DATA:SCREEN:SCREEN_14}}">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        function toggleSplitMode(mode) {
+            const btnFull = document.getElementById('btn-pay-full');
+            const btnSplit = document.getElementById('btn-split-group');
+            const shareAmount = document.getElementById('share-amount');
+            const shareLabel = document.getElementById('share-label');
+            const payText = document.getElementById('pay-button-text');
+            const infoText = document.getElementById('share-info-text');
+
+            if (mode === 'full') {
+                btnFull.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                btnFull.classList.remove('text-on-surface-variant');
+                btnSplit.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                btnSplit.classList.add('text-on-surface-variant');
+                
+                shareLabel.innerText = "TOTAL BILL";
+                shareAmount.innerText = "₹3,240";
+                payText.innerText = "Complete Payment • ₹3,240";
+                infoText.innerText = "You are paying the full amount for the entire table. Other diners can reimburse you later via PartyPay.";
+            } else {
+                btnSplit.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                btnSplit.classList.remove('text-on-surface-variant');
+                btnFull.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                btnFull.classList.add('text-on-surface-variant');
+                
+                shareLabel.innerText = "YOUR SHARE";
+                shareAmount.innerText = "₹899";
+                payText.innerText = "Complete Payment • ₹899";
+                infoText.innerText = "Your share includes your personal items (₹540) plus your 1/4 share of appetizers and the ₹100 platform fee.";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const payBtn = document.getElementById('pay-button');
+            payBtn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                const rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                // Simulate processing
+                this.disabled = true;
+                this.style.opacity = '0.8';
+                
+                setTimeout(() => {
+                    window.location.href = "{{DATA:SCREEN:SCREEN_23}}";
+                }, 800);
+            });
+        });
+    </script>
+</body></html>
