@@ -1,80 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>PartyPe | Zero Bill Anxiety. Zero Commissions.</title>
-<meta name="description" content="PartyPe — The only dining platform with 0% commission. Split bills in real-time with friends."/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "on-primary-fixed": "#140067","primary-fixed-dim": "#c5c0ff","inverse-on-surface": "#f1f1ef",
-          "secondary-container": "#9f97ff","secondary-fixed-dim": "#c5c0ff","primary-fixed": "#e3dfff",
-          "surface-container-highest": "#e3e2e0","wise-accent-green": "#9FE870","on-primary": "#ffffff",
-          "on-secondary-container": "#33288d","on-error": "#ffffff","surface-variant": "#e3e2e0",
-          "surface": "#faf9f7","on-error-container": "#93000a","surface-dim": "#dadad8",
-          "on-secondary-fixed": "#140067","background": "#faf9f7","surface-container-high": "#e9e8e6",
-          "secondary-fixed": "#e4dfff","tertiary": "#3e368b","on-secondary-fixed-variant": "#41379b",
-          "on-surface-variant": "#474553","on-tertiary-container": "#d1ccff","surface-container": "#efeeec",
-          "on-primary-container": "#d1ccff","on-surface": "#1a1c1b","on-secondary": "#ffffff",
-          "on-tertiary": "#ffffff","tertiary-fixed-dim": "#c5c0ff","surface-container-low": "#f4f3f1",
-          "tertiary-fixed": "#e4dfff","tertiary-container": "#554ea4","inverse-surface": "#2f3130",
-          "surface-tint": "#584fbc","surface-container-lowest": "#ffffff","deep-forest": "#163300",
-          "outline-variant": "#c8c4d5","primary": "#3b309e","on-tertiary-fixed-variant": "#423a8f",
-          "on-primary-fixed-variant": "#3f35a3","on-tertiary-fixed": "#150264","on-background": "#1a1c1b",
-          "primary-container": "#534ab7","success-teal": "#1D9E75","celebration-coral": "#D85A30",
-          "secondary": "#5951b4","outline": "#787584","surface-bright": "#faf9f7",
-          "error-container": "#ffdad6","error": "#ba1a1a","inverse-primary": "#c5c0ff"
-        },
-        borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
-        spacing: { "gutter": "16px","unit-1": "8px","unit-6": "48px","margin-desktop": "40px","margin-mobile": "20px","unit-2": "16px","unit-4": "32px","unit-3": "24px","base": "8px" },
-        fontFamily: { "body-md": ["Inter"],"label-md": ["Inter"],"body-lg": ["Inter"],"title-md": ["Hanken Grotesk"],"label-sm": ["Inter"],"headline-lg-mobile": ["Hanken Grotesk"],"headline-lg": ["Hanken Grotesk"],"display-lg": ["Hanken Grotesk"] },
-        fontSize: {
-          "body-md": ["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-md": ["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"500"}],
-          "body-lg": ["18px",{"lineHeight":"28px","fontWeight":"400"}],"title-md": ["20px",{"lineHeight":"28px","fontWeight":"600"}],
-          "label-sm": ["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
-          "headline-lg-mobile": ["28px",{"lineHeight":"36px","fontWeight":"600"}],"headline-lg": ["32px",{"lineHeight":"40px","letterSpacing":"-0.01em","fontWeight":"600"}],
-          "display-lg": ["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}]
-        }
-      }
-    }
-  }
-</script>
-<style>
-  body { background-color: #faf9f7; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  h1, h2, h3, .font-display { font-family: 'Hanken Grotesk', sans-serif; }
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  .fill-icon { font-variation-settings: 'FILL' 1 !important; }
-  .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.4); }
-  .hide-scrollbar::-webkit-scrollbar { display: none; }
-  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  .hero-gradient { background: radial-gradient(circle at 0% 0%, #e3dfff 0%, transparent 50%), radial-gradient(circle at 100% 100%, #f4f3f1 0%, transparent 50%); }
-  #app-root { min-height: 100dvh; }
-  .page-enter { animation: fadeIn 0.2s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .nav-active { background: #9f97ff; color: #33288d; border-radius: 9999px; padding: 4px 16px; }
-  .sidebar-transition { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
-  .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 12px 24px; border-radius: 99px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.15); animation: toastIn 0.3s ease; }
-  @keyframes toastIn { from { opacity:0; transform: translateX(-50%) translateY(20px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
-  input::placeholder { color: #787584; opacity: 0.7; }
-  .card-elevation { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-</style>
-</head>
-<body class="text-on-surface">
 
-<!-- APP ROOT -->
-<div id="app-root"></div>
-
-<!-- TOAST CONTAINER -->
-<div id="toast-container"></div>
-
-<script type="module">
 // ═══════════════════════════════════════════════════════════
 // AUTH MODULE
 // ═══════════════════════════════════════════════════════════
@@ -1819,6 +1743,3 @@ Router.register('/premium', async () => simplePage('Premium Membership', 'worksp
 // INIT
 // ═══════════════════════════════════════════════════════════
 Router.init();
-</script>
-</body>
-</html>
