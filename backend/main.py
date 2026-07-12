@@ -1,10 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Header
+from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel, Session, create_engine, select
 from typing import List, Optional
-import os
 from pathlib import Path
 from . import models, crud
 from .auth import verify_password, create_token, get_user_id_from_token, revoke_token
@@ -41,7 +40,7 @@ def get_current_user(authorization: Optional[str] = Header(None), session: Sessi
 def get_optional_user(authorization: Optional[str] = Header(None), session: Session = Depends(get_session)) -> Optional[models.User]:
     try:
         return get_current_user(authorization, session)
-    except:
+    except HTTPException:
         return None
 
 # ──────────────────────────────────────────────────────────

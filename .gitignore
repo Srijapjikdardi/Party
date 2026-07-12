@@ -10,8 +10,16 @@ ENV/
 .venv/
 
 # Database
-partype.db
+*.db
 *.sqlite3
+
+# Logs
+*.log
+
+# Backup / editor scratch files
+*.bak
+*.bak[0-9]*
+*.backup
 
 # Environment variables
 .env

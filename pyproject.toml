@@ -1,0 +1,8 @@
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# E712: SQLModel/SQLAlchemy query columns overload `==`, so
+# `Model.field == True` builds a WHERE clause and is correct as written.
+# The "use truthiness instead" fix ruff proposes is not valid here.
+ignore = ["E712"]

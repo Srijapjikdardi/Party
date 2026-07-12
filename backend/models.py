@@ -41,7 +41,7 @@ class UserRead(SQLModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserLogin(SQLModel):
     email: str
@@ -90,7 +90,7 @@ class RestaurantRead(RestaurantBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # TABLE
@@ -113,7 +113,7 @@ class TableRead(SQLModel):
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # MENU ITEM
@@ -153,7 +153,7 @@ class MenuItemRead(MenuItemBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # DINING SESSION
@@ -189,7 +189,7 @@ class DiningSessionRead(SQLModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # SESSION PARTICIPANT
@@ -214,7 +214,7 @@ class SessionParticipantRead(SQLModel):
     joined_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # ORDER
@@ -257,7 +257,7 @@ class OrderRead(OrderBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class OrderStatusUpdate(SQLModel):
     status: str
@@ -290,7 +290,12 @@ class OrderItemRead(OrderItemBase):
     order_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+# OrderCreate.order_items references OrderItemCreate, which is defined above
+# this point in the file. Rebuild now that OrderItemCreate exists so FastAPI
+# can resolve the forward reference when it builds the request schema.
+OrderCreate.model_rebuild()
 
 # ─────────────────────────────────────────────
 # WALLET
@@ -316,7 +321,7 @@ class WalletTransactionRead(SQLModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class WalletTopup(SQLModel):
     amount: float
@@ -346,7 +351,7 @@ class NotificationRead(SQLModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ─────────────────────────────────────────────
 # AUTH TOKEN STORE (in-memory, production would use JWT)

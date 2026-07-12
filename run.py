@@ -3,7 +3,6 @@ PartyPe - One-command startup script.
 Run: python run.py
 """
 import uvicorn
-import sys
 import os
 
 if __name__ == "__main__":

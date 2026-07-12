@@ -3,6 +3,20 @@
 This is the fully functional Single Page Application (SPA) for PartyPe, powered by a FastAPI backend. 
 It features a 0% commission dining platform with live bill splitting, merchant dashboard, and waiter portal.
 
+## Project Structure
+
+```
+backend/            FastAPI app (main.py), SQLModel schema (models.py),
+                     data access (crud.py), auth helpers (auth.py)
+frontend/index.html Single-file SPA (Tailwind + vanilla JS) served by the backend
+frontend/*_final_review/
+                     Static design-reference mockups (one code.html + screen.png
+                     per screen). Not wired into the running app — kept as design
+                     reference only, not app code.
+requirements.txt    Python dependencies (single source of truth)
+run.py              Local dev entrypoint: `python run.py`
+```
+
 ## Local Development Setup
 
 1. **Create a Virtual Environment (Python 3.11+ recommended):**
@@ -21,6 +35,17 @@ It features a 0% commission dining platform with live bill splitting, merchant d
    python run.py
    ```
    The app will be available at `http://localhost:8000`.
+
+## Linting
+
+The backend is linted with [ruff](https://docs.astral.sh/ruff/):
+```bash
+pip install ruff
+ruff check backend/ run.py
+```
+Rule `E712` is intentionally disabled in `pyproject.toml`: SQLModel/SQLAlchemy
+query columns overload `==`, so `Model.field == True` builds a SQL `WHERE`
+clause and is correct as written — it is not a Python truthiness check.
 
 ## VPS Production Deployment Guide
 
