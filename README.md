@@ -1,20 +1,28 @@
-# PartyPe Web Application
+# PartyPe
 
-This is the fully functional Single Page Application (SPA) for PartyPe, powered by a FastAPI backend. 
-It features a 0% commission dining platform with live bill splitting, merchant dashboard, and waiter portal.
+0% commission dining platform: live bill splitting, merchant dashboard, waiter portal.
+
+Backend: FastAPI, layered architecture (API → service → repository → model), versioned at `/api/v1`.
+Frontend: Next.js 15 + TypeScript + Tailwind + shadcn/ui, migrating incrementally from a legacy static SPA. See `docs/ARCHITECTURE.md` and `docs/MIGRATION_PLAN.md`.
 
 ## Project Structure
 
 ```
-backend/            FastAPI app (main.py), SQLModel schema (models.py),
-                     data access (crud.py), auth helpers (auth.py)
-frontend/index.html Single-file SPA (Tailwind + vanilla JS) served by the backend
-frontend/*_final_review/
-                     Static design-reference mockups (one code.html + screen.png
-                     per screen). Not wired into the running app — kept as design
-                     reference only, not app code.
-requirements.txt    Python dependencies (single source of truth)
-run.py              Local dev entrypoint: `python run.py`
+backend/app/         Layered FastAPI app — see docs/ARCHITECTURE.md
+  core/               settings (env-var driven), auth primitives
+  db/                 engine/session
+  models/             SQLModel table models
+  schemas/            Pydantic request/response models
+  repositories/       DB access layer
+  services/           business logic
+  api/v1/             versioned routers
+frontend/             Next.js 15 app (target) — see docs/MIGRATION_PLAN.md
+  legacy-spa/          pre-migration static SPA + design-reference mockups,
+                       still served by the backend at "/" during migration
+docs/                 architecture, migration plan, API reference, dev guide
+requirements.txt      Python dependencies (single source of truth)
+.env.example          backend config template
+run.py                Local dev entrypoint: `python run.py`
 ```
 
 ## Local Development Setup
@@ -28,6 +36,7 @@ run.py              Local dev entrypoint: `python run.py`
 2. **Install Dependencies:**
    ```bash
    pip install -r requirements.txt
+
    ```
 
 3. **Run the Development Server:**
