@@ -6,3 +6,18 @@ line-length = 120
 # `Model.field == True` builds a WHERE clause and is correct as written.
 # The "use truthiness instead" fix ruff proposes is not valid here.
 ignore = ["E712"]
+
+# mypy over backend/app: SQLModel/SQLAlchemy's stubs don't model
+# class-level column access as InstrumentedAttribute, so mypy sees
+# `Model.column` as the column's plain Python type and flags
+# `.desc()`/`.is_()`/`.in_()` on it, plus `Session.exec(select(...)).all()`
+# returning `Sequence[T]` (safe, covariant) against a `list[T]` return
+# annotation, and pydantic-settings fields populated from the
+# environment as "missing" constructor arguments. These ~24 findings are
+# a known upstream stub gap (see sqlmodel#189), not application bugs —
+# verified by running the full request flow (auth, orders, wallet,
+# menu, migrations, FK/unique constraints) against a live Postgres
+# instance instead. Real bugs mypy did catch during this milestone
+# (fixed, not suppressed): a None-user guard gap in WalletService, a
+# float-typed money field in the wallet /pay request schema, and a
+# type-narrowing variable reuse in seed.py.

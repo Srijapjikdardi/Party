@@ -10,4 +10,6 @@ class UserRepository(BaseRepository[User]):
     model = User
 
     def get_by_email(self, email: str) -> Optional[User]:
-        return self.session.exec(select(User).where(User.email == email)).first()
+        return self.session.exec(
+            select(User).where(User.email == email, User.deleted_at.is_(None))
+        ).first()

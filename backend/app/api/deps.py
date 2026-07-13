@@ -2,6 +2,7 @@
 Shared FastAPI dependencies for the API layer (auth extraction, etc.).
 """
 from typing import Optional
+from uuid import UUID
 
 from fastapi import Depends, Header, HTTPException
 from sqlmodel import Session
@@ -22,7 +23,10 @@ def get_current_user(
     user_id = get_user_id_from_token(token)
     if not user_id:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
-    user = UserRepository(session).get(user_id)
+    try:
+        user = UserRepository(session).get(UUID(user_id))
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail="Invalid token") from exc
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     return user

@@ -1,4 +1,5 @@
 from typing import List
+from uuid import UUID
 
 from sqlmodel import Session
 
@@ -10,5 +11,5 @@ class MenuService:
     def __init__(self, session: Session):
         self.menu = MenuRepository(session)
 
-    def list_for_restaurant(self, restaurant_id: int) -> List[MenuItem]:
+    def list_for_restaurant(self, restaurant_id: UUID) -> List[MenuItem]:
         return self.menu.list_by_restaurant(restaurant_id)

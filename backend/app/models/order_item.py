@@ -1,18 +1,27 @@
 from typing import TYPE_CHECKING, Optional
+from uuid import UUID
 
 from sqlmodel import Field, Relationship, SQLModel
+from decimal import Decimal
+
+from app.db.base import IntPKMixin, uuid_fk
 
 if TYPE_CHECKING:
     from app.models.order import Order
     from app.models.menu_item import MenuItem
 
-class OrderItem(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    quantity: int
-    unit_price: float
-    special_request: Optional[str] = None
-    order_id: int = Field(foreign_key="order.id")
-    menu_item_id: int = Field(foreign_key="menuitem.id")
 
-    order: Optional["Order"] = Relationship(back_populates="order_items")
-    menu_item: Optional["MenuItem"] = Relationship(back_populates="order_items")
+class OrderItem(IntPKMixin, SQLModel, table=True):
+    __tablename__ = "order_items"
+
+    order_id: UUID = uuid_fk("orders.id", ondelete="CASCADE")
+    # RESTRICT: a discontinued dish must not silently delete historical
+    # order line items — MenuItem uses soft delete precisely so this
+    # reference stays valid.
+    menu_item_id: UUID = uuid_fk("menu_items.id", ondelete="RESTRICT")
+    quantity: int
+    unit_price: Decimal = Field(max_digits=10, decimal_places=2)  # snapshot at order-time
+    special_request: Optional[str] = None
+
+    order: "Order" = Relationship(back_populates="order_items")
+    menu_item: "MenuItem" = Relationship(back_populates="order_items")

@@ -1,13 +1,15 @@
 from datetime import datetime
+from decimal import Decimal
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
 
 class SessionParticipantRead(SQLModel):
     id: int
-    session_id: int
-    user_id: int
-    share_amount: float
+    session_id: UUID
+    user_id: UUID
+    share_amount: Decimal
     is_paid: bool
     joined_at: datetime
 

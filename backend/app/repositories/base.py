@@ -6,7 +6,7 @@ commit plumbing, then add entity-specific query methods of their own.
 This keeps raw `session.exec(select(...))` calls out of the service and
 API layers — only repositories talk to the database session directly.
 """
-from typing import Generic, Optional, Type, TypeVar
+from typing import Any, Generic, Optional, Type, TypeVar
 
 from sqlmodel import Session, SQLModel
 
@@ -19,7 +19,8 @@ class BaseRepository(Generic[ModelType]):
     def __init__(self, session: Session):
         self.session = session
 
-    def get(self, id: int) -> Optional[ModelType]:
+    def get(self, id: Any) -> Optional[ModelType]:
+        """`id` is a uuid.UUID or int depending on the entity's PK type."""
         return self.session.get(self.model, id)
 
     def add(self, obj: ModelType) -> ModelType:

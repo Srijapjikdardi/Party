@@ -1,5 +1,7 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import List, Optional
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
@@ -9,22 +11,24 @@ from app.schemas.order_item import OrderItemCreate
 class OrderBase(SQLModel):
     customer_name: str
     customer_phone: str
-    total_amount: float
     status: str = "pending"
     special_instructions: Optional[str] = None
-    restaurant_id: int
+    restaurant_id: UUID
 
 
 class OrderCreate(OrderBase):
     order_items: List[OrderItemCreate] = []
-    user_id: Optional[int] = None
-    session_id: Optional[int] = None
+    user_id: Optional[UUID] = None
+    session_id: Optional[UUID] = None
 
 
 class OrderRead(OrderBase):
-    id: int
-    user_id: Optional[int]
-    session_id: Optional[int]
+    id: UUID
+    user_id: Optional[UUID]
+    session_id: Optional[UUID]
+    subtotal: Decimal
+    tax: Decimal
+    total_amount: Decimal
     created_at: datetime
     updated_at: datetime
 

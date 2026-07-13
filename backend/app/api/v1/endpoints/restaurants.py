@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
@@ -21,7 +22,7 @@ def list_restaurants(
 
 
 @router.get("/{restaurant_id}", response_model=RestaurantRead)
-def get_restaurant(restaurant_id: int, session: Session = Depends(get_session)):
+def get_restaurant(restaurant_id: UUID, session: Session = Depends(get_session)):
     restaurant = RestaurantService(session).get_restaurant(restaurant_id)
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
@@ -29,10 +30,10 @@ def get_restaurant(restaurant_id: int, session: Session = Depends(get_session)):
 
 
 @router.get("/{restaurant_id}/menu", response_model=List[MenuItemRead])
-def get_menu(restaurant_id: int, session: Session = Depends(get_session)):
+def get_menu(restaurant_id: UUID, session: Session = Depends(get_session)):
     return MenuService(session).list_for_restaurant(restaurant_id)
 
 
 @router.get("/{restaurant_id}/tables", response_model=List[TableRead])
-def get_tables(restaurant_id: int, session: Session = Depends(get_session)):
+def get_tables(restaurant_id: UUID, session: Session = Depends(get_session)):
     return TableService(session).list_for_restaurant(restaurant_id)

@@ -1,4 +1,6 @@
+from decimal import Decimal
 from typing import Optional
+from uuid import UUID
 
 from sqlmodel import Session
 
@@ -28,7 +30,7 @@ class AuthService:
             phone=data.phone,
             password_hash=hash_password(data.password),
             role=data.role,
-            wallet_balance=500.0,  # Welcome bonus
+            wallet_balance=Decimal("500.00"),  # Welcome bonus
         )
         user = self.users.add(user)
 
@@ -40,16 +42,16 @@ class AuthService:
         )
         self.notifications.add(welcome)
 
-        return create_token(user.id), user
+        return create_token(str(user.id)), user
 
     def signin(self, creds: UserLogin) -> tuple[str, User]:
         user = self.users.get_by_email(creds.email)
         if not user or not verify_password(creds.password, user.password_hash):
             raise AuthError("Invalid credentials")
-        return create_token(user.id), user
+        return create_token(str(user.id)), user
 
     def signout(self, token: str) -> None:
         revoke_token(token)
 
-    def get_user(self, user_id: int) -> Optional[User]:
+    def get_user(self, user_id: UUID) -> Optional[User]:
         return self.users.get(user_id)

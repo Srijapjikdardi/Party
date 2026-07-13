@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 
 from sqlmodel import Session
 
@@ -30,10 +31,10 @@ class DiningSessionService:
         self.dining_sessions.commit()
         return dining_session
 
-    def get_session(self, session_id: int) -> Optional[DiningSession]:
+    def get_session(self, session_id: UUID) -> Optional[DiningSession]:
         return self.dining_sessions.get(session_id)
 
-    def join_session(self, session_code: str, user_id: int) -> Optional[DiningSession]:
+    def join_session(self, session_code: str, user_id: UUID) -> Optional[DiningSession]:
         dining_session = self.dining_sessions.get_by_code(session_code)
         if not dining_session or dining_session.status != "active":
             return None
@@ -45,5 +46,5 @@ class DiningSessionService:
 
         return dining_session
 
-    def list_participants(self, session_id: int) -> List[SessionParticipant]:
+    def list_participants(self, session_id: UUID) -> List[SessionParticipant]:
         return self.dining_sessions.list_participants(session_id)

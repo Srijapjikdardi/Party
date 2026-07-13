@@ -1,4 +1,6 @@
 from datetime import datetime
+from decimal import Decimal
+from uuid import UUID
 
 from sqlmodel import Session
 
@@ -20,8 +22,10 @@ class WalletService:
         transactions = self.wallet.list_by_user(user.id)
         return {"balance": user.wallet_balance, "transactions": transactions}
 
-    def topup(self, user_id: int, amount: float, method: str) -> WalletTransaction:
+    def topup(self, user_id: UUID, amount: Decimal, method: str) -> WalletTransaction:
         user = self.users.get(user_id)
+        if not user:
+            raise WalletError("User not found")
         user.wallet_balance += amount
         self.session.add(user)
 
@@ -34,9 +38,9 @@ class WalletService:
         )
         return self.wallet.add(txn)
 
-    def pay(self, user_id: int, amount: float, description: str) -> bool:
+    def pay(self, user_id: UUID, amount: Decimal, description: str) -> bool:
         user = self.users.get(user_id)
-        if user.wallet_balance < amount:
+        if not user or user.wallet_balance < amount:
             return False
 
         user.wallet_balance -= amount

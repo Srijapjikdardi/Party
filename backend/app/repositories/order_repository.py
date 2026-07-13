@@ -1,4 +1,5 @@
 from typing import List
+from uuid import UUID
 
 from sqlmodel import select
 
@@ -9,12 +10,12 @@ from app.repositories.base import BaseRepository
 class OrderRepository(BaseRepository[Order]):
     model = Order
 
-    def list_by_user(self, user_id: int) -> List[Order]:
+    def list_by_user(self, user_id: UUID) -> List[Order]:
         return self.session.exec(
             select(Order).where(Order.user_id == user_id).order_by(Order.created_at.desc())
         ).all()
 
-    def list_by_restaurant(self, restaurant_id: int, limit: int = 50) -> List[Order]:
+    def list_by_restaurant(self, restaurant_id: UUID, limit: int = 50) -> List[Order]:
         return self.session.exec(
             select(Order)
             .where(Order.restaurant_id == restaurant_id)

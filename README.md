@@ -10,18 +10,19 @@ Frontend: Next.js 15 + TypeScript + Tailwind + shadcn/ui, migrating incrementall
 ```
 backend/app/         Layered FastAPI app — see docs/ARCHITECTURE.md
   core/               settings (env-var driven), auth primitives
-  db/                 engine/session
-  models/             SQLModel table models
+  db/                 engine/session, connection pooling — see docs/DATABASE.md
+  models/             SQLModel table models (PostgreSQL, UUID/int PKs — see docs/DATABASE.md)
   schemas/            Pydantic request/response models
   repositories/       DB access layer
   services/           business logic
   api/v1/             versioned routers
+backend/alembic/      DB migrations — see docs/DATABASE.md
 frontend/             Next.js 15 app (target) — see docs/MIGRATION_PLAN.md
   legacy-spa/          pre-migration static SPA + design-reference mockups,
                        still served by the backend at "/" during migration
-docs/                 architecture, migration plan, API reference, dev guide
+docs/                 architecture, database, migration plan, API reference, dev guide
 requirements.txt      Python dependencies (single source of truth)
-.env.example          backend config template
+.env.example          backend config template (DATABASE_URL required, no default)
 run.py                Local dev entrypoint: `python run.py`
 ```
 
@@ -36,25 +37,35 @@ run.py                Local dev entrypoint: `python run.py`
 2. **Install Dependencies:**
    ```bash
    pip install -r requirements.txt
-
    ```
 
-3. **Run the Development Server:**
+3. **Set up the database.** Get a free Postgres instance at [neon.tech](https://neon.tech) (or point at any local Postgres). Copy `.env.example` to `.env` in the repo root and set `DATABASE_URL` — see the comments in that file for the exact format Neon gives you. Then apply migrations:
+   ```bash
+   cd backend
+   alembic upgrade head
+   cd ..
+   ```
+   Full schema reference, ER diagram, and design rationale: `docs/DATABASE.md`.
+
+4. **Run the Development Server:**
    ```bash
    python run.py
    ```
-   The app will be available at `http://localhost:8000`.
+   The app will be available at `http://localhost:8000`. `/health` reports app + database connectivity status.
 
 ## Linting
 
 The backend is linted with [ruff](https://docs.astral.sh/ruff/):
 ```bash
 pip install ruff
-ruff check backend/ run.py
+ruff check backend/app backend/alembic run.py
 ```
 Rule `E712` is intentionally disabled in `pyproject.toml`: SQLModel/SQLAlchemy
 query columns overload `==`, so `Model.field == True` builds a SQL `WHERE`
 clause and is correct as written — it is not a Python truthiness check.
+`pyproject.toml` also documents a set of known SQLModel/SQLAlchemy mypy
+stub-gap findings (not real bugs) versus the real type errors this
+milestone found and fixed.
 
 ## VPS Production Deployment Guide
 
@@ -101,12 +112,17 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/www/partype
+WorkingDirectory=/var/www/partype/backend
 Environment="PATH=/var/www/partype/venv/bin"
-ExecStart=/var/www/partype/venv/bin/gunicorn backend.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 127.0.0.1:8000
+ExecStart=/var/www/partype/venv/bin/gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 127.0.0.1:8000
 
 [Install]
 WantedBy=multi-user.target
+```
+Apply migrations before starting the service (and again after every deploy that changes models):
+```bash
+cd /var/www/partype/backend
+/var/www/partype/venv/bin/alembic upgrade head
 ```
 Start and enable the service:
 ```bash

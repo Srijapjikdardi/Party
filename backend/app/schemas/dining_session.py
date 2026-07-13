@@ -1,23 +1,25 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import Optional
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
 
 class DiningSessionCreate(SQLModel):
-    restaurant_id: int
-    table_id: Optional[int] = None
-    host_user_id: int
+    restaurant_id: UUID
+    table_id: Optional[UUID] = None
+    host_user_id: UUID
 
 
 class DiningSessionRead(SQLModel):
-    id: int
-    restaurant_id: int
-    table_id: Optional[int]
-    host_user_id: int
+    id: UUID
+    restaurant_id: UUID
+    table_id: Optional[UUID]
+    host_user_id: UUID
     session_code: str
     status: str
-    total_amount: float
+    total_amount: Decimal
     created_at: datetime
 
     class Config:

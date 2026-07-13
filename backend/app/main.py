@@ -1,6 +1,11 @@
 """
 Application factory. Wires together config, the versioned API router,
 the legacy-compatibility alias, and the (temporary) static SPA mount.
+
+Schema is owned by Alembic migrations (`alembic upgrade head`), not by
+create-on-boot — startup no longer calls SQLModel.metadata.create_all().
+Auto-creating tables from live model state bypasses migration history
+and is exactly how schema drift between environments happens.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +15,7 @@ from sqlmodel import Session
 
 from app.api.v1.api import api_router
 from app.core.config import settings
-from app.db.session import create_db_and_tables, engine
+from app.db.session import check_database_connection, engine
 from app.seed import seed_if_empty
 
 
@@ -26,13 +31,22 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     def on_startup() -> None:
-        create_db_and_tables()
-        with Session(engine) as session:
-            seed_if_empty(session)
+        # Dev convenience only — never runs against production data,
+        # see app/seed.py's own guard. Requires `alembic upgrade head`
+        # to have already been run; this does not create tables.
+        if settings.environment == "development":
+            with Session(engine) as session:
+                seed_if_empty(session)
 
     @app.get("/health")
     def health_check():
-        return {"status": "ok", "app": settings.app_name, "environment": settings.environment}
+        db_ok = check_database_connection()
+        return {
+            "status": "ok" if db_ok else "degraded",
+            "app": settings.app_name,
+            "environment": settings.environment,
+            "database": "connected" if db_ok else "unreachable",
+        }
 
     # Versioned API (canonical)
     app.include_router(api_router, prefix=settings.api_v1_prefix)

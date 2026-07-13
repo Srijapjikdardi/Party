@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 from app.core.config import settings
 
-# In-memory token store: {token: {"user_id": int, "expires": datetime}}
+# In-memory token store: {token: {"user_id": str (UUID), "expires": datetime}}
 _token_store: dict = {}
 
 
@@ -27,7 +27,7 @@ def verify_password(plain: str, hashed: str) -> bool:
     return hash_password(plain) == hashed
 
 
-def create_token(user_id: int) -> str:
+def create_token(user_id: str) -> str:
     token = secrets.token_hex(32)
     _token_store[token] = {
         "user_id": user_id,
@@ -36,7 +36,7 @@ def create_token(user_id: int) -> str:
     return token
 
 
-def get_user_id_from_token(token: str) -> int | None:
+def get_user_id_from_token(token: str) -> str | None:
     entry = _token_store.get(token)
     if not entry:
         return None

@@ -1,13 +1,15 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import Optional
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
 
 class WalletTransactionRead(SQLModel):
     id: int
-    user_id: int
-    amount: float
+    user_id: UUID
+    amount: Decimal
     transaction_type: str
     description: str
     reference_id: Optional[str]
@@ -18,5 +20,5 @@ class WalletTransactionRead(SQLModel):
 
 
 class WalletTopup(SQLModel):
-    amount: float
+    amount: Decimal
     payment_method: str = "upi"

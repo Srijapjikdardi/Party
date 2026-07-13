@@ -1,13 +1,12 @@
 """
 Pydantic-only request/response schemas, kept separate from the SQLModel
-table models in `app.models`. This mirrors FastAPI's recommended
-separation between the persistence layer (table models) and the API
-contract layer (schemas) — a request/response shape can change without
+table models in `app.models`. A response shape can change without
 touching the database schema, and vice versa.
 """
 from app.schemas.user import UserCreate, UserRead, UserLogin
 from app.schemas.restaurant import RestaurantBase, RestaurantCreate, RestaurantRead
-from app.schemas.table import TableRead
+from app.schemas.restaurant_table import TableRead
+from app.schemas.menu_category import MenuCategoryRead
 from app.schemas.menu_item import MenuItemBase, MenuItemCreate, MenuItemRead
 from app.schemas.dining_session import DiningSessionCreate, DiningSessionRead
 from app.schemas.session_participant import SessionParticipantRead
@@ -20,6 +19,7 @@ __all__ = [
     "UserCreate", "UserRead", "UserLogin",
     "RestaurantBase", "RestaurantCreate", "RestaurantRead",
     "TableRead",
+    "MenuCategoryRead",
     "MenuItemBase", "MenuItemCreate", "MenuItemRead",
     "DiningSessionCreate", "DiningSessionRead",
     "SessionParticipantRead",

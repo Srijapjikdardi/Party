@@ -1,5 +1,7 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import Optional
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
@@ -9,7 +11,7 @@ class RestaurantBase(SQLModel):
     address: str
     phone: str
     cuisine_type: str
-    rating: float = 0.0
+    rating: Decimal = Decimal("0.0")
     price_range: str = "₹300-800"
     description: str = ""
     image_url: Optional[str] = None
@@ -21,7 +23,7 @@ class RestaurantCreate(RestaurantBase):
 
 
 class RestaurantRead(RestaurantBase):
-    id: int
+    id: UUID
     created_at: datetime
     updated_at: datetime
 

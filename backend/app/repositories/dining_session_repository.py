@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 
 from sqlmodel import select
 
@@ -12,12 +13,12 @@ class DiningSessionRepository(BaseRepository[DiningSession]):
     def get_by_code(self, code: str) -> Optional[DiningSession]:
         return self.session.exec(select(DiningSession).where(DiningSession.session_code == code)).first()
 
-    def list_participants(self, session_id: int) -> List[SessionParticipant]:
+    def list_participants(self, session_id: UUID) -> List[SessionParticipant]:
         return self.session.exec(
             select(SessionParticipant).where(SessionParticipant.session_id == session_id)
         ).all()
 
-    def get_participant(self, session_id: int, user_id: int) -> Optional[SessionParticipant]:
+    def get_participant(self, session_id: UUID, user_id: UUID) -> Optional[SessionParticipant]:
         return self.session.exec(
             select(SessionParticipant).where(
                 SessionParticipant.session_id == session_id,

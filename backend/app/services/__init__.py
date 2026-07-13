@@ -10,7 +10,7 @@ from app.services.restaurant_service import RestaurantService
 from app.services.menu_service import MenuService
 from app.services.table_service import TableService
 from app.services.session_service import DiningSessionService
-from app.services.order_service import OrderService
+from app.services.order_service import OrderService, OrderError
 from app.services.wallet_service import WalletService, WalletError
 from app.services.notification_service import NotificationService
 
@@ -20,7 +20,7 @@ __all__ = [
     "MenuService",
     "TableService",
     "DiningSessionService",
-    "OrderService",
+    "OrderService", "OrderError",
     "WalletService", "WalletError",
     "NotificationService",
 ]

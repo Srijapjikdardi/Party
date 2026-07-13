@@ -20,7 +20,7 @@ graph TB
         Core["core/config.py · core/security.py"]
     end
 
-    DB[("SQLite<br/>partype.db")]
+    DB[("PostgreSQL (Neon)<br/>see docs/DATABASE.md")]
 
     NextApp -- "fetch /api/v1/*<br/>(dev: proxied by next.config.ts)" --> Routes
     LegacySPA -- "fetch /api/* (legacy alias)" --> Routes
@@ -60,6 +60,10 @@ Dependency direction is one-way: **API → Service → Repository → Model**. N
 ## Configuration
 
 All environment-specific values are read from env vars via `app/core/config.py` (`pydantic-settings`), sourced from a `.env` file at the repo root (see `.env.example`). Nothing environment-specific is hardcoded elsewhere in the codebase.
+
+## Database
+
+PostgreSQL (Neon free tier in production, local Postgres in dev), SQLModel table models, Alembic migrations. Schema is owned by Alembic — `app/main.py` no longer auto-creates tables on boot. Full schema design, ER diagram, cascade-rule rationale, and connection-pooling tuning: `docs/DATABASE.md`.
 
 ## Request lifecycle example — `POST /api/v1/orders`
 

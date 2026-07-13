@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session
@@ -6,13 +8,13 @@ from app.api.deps import get_current_user
 from app.db.session import get_session
 from app.models import User
 from app.schemas import WalletTopup, WalletTransactionRead
-from app.services import WalletService
+from app.services import WalletError, WalletService
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
 
 class WalletPaymentRequest(BaseModel):
-    amount: float
+    amount: Decimal
     description: str = "Payment"
 
 
@@ -33,7 +35,10 @@ def wallet_topup(
 ):
     if topup.amount <= 0 or topup.amount > 50000:
         raise HTTPException(status_code=400, detail="Invalid amount")
-    return WalletService(session).topup(current_user.id, topup.amount, topup.payment_method)
+    try:
+        return WalletService(session).topup(current_user.id, topup.amount, topup.payment_method)
+    except WalletError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @router.post("/pay")

@@ -1,4 +1,5 @@
 from typing import List
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
@@ -18,7 +19,7 @@ def create_session(data: DiningSessionCreate, session: Session = Depends(get_ses
 
 
 @router.get("/{session_id}", response_model=DiningSessionRead)
-def get_session_by_id(session_id: int, session: Session = Depends(get_session)):
+def get_session_by_id(session_id: UUID, session: Session = Depends(get_session)):
     ds = DiningSessionService(session).get_session(session_id)
     if not ds:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -38,5 +39,5 @@ def join_session(
 
 
 @router.get("/{session_id}/participants", response_model=List[SessionParticipantRead])
-def get_participants(session_id: int, session: Session = Depends(get_session)):
+def get_participants(session_id: UUID, session: Session = Depends(get_session)):
     return DiningSessionService(session).list_participants(session_id)

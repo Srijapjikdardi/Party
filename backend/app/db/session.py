@@ -3,26 +3,32 @@ Database engine and session management.
 """
 from typing import Iterator
 
-from sqlmodel import Session, SQLModel, create_engine
+from sqlalchemy import text
+from sqlmodel import Session, create_engine
 
 from app.core.config import settings
-
-# check_same_thread=False is required for SQLite when accessed from FastAPI's
-# threaded request handling; harmless for other database engines.
-_connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
 
 engine = create_engine(
     settings.database_url,
     echo=settings.database_echo,
-    connect_args=_connect_args,
+    pool_size=settings.db_pool_size,
+    max_overflow=settings.db_max_overflow,
+    pool_recycle=settings.db_pool_recycle_seconds,
+    pool_pre_ping=settings.db_pool_pre_ping,
 )
-
-
-def create_db_and_tables() -> None:
-    SQLModel.metadata.create_all(engine)
 
 
 def get_session() -> Iterator[Session]:
     """FastAPI dependency that yields a DB session per request."""
     with Session(engine) as session:
         yield session
+
+
+def check_database_connection() -> bool:
+    """Used by the /health endpoint. Cheap query, no schema dependency."""
+    try:
+        with Session(engine) as session:
+            session.exec(text("SELECT 1"))
+        return True
+    except Exception:
+        return False

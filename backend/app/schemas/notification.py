@@ -1,11 +1,12 @@
 from datetime import datetime
+from uuid import UUID
 
 from sqlmodel import SQLModel
 
 
 class NotificationRead(SQLModel):
     id: int
-    user_id: int
+    user_id: UUID
     title: str
     body: str
     icon: str
