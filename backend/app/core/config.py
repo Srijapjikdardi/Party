@@ -71,7 +71,35 @@ class Settings(BaseSettings):
     cors_allow_origins: str = "*"
 
     # ── Auth ─────────────────────────────────────────────
-    token_ttl_days: int = 30
+    # JWT signing key for access tokens. No default — required, must be
+    # a long random value from env/.env, never hardcoded or committed.
+    # Generate one with: python -c "import secrets; print(secrets.token_urlsafe(64))"
+    secret_key: str
+    jwt_algorithm: str = "HS256"
+    access_token_ttl_minutes: int = 15
+    # Refresh tokens are opaque, DB-backed (app/models/refresh_token.py),
+    # not JWTs — see docs/AUTHENTICATION.md for why.
+    refresh_token_ttl_days: int = 30
+    email_verification_ttl_hours: int = 24
+    password_reset_ttl_minutes: int = 30
+    bcrypt_rounds: int = 12
+    # Brute-force protection (User.failed_login_attempts/locked_until,
+    # not in-memory — see docs/AUTHENTICATION.md).
+    max_failed_login_attempts: int = 5
+    account_lockout_minutes: int = 15
+    # Rate limiting (slowapi, in-memory backend — single-instance
+    # limitation, acceptable on a free-tier single-dyno deployment; see
+    # docs/AUTHENTICATION.md for the Redis upgrade path). Disabled in
+    # tests via this flag so test suites aren't rate-limited by shared
+    # state across test cases.
+    rate_limit_enabled: bool = True
+
+    # ── Email (delivery is pluggable — see app/core/email.py) ────
+    # Base URL used to build verification/password-reset links emailed
+    # to users, e.g. "{public_app_url}/verify-email?token=...". No
+    # frontend route exists at this URL yet — wiring it up is frontend
+    # work, out of scope for this (backend) milestone.
+    public_app_url: str = "http://localhost:3000"
 
     # ── Legacy static frontend ───────────────────────────
     frontend_dir: Path = REPO_ROOT / "frontend" / "legacy-spa"

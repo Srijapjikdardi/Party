@@ -4,12 +4,16 @@ from uuid import UUID
 
 from sqlmodel import Session
 
+from app.core.errors import AppError
 from app.models import User, WalletTransaction
 from app.repositories import UserRepository, WalletRepository
 
 
-class WalletError(Exception):
+class WalletError(AppError):
     """Raised for wallet operations the API layer should turn into 4xx responses."""
+
+    def __init__(self, message: str, status_code: int = 400):
+        super().__init__(status_code, "wallet_error", message)
 
 
 class WalletService:
@@ -25,7 +29,7 @@ class WalletService:
     def topup(self, user_id: UUID, amount: Decimal, method: str) -> WalletTransaction:
         user = self.users.get(user_id)
         if not user:
-            raise WalletError("User not found")
+            raise WalletError("User not found", status_code=404)
         user.wallet_balance += amount
         self.session.add(user)
 

@@ -7,14 +7,39 @@ OpenAPI schema: `http://localhost:8000/openapi.json`
 
 ## Auth
 
+Full flow, rationale, and rate limits: `docs/AUTHENTICATION.md`.
+
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/auth/signup` | — | Create account. Returns `{token, user}`. |
-| POST | `/auth/signin` | — | Returns `{token, user}`. |
-| POST | `/auth/signout` | Bearer | Revokes the token. |
-| GET | `/users/me` | Bearer | Current user profile. |
+| POST | `/auth/register` (alias: `/auth/signup`) | — | Create account. Returns `{access_token, refresh_token, token_type, expires_in, token}`. |
+| POST | `/auth/login` (alias: `/auth/signin`) | — | Same response shape as register. |
+| POST | `/auth/logout` (alias: `/auth/signout`) | — | Body: `{refresh_token}`. Revokes it. |
+| POST | `/auth/refresh` | — | Body: `{refresh_token}`. Rotates — returns a new pair, revokes the old one. |
+| POST | `/auth/verify-email` | — | Body: `{token}`. |
+| POST | `/auth/resend-verification` | — | Body: `{email}`. Always the same response regardless of whether the email exists. |
+| POST | `/auth/forgot-password` | — | Body: `{email}`. Always the same response regardless of whether the email exists. |
+| POST | `/auth/reset-password` | — | Body: `{token, new_password}`. Revokes all of that user's refresh tokens. |
+| GET | `/users/me` | Bearer | Current user profile. Never includes `password_hash` or lockout fields. |
 
-Auth is a bearer token in the `Authorization` header, issued in-memory (see `docs/ARCHITECTURE.md`'s "explicitly out of scope" note — JWT migration is a separate backend item).
+`token` (in register/login/refresh responses) is the same value as `access_token` — kept for `frontend/legacy-spa/index.html`, which reads that field name.
+
+Auth is `Authorization: Bearer <access_token>` — a short-lived (15 min) JWT. `/auth/login` and `/auth/register` are rate-limited (5/min/IP); five failed logins for one account locks it for 15 minutes regardless of IP (see `docs/AUTHENTICATION.md`).
+
+## Users
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| PATCH | `/users/me` | Bearer | Body: `{name?, avatar_url?}`. |
+| POST | `/users/me/change-password` | Bearer | Body: `{current_password, new_password}`. Revokes all other sessions. |
+| POST | `/users/me/deactivate` | Bearer | Sets `is_active=false`, revokes all sessions, blocks login (403). |
+| DELETE | `/users/me` | Bearer | Soft delete (`deleted_at`) — see `docs/DATABASE.md` and `docs/AUTHENTICATION.md`. |
+
+## Error responses
+
+Every error (auth failures, validation, not-found, rate-limited, etc.) uses the same envelope:
+```json
+{"error": {"code": "auth_error", "message": "Invalid credentials"}}
+```
 
 ## Restaurants
 

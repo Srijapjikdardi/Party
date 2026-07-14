@@ -49,6 +49,8 @@ erDiagram
     BILL_SPLIT_RECORDS |o--o{ PAYMENTS : settles
     PAYMENTS ||--o{ PAYMENT_TRANSACTIONS : "gateway events"
     USERS ||--o{ REFRESH_TOKENS : has
+    USERS ||--o{ EMAIL_VERIFICATION_TOKENS : has
+    USERS ||--o{ PASSWORD_RESET_TOKENS : has
     USERS ||--o{ WALLET_TRANSACTIONS : has
     USERS ||--o{ NOTIFICATIONS : receives
 
@@ -58,6 +60,9 @@ erDiagram
         string phone UK
         string role "diner|merchant|waiter|admin (UX hint)"
         numeric wallet_balance
+        bool is_email_verified
+        int failed_login_attempts
+        timestamp locked_until
         timestamp deleted_at "soft delete"
     }
     RESTAURANTS {
@@ -170,6 +175,20 @@ erDiagram
         string token_hash UK
         timestamp revoked_at
     }
+    EMAIL_VERIFICATION_TOKENS {
+        int id PK
+        uuid user_id FK
+        string token_hash UK
+        timestamp expires_at
+        timestamp used_at
+    }
+    PASSWORD_RESET_TOKENS {
+        int id PK
+        uuid user_id FK
+        string token_hash UK
+        timestamp expires_at
+        timestamp used_at
+    }
     WALLET_TRANSACTIONS {
         int id PK
         uuid user_id FK
@@ -220,13 +239,17 @@ M2 had no pre-checkout step — `POST /orders` created an order atomically. `car
 
 `Payment` is generic across purposes (`bill_split`, `wallet_topup`, future `order_payment`) via a `purpose` column rather than three near-identical tables, with nullable `gateway`/`gateway_order_id` fields ready for Razorpay without a schema change when that integration lands. `PaymentTransaction` is an append-only log of gateway events (`created`/`authorized`/`captured`/`failed`/`refunded`) per payment; `gateway_transaction_id` is unique so a retried webhook is a no-op, not a duplicate row — the idempotency Razorpay's webhook docs require.
 
-### RefreshToken (new, unused by the app yet)
+### RefreshToken, EmailVerificationToken, PasswordResetToken
 
-The M2 access-token store is still an in-memory dict (`app/core/security.py`) — replacing it with real JWTs is explicitly out of scope for this milestone (see `docs/MIGRATION_PLAN.md`). `refresh_tokens` exists so that migration has somewhere to land without another schema change later: only a `token_hash` is ever stored, never the raw token, and `revoked_at` supports "log out everywhere."
+`refresh_tokens` was added in M3 unused, anticipating this. M4 (`docs/AUTHENTICATION.md`) wires it up: JWT access tokens are stateless (not stored), but refresh tokens are opaque and DB-backed here — only `token_hash` is ever stored, never the raw value, and `revoked_at` supports single-use rotation plus "log out everywhere" on reuse detection, password reset, and password change.
+
+`email_verification_tokens` and `password_reset_tokens` (both new in M4) follow the identical shape: `token_hash` (unique), `expires_at`, `used_at` (nullable — marks single-use consumption), `created_at`. No separate `updated_at` on any of these three tables — `used_at`/`revoked_at` is the only mutation any of them ever gets, so a second timestamp column would just duplicate it.
 
 ### Soft delete — only on `users`, `restaurants`, `menu_items`
 
 These three have external references (orders, order items, staff records) that must survive deletion for financial/audit history — you can't let a user's order history reference a `NULL` where the user used to be. Everything else hard-deletes via FK `CASCADE`/`SET NULL`: a deleted cart, session participant, or table has no audit value once gone, so keeping a tombstone row buys nothing and costs storage on Neon's free tier for no reason.
+
+M4 note: a soft-deleted user still holds the DB's `UNIQUE(email)` constraint — application-level duplicate-email checks that filter out soft-deleted rows (as login correctly does) must NOT be reused for registration's duplicate check, or a re-registration attempt under a deleted account's email will crash on that constraint instead of returning a clean 400. See `UserRepository.get_by_email_including_deleted` and `docs/AUTHENTICATION.md`.
 
 ### Indexing — deliberately not everything
 

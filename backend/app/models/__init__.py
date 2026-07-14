@@ -22,6 +22,8 @@ from app.models.bill_split_record import BillSplitRecord
 from app.models.payment import Payment
 from app.models.payment_transaction import PaymentTransaction
 from app.models.refresh_token import RefreshToken
+from app.models.email_verification_token import EmailVerificationToken
+from app.models.password_reset_token import PasswordResetToken
 from app.models.wallet import WalletTransaction
 from app.models.notification import Notification
 
@@ -44,6 +46,8 @@ __all__ = [
     "Payment",
     "PaymentTransaction",
     "RefreshToken",
+    "EmailVerificationToken",
+    "PasswordResetToken",
     "WalletTransaction",
     "Notification",
 ]

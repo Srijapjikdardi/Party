@@ -6,17 +6,14 @@ from sqlmodel import Session
 
 from app.db.session import get_session
 from app.schemas import OrderCreate, OrderRead, OrderStatusUpdate
-from app.services import OrderError, OrderService
+from app.services import OrderService
 
 router = APIRouter(prefix="/orders", tags=["orders"])
 
 
 @router.post("", response_model=OrderRead)
 def create_order(order: OrderCreate, session: Session = Depends(get_session)):
-    try:
-        return OrderService(session).create_order(order)
-    except OrderError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return OrderService(session).create_order(order)
 
 
 @router.get("/{order_id}", response_model=OrderRead)

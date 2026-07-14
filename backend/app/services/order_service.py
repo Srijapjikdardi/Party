@@ -5,14 +5,18 @@ from uuid import UUID
 
 from sqlmodel import Session, select
 
+from app.core.errors import AppError
 from app.models import MenuItem, Order, OrderItem
 from app.repositories import OrderRepository
 from app.schemas import OrderCreate
 from app.schemas.order_item import OrderItemCreate
 
 
-class OrderError(Exception):
+class OrderError(AppError):
     """Raised for order-creation failures the API layer should turn into 4xx responses."""
+
+    def __init__(self, message: str, status_code: int = 400):
+        super().__init__(status_code, "order_error", message)
 
 
 class OrderService:

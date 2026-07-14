@@ -44,22 +44,22 @@ def create_sample_data(session: Session) -> None:
     admin = User(
         name="Admin PartyPe", email="admin@partype.com", phone="9999999990",
         password_hash=hash_password("admin123"), role="admin", is_admin=True,
-        wallet_balance=Decimal("10000.00"),
+        wallet_balance=Decimal("10000.00"), is_email_verified=True,
     )
     merchant = User(
         name="Rajesh Kumar", email="merchant@partype.com", phone="9999999991",
         password_hash=hash_password("merchant123"), role="merchant",
-        wallet_balance=Decimal("5000.00"),
+        wallet_balance=Decimal("5000.00"), is_email_verified=True,
     )
     waiter = User(
         name="Priya Singh", email="waiter@partype.com", phone="9999999992",
         password_hash=hash_password("waiter123"), role="waiter",
-        wallet_balance=Decimal("500.00"),
+        wallet_balance=Decimal("500.00"), is_email_verified=True,
     )
     diner = User(
         name="Aarav Sharma", email="demo@partype.com", phone="9999999993",
         password_hash=hash_password("demo123"), role="diner",
-        wallet_balance=Decimal("2500.00"),
+        wallet_balance=Decimal("2500.00"), is_email_verified=True,
     )
     session.add_all([admin, merchant, waiter, diner])
     session.commit()

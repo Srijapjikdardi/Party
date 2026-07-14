@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING, List, Optional
 
@@ -14,6 +15,8 @@ if TYPE_CHECKING:
     from app.models.cart import Cart
     from app.models.refresh_token import RefreshToken
     from app.models.payment import Payment
+    from app.models.email_verification_token import EmailVerificationToken
+    from app.models.password_reset_token import PasswordResetToken
 
 
 class User(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=True):
@@ -34,6 +37,14 @@ class User(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=True):
     avatar_url: Optional[str] = None
     wallet_balance: Decimal = Field(default=Decimal("0.00"), max_digits=10, decimal_places=2)
     is_active: bool = Field(default=True)
+    is_email_verified: bool = Field(default=False)
+    # Brute-force lockout: incremented on each failed login, reset to 0
+    # on success. locked_until is set (now + settings.account_lockout_minutes)
+    # once failed_login_attempts hits settings.max_failed_login_attempts.
+    # DB-backed rather than an in-memory counter so it survives restarts
+    # and works correctly with more than one app instance.
+    failed_login_attempts: int = Field(default=0)
+    locked_until: Optional[datetime] = None
 
     orders: List["Order"] = Relationship(back_populates="user")
     wallet_transactions: List["WalletTransaction"] = Relationship(back_populates="user")
@@ -43,3 +54,5 @@ class User(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=True):
     carts: List["Cart"] = Relationship(back_populates="user")
     refresh_tokens: List["RefreshToken"] = Relationship(back_populates="user")
     payments: List["Payment"] = Relationship(back_populates="user")
+    email_verification_tokens: List["EmailVerificationToken"] = Relationship(back_populates="user")
+    password_reset_tokens: List["PasswordResetToken"] = Relationship(back_populates="user")

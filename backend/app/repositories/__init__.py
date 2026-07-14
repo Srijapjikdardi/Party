@@ -11,6 +11,9 @@ from app.repositories.dining_session_repository import DiningSessionRepository
 from app.repositories.order_repository import OrderRepository
 from app.repositories.wallet_repository import WalletRepository
 from app.repositories.notification_repository import NotificationRepository
+from app.repositories.refresh_token_repository import RefreshTokenRepository
+from app.repositories.email_verification_token_repository import EmailVerificationTokenRepository
+from app.repositories.password_reset_token_repository import PasswordResetTokenRepository
 
 __all__ = [
     "UserRepository",
@@ -21,4 +24,7 @@ __all__ = [
     "OrderRepository",
     "WalletRepository",
     "NotificationRepository",
+    "RefreshTokenRepository",
+    "EmailVerificationTokenRepository",
+    "PasswordResetTokenRepository",
 ]

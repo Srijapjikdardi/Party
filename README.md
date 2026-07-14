@@ -2,14 +2,14 @@
 
 0% commission dining platform: live bill splitting, merchant dashboard, waiter portal.
 
-Backend: FastAPI, layered architecture (API → service → repository → model), versioned at `/api/v1`.
+Backend: FastAPI, layered architecture (API → service → repository → model), versioned at `/api/v1`. JWT + rotating-refresh-token auth, bcrypt password hashing — see `docs/AUTHENTICATION.md`.
 Frontend: Next.js 15 + TypeScript + Tailwind + shadcn/ui, migrating incrementally from a legacy static SPA. See `docs/ARCHITECTURE.md` and `docs/MIGRATION_PLAN.md`.
 
 ## Project Structure
 
 ```
 backend/app/         Layered FastAPI app — see docs/ARCHITECTURE.md
-  core/               settings (env-var driven), auth primitives
+  core/               settings, JWT/bcrypt/rate-limit/error/audit/email — see docs/AUTHENTICATION.md
   db/                 engine/session, connection pooling — see docs/DATABASE.md
   models/             SQLModel table models (PostgreSQL, UUID/int PKs — see docs/DATABASE.md)
   schemas/            Pydantic request/response models
@@ -17,12 +17,14 @@ backend/app/         Layered FastAPI app — see docs/ARCHITECTURE.md
   services/           business logic
   api/v1/             versioned routers
 backend/alembic/      DB migrations — see docs/DATABASE.md
+backend/tests/        pytest suite (auth flow) — see docs/AUTHENTICATION.md
 frontend/             Next.js 15 app (target) — see docs/MIGRATION_PLAN.md
   legacy-spa/          pre-migration static SPA + design-reference mockups,
                        still served by the backend at "/" during migration
-docs/                 architecture, database, migration plan, API reference, dev guide
-requirements.txt      Python dependencies (single source of truth)
-.env.example          backend config template (DATABASE_URL required, no default)
+docs/                 architecture, database, auth, migration plan, API reference, dev guide
+requirements.txt      Python dependencies (production)
+requirements-dev.txt  + lint/type-check/test tooling
+.env.example          backend config template (DATABASE_URL, SECRET_KEY required, no defaults)
 run.py                Local dev entrypoint: `python run.py`
 ```
 
@@ -39,13 +41,17 @@ run.py                Local dev entrypoint: `python run.py`
    pip install -r requirements.txt
    ```
 
-3. **Set up the database.** Get a free Postgres instance at [neon.tech](https://neon.tech) (or point at any local Postgres). Copy `.env.example` to `.env` in the repo root and set `DATABASE_URL` — see the comments in that file for the exact format Neon gives you. Then apply migrations:
+3. **Set up the database.** Get a free Postgres instance at [neon.tech](https://neon.tech) (or point at any local Postgres). Copy `.env.example` to `.env` in the repo root and set `DATABASE_URL` — see the comments in that file for the exact format Neon gives you. Also set `SECRET_KEY` (required, no default):
+   ```bash
+   python -c "import secrets; print(secrets.token_urlsafe(64))"
+   ```
+   Then apply migrations:
    ```bash
    cd backend
    alembic upgrade head
    cd ..
    ```
-   Full schema reference, ER diagram, and design rationale: `docs/DATABASE.md`.
+   Full schema reference, ER diagram, and design rationale: `docs/DATABASE.md`. Full auth flow (JWT access tokens, rotating refresh tokens, email verification, password reset): `docs/AUTHENTICATION.md`.
 
 4. **Run the Development Server:**
    ```bash
@@ -57,15 +63,25 @@ run.py                Local dev entrypoint: `python run.py`
 
 The backend is linted with [ruff](https://docs.astral.sh/ruff/):
 ```bash
-pip install ruff
-ruff check backend/app backend/alembic run.py
+pip install -r requirements-dev.txt
+ruff check backend/app backend/tests backend/alembic run.py
 ```
 Rule `E712` is intentionally disabled in `pyproject.toml`: SQLModel/SQLAlchemy
 query columns overload `==`, so `Model.field == True` builds a SQL `WHERE`
 clause and is correct as written — it is not a Python truthiness check.
 `pyproject.toml` also documents a set of known SQLModel/SQLAlchemy mypy
-stub-gap findings (not real bugs) versus the real type errors this
+stub-gap findings (not real bugs) versus the real type errors each
 milestone found and fixed.
+
+## Testing
+
+```bash
+pip install -r requirements-dev.txt
+cd backend
+pytest tests/ -v
+```
+Runs against a real, freshly-migrated `partype_test` Postgres database (recreated via Alembic each test session, not `create_all` — exercises the same migration path production uses). Requires a reachable Postgres server (`postgresql://postgres:postgres@localhost:5432` by default — edit `backend/tests/conftest.py` to point elsewhere). See `docs/AUTHENTICATION.md#testing` for coverage details.
+
 
 ## VPS Production Deployment Guide
 

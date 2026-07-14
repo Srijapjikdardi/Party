@@ -3,7 +3,21 @@ Pydantic-only request/response schemas, kept separate from the SQLModel
 table models in `app.models`. A response shape can change without
 touching the database schema, and vice versa.
 """
-from app.schemas.user import UserCreate, UserRead, UserLogin
+from app.schemas.user import UserRead
+from app.schemas.auth import (
+    RegisterRequest,
+    LoginRequest,
+    TokenPairResponse,
+    RefreshRequest,
+    LogoutRequest,
+    VerifyEmailRequest,
+    ResendVerificationRequest,
+    ForgotPasswordRequest,
+    ResetPasswordRequest,
+    ChangePasswordRequest,
+    UpdateProfileRequest,
+    MessageResponse,
+)
 from app.schemas.restaurant import RestaurantBase, RestaurantCreate, RestaurantRead
 from app.schemas.restaurant_table import TableRead
 from app.schemas.menu_category import MenuCategoryRead
@@ -16,7 +30,11 @@ from app.schemas.wallet import WalletTransactionRead, WalletTopup
 from app.schemas.notification import NotificationRead
 
 __all__ = [
-    "UserCreate", "UserRead", "UserLogin",
+    "UserRead",
+    "RegisterRequest", "LoginRequest", "TokenPairResponse", "RefreshRequest",
+    "LogoutRequest", "VerifyEmailRequest", "ResendVerificationRequest",
+    "ForgotPasswordRequest", "ResetPasswordRequest", "ChangePasswordRequest",
+    "UpdateProfileRequest", "MessageResponse",
     "RestaurantBase", "RestaurantCreate", "RestaurantRead",
     "TableRead",
     "MenuCategoryRead",

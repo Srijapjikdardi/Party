@@ -71,4 +71,4 @@ Once the API contract stabilizes, replace the hand-maintained `types/api.ts` wit
 ## Explicitly out of scope for this migration
 
 - Database changes (tracked separately — this migration doesn't touch `app/models` or `app/db`).
-- Auth scheme replacement (bearer-token-in-memory → JWT) — orthogonal to the frontend framework, tracked as its own backend item.
+- ~~Auth scheme replacement (bearer-token-in-memory → JWT)~~ — delivered in Milestone 4 (`docs/AUTHENTICATION.md`): short-lived JWT access tokens + DB-backed rotating refresh tokens. Frontend still needs to decide token storage (httpOnly cookie vs. client state) and implement the refresh-on-401 flow — see Phase 3 below.
