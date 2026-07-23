@@ -2,16 +2,13 @@
 Named RestaurantTable (not Table) to avoid colliding with SQL's own
 TABLE keyword and SQLAlchemy's Table class.
 """
-from typing import TYPE_CHECKING, List, Optional
+from __future__ import annotations
+from typing import List
 from uuid import UUID
 
 from sqlmodel import Field, Relationship, SQLModel, UniqueConstraint
 
 from app.db.base import TimestampMixin, UUIDPKMixin, uuid_fk
-
-if TYPE_CHECKING:
-    from app.models.restaurant import Restaurant
-    from app.models.dining_session import DiningSession
 
 
 class RestaurantTable(UUIDPKMixin, TimestampMixin, SQLModel, table=True):
@@ -29,5 +26,13 @@ class RestaurantTable(UUIDPKMixin, TimestampMixin, SQLModel, table=True):
     # invalidating the table's id or its order/session history.
     qr_code_token: str = Field(unique=True, index=True)
 
-    restaurant: Optional["Restaurant"] = Relationship(back_populates="tables")
-    dining_sessions: List["DiningSession"] = Relationship(back_populates="table")
+
+def _set_restaurant_table_relationships():
+    from app.models.restaurant import Restaurant
+    from app.models.dining_session import DiningSession
+
+    RestaurantTable.restaurant = Relationship(back_populates="tables")
+    RestaurantTable.dining_sessions = Relationship(back_populates="table")
+
+
+_set_restaurant_table_relationships()

@@ -3,6 +3,7 @@ Cart: a diner's in-progress, pre-checkout selection. New in this
 milestone — the app previously only had atomic Order creation with no
 "add to cart, keep browsing" step.
 """
+from __future__ import annotations
 from datetime import datetime
 from typing import TYPE_CHECKING, List, Optional
 from uuid import UUID

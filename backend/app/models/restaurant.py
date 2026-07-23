@@ -1,3 +1,4 @@
+from __future__ import annotations
 from decimal import Decimal
 from typing import TYPE_CHECKING, List, Optional
 
@@ -36,7 +37,7 @@ class Restaurant(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=T
     menu_items: List["MenuItem"] = Relationship(back_populates="restaurant")
     menu_categories: List["MenuCategory"] = Relationship(back_populates="restaurant")
     orders: List["Order"] = Relationship(back_populates="restaurant")
-    tables: List["RestaurantTable"] = Relationship(back_populates="restaurant")
     dining_sessions: List["DiningSession"] = Relationship(back_populates="restaurant")
     staff: List["RestaurantStaff"] = Relationship(back_populates="restaurant")
     carts: List["Cart"] = Relationship(back_populates="restaurant")
+    tables: List["RestaurantTable"] = Relationship(back_populates="restaurant")

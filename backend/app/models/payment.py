@@ -5,6 +5,7 @@ future direct order payments without three near-identical tables.
 `bill_split_record_id` is nullable because wallet top-ups aren't tied
 to a bill.
 """
+from __future__ import annotations
 from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING, List, Optional

@@ -104,5 +104,9 @@ class UpdateProfileRequest(SQLModel):
     avatar_url: Optional[str] = None
 
 
+class IDTokenRequest(SQLModel):
+    id_token: str
+
+
 class MessageResponse(SQLModel):
     message: str

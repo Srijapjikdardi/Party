@@ -36,6 +36,85 @@ from app.schemas import (
     VerifyEmailRequest,
 )
 from app.services import AuthService
+from app.schemas.auth import IDTokenRequest
+from app.core.oauth import verify_google_id_token, verify_apple_id_token
+from fastapi import HTTPException, status
+
+def _get_or_create_user_oauth(session: Session, email: str, name: str, provider_id: str, provider: str) -> User:
+    """Get or create a user via OAuth (Google or Apple)."""
+    from app.models import User
+    from app.repositories import UserRepository
+    from app.core.security import hash_password
+    import secrets
+
+    user_repo = UserRepository(session)
+    if provider == "google":
+        user = user_repo.get_by_google_id(provider_id)
+        if not user:
+            # Try to find by email to link accounts
+            user = user_repo.get_by_email(email)
+            if user:
+                # Link Google ID to existing account
+                user.google_id = provider_id
+                session.add(user)
+                session.commit()
+                session.refresh(user)
+            else:
+                # Create new user
+                # Generate a unique phone number (10 digits)
+                for _ in range(10):
+                    phone = ''.join(str(secrets.randbelow(10)) for _ in range(10))
+                    if not user_repo.get_by_phone(phone):
+                        break
+                else:
+                    # Fallback: use a hash of email+timestamp (should be unique enough)
+                    import hashlib
+                    import time
+                    hash_input = f"{email}{time.time()}".encode()
+                    phone = hashlib.sha256(hash_input).hexdigest()[:10]
+                user = User(
+                    name=name,
+                    email=email,
+                    phone=phone,
+                    google_id=provider_id,
+                    password_hash=hash_password(secrets.token_urlsafe(16)),
+                    role="diner",
+                    is_email_verified=True,
+                )
+                user = user_repo.add(user)
+        return user
+    elif provider == "apple":
+        user = user_repo.get_by_apple_id(provider_id)
+        if not user:
+            user = user_repo.get_by_email(email)
+            if user:
+                user.apple_id = provider_id
+                session.add(user)
+                session.commit()
+                session.refresh(user)
+            else:
+                for _ in range(10):
+                    phone = ''.join(str(secrets.randbelow(10)) for _ in range(10))
+                    if not user_repo.get_by_phone(phone):
+                        break
+                else:
+                    import hashlib
+                    import time
+                    hash_input = f"{email}{time.time()}".encode()
+                    phone = hashlib.sha256(hash_input).hexdigest()[:10]
+                user = User(
+                    name=name,
+                    email=email,
+                    phone=phone,
+                    apple_id=provider_id,
+                    password_hash=hash_password(secrets.token_urlsafe(16)),
+                    role="diner",
+                    is_email_verified=True,
+                )
+                user = user_repo.add(user)
+        return user
+    else:
+        raise ValueError(f"Unsupported OAuth provider: {provider}")
 
 router = APIRouter(tags=["auth"])
 
@@ -93,6 +172,48 @@ def forgot_password(request: Request, body: ForgotPasswordRequest, session: Sess
 def reset_password(request: Request, body: ResetPasswordRequest, session: Session = Depends(get_session)):
     AuthService(session).reset_password(body.token, body.new_password, ip=get_client_ip(request))
     return MessageResponse(message="Password has been reset")
+
+
+@router.post("/auth/google")
+async def google_auth(request: Request, body: IDTokenRequest, session: Session = Depends(get_session)):
+    try:
+        google_user_info = verify_google_id_token(body.id_token)
+    except Exception as _:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Google ID token")
+    email = google_user_info.get("email")
+    if not email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Google token missing email")
+    name = google_user_info.get("name", "")
+    google_id = google_user_info.get("sub")
+    if not google_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Google token missing sub")
+    user = _get_or_create_user_oauth(session, email, name, google_id, "google")
+    token_pair = AuthService(session)._issue_token_pair(user)
+    return token_pair
+
+
+@router.post("/auth/apple")
+async def apple_auth(request: Request, body: IDTokenRequest, session: Session = Depends(get_session)):
+    try:
+        apple_user_info = verify_apple_id_token(body.id_token)
+    except Exception as _:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Apple ID token")
+    email = apple_user_info.get("email")
+    if not email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Apple token missing email")
+    name = apple_user_info.get("name", "")
+    if isinstance(name, dict):
+        first = name.get("firstName", "")
+        last = name.get("lastName", "")
+        name = f"{first} {last}".strip()
+    apple_id = apple_user_info.get("sub")
+    if not apple_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Apple token missing sub")
+    if not email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Apple token does not provide email")
+    user = _get_or_create_user_oauth(session, email, name, apple_id, "apple")
+    token_pair = AuthService(session)._issue_token_pair(user)
+    return token_pair
 
 
 # ── Legacy-compatible aliases (frontend/legacy-spa) ──────

@@ -25,7 +25,7 @@ export default async function HomePage() {
               <CardHeader>
                 <div className="mb-1 flex items-center justify-between">
                   <CardTitle>{restaurant.name}</CardTitle>
-                  <Badge variant="secondary">{restaurant.rating.toFixed(1)} ★</Badge>
+                  <Badge variant="secondary">{Number(restaurant.rating).toFixed(1)} ★</Badge>
                 </div>
                 <CardDescription>{restaurant.cuisine_type} · {restaurant.price_range}</CardDescription>
               </CardHeader>

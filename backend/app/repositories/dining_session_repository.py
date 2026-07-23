@@ -31,3 +31,10 @@ class DiningSessionRepository(BaseRepository[DiningSession]):
         self.session.commit()
         self.session.refresh(participant)
         return participant
+
+    def list_by_user(self, user_id: UUID) -> List[DiningSession]:
+        return self.session.exec(
+            select(DiningSession)
+            .join(SessionParticipant, SessionParticipant.session_id == DiningSession.id)
+            .where(SessionParticipant.user_id == user_id)
+        ).all()

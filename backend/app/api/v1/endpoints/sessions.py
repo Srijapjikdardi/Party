@@ -41,3 +41,8 @@ def join_session(
 @router.get("/{session_id}/participants", response_model=List[SessionParticipantRead])
 def get_participants(session_id: UUID, session: Session = Depends(get_session)):
     return DiningSessionService(session).list_participants(session_id)
+
+
+@router.get("/me", response_model=List[DiningSessionRead])
+def get_my_sessions(current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    return DiningSessionService(session).list_by_user(current_user.id)

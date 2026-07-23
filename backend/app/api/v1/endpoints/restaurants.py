@@ -2,11 +2,12 @@ from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from app.db.session import get_session
-from app.schemas import MenuItemRead, RestaurantRead, TableRead
+from app.schemas import DiningSessionRead, MenuItemRead, RestaurantRead, TableRead
 from app.services import MenuService, RestaurantService, TableService
+from app.models.dining_session import DiningSession
 
 router = APIRouter(prefix="/restaurants", tags=["restaurants"])
 
@@ -37,3 +38,10 @@ def get_menu(restaurant_id: UUID, session: Session = Depends(get_session)):
 @router.get("/{restaurant_id}/tables", response_model=List[TableRead])
 def get_tables(restaurant_id: UUID, session: Session = Depends(get_session)):
     return TableService(session).list_for_restaurant(restaurant_id)
+
+
+@router.get("/{restaurant_id}/sessions", response_model=List[DiningSessionRead])
+def get_restaurant_sessions(restaurant_id: UUID, session: Session = Depends(get_session)):
+    return session.exec(
+        select(DiningSession).where(DiningSession.restaurant_id == restaurant_id)
+    ).all()

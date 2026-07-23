@@ -1,0 +1,6 @@
+  File "./temp_test/bad.py", line 1
+    def foo(
+           ^
+SyntaxError: '(' was never closed
+./venv/Lib/site-packages/anyio/from_thread.py:118: SyntaxWarning: 'return' in a 'finally' block
+  return result

@@ -31,6 +31,7 @@ class Bill(UUIDPKMixin, SQLModel, table=True):
     discount: Decimal = Field(default=Decimal("0.00"), max_digits=10, decimal_places=2)
     total_amount: Decimal = Field(max_digits=10, decimal_places=2)
     status: str = Field(default="pending", index=True)  # pending | split | paid
+    split_type: str = Field(default="equal", index=True)  # equal | individual | host_paid
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column_kwargs={"onupdate": datetime.utcnow})
 

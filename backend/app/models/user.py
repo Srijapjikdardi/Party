@@ -25,6 +25,8 @@ class User(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=True):
     name: str
     email: str = Field(unique=True, index=True)
     phone: str = Field(unique=True, index=True)
+    google_id: Optional[str] = Field(default=None, unique=True, index=True)
+    apple_id: Optional[str] = Field(default=None, unique=True, index=True)
     password_hash: str
     # Platform-level UX hint only (drives which app shell the legacy SPA
     # shows on login: diner | merchant | waiter). NOT the authorization

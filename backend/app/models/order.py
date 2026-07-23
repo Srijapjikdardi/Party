@@ -1,3 +1,4 @@
+from __future__ import annotations
 from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING, List, Optional
@@ -6,13 +7,12 @@ from uuid import UUID
 from sqlmodel import Field, Index, Relationship, SQLModel
 
 from app.db.base import UUIDPKMixin, int_fk, uuid_fk
-
 if TYPE_CHECKING:
     from app.models.restaurant import Restaurant
-    from app.models.user import User
     from app.models.dining_session import DiningSession
     from app.models.order_item import OrderItem
 
+from app.models.restaurant import Restaurant
 
 class Order(UUIDPKMixin, SQLModel, table=True):
     __tablename__ = "orders"
@@ -40,7 +40,7 @@ class Order(UUIDPKMixin, SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column_kwargs={"onupdate": datetime.utcnow})
 
-    restaurant: "Restaurant" = Relationship(back_populates="orders")
+    restaurant: Restaurant = Relationship(back_populates="orders")
     user: Optional["User"] = Relationship(back_populates="orders")
     session: Optional["DiningSession"] = Relationship(back_populates="orders")
     order_items: List["OrderItem"] = Relationship(back_populates="order")

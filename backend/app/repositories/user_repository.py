@@ -22,3 +22,18 @@ class UserRepository(BaseRepository[User]):
         re-registration attempt gets a clean 400 instead of an
         unhandled IntegrityError from the INSERT itself."""
         return self.session.exec(select(User).where(User.email == email)).first()
+
+    def get_by_phone(self, phone: str) -> Optional[User]:
+        return self.session.exec(
+            select(User).where(User.phone == phone, User.deleted_at.is_(None))
+        ).first()
+
+    def get_by_google_id(self, google_id: str) -> Optional[User]:
+        return self.session.exec(
+            select(User).where(User.google_id == google_id, User.deleted_at.is_(None))
+        ).first()
+
+    def get_by_apple_id(self, apple_id: str) -> Optional[User]:
+        return self.session.exec(
+            select(User).where(User.apple_id == apple_id, User.deleted_at.is_(None))
+        ).first()

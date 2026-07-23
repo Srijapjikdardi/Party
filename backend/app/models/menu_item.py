@@ -1,3 +1,4 @@
+from __future__ import annotations
 from decimal import Decimal
 from typing import TYPE_CHECKING, List, Optional
 from uuid import UUID
@@ -6,12 +7,10 @@ from sqlmodel import Field, Relationship, SQLModel
 
 from app.db.base import SoftDeleteMixin, TimestampMixin, UUIDPKMixin, int_fk, uuid_fk
 
-if TYPE_CHECKING:
-    from app.models.restaurant import Restaurant
-    from app.models.menu_category import MenuCategory
-    from app.models.order_item import OrderItem
-    from app.models.cart_item import CartItem
-
+from app.models.restaurant import Restaurant
+from app.models.menu_category import MenuCategory
+from app.models.order_item import OrderItem
+from app.models.cart_item import CartItem
 
 class MenuItem(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=True):
     __tablename__ = "menu_items"
@@ -27,10 +26,10 @@ class MenuItem(UUIDPKMixin, TimestampMixin, SoftDeleteMixin, SQLModel, table=Tru
     is_available: bool = Field(default=True)
     is_vegetarian: bool = Field(default=False)
 
-    restaurant: "Restaurant" = Relationship(back_populates="menu_items")
-    category: Optional["MenuCategory"] = Relationship(back_populates="menu_items")
-    order_items: List["OrderItem"] = Relationship(back_populates="menu_item")
-    cart_items: List["CartItem"] = Relationship(back_populates="menu_item")
+    restaurant: Restaurant = Relationship(back_populates="menu_items")
+    category: Optional[MenuCategory] = Relationship(back_populates="menu_items")
+    order_items: List[OrderItem] = Relationship(back_populates="menu_item")
+    cart_items: List[CartItem] = Relationship(back_populates="menu_item")
 
     @property
     def category_name(self) -> Optional[str]:

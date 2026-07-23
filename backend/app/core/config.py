@@ -93,6 +93,8 @@ class Settings(BaseSettings):
     # tests via this flag so test suites aren't rate-limited by shared
     # state across test cases.
     rate_limit_enabled: bool = True
+    google_client_id: str = ""
+    apple_client_id: str = ""
 
     # ── Email (delivery is pluggable — see app/core/email.py) ────
     # Base URL used to build verification/password-reset links emailed

@@ -1,12 +1,3 @@
-"""
-Application factory. Wires together config, the versioned API router,
-the legacy-compatibility alias, and the (temporary) static SPA mount.
-
-Schema is owned by Alembic migrations (`alembic upgrade head`), not by
-create-on-boot — startup no longer calls SQLModel.metadata.create_all().
-Auto-creating tables from live model state bypasses migration history
-and is exactly how schema drift between environments happens.
-"""
 import logging
 
 from fastapi import FastAPI
@@ -23,6 +14,7 @@ from app.core.errors import register_exception_handlers
 from app.core.rate_limit import limiter
 from app.db.session import check_database_connection, engine
 from app.seed import seed_if_empty
+from app.models.restaurant_table import RestaurantTable
 
 
 def create_app() -> FastAPI:
@@ -52,8 +44,8 @@ def create_app() -> FastAPI:
     @app.on_event("startup")
     def on_startup() -> None:
         # Dev convenience only — never runs against production data,
-        # see app/seed.py's own guard. Requires `alembic upgrade head`
-        # to have already been run; this does not create tables.
+        # see app/seed.py's own guard. Requires `alembic upgrade head`\n
+        # to have already been run; this does not create tables.\n
         if settings.environment == "development":
             with Session(engine) as session:
                 seed_if_empty(session)
@@ -70,11 +62,11 @@ def create_app() -> FastAPI:
 
     # Versioned API (canonical)
     app.include_router(api_router, prefix=settings.api_v1_prefix)
-    # Unversioned alias for the legacy static SPA during the Next.js
-    # migration (see docs/MIGRATION_PLAN.md). Remove once that SPA is retired.
+    # Unversioned alias for the legacy static SPA during the Next.js\n
+    # migration (see docs/MIGRATION_PLAN.md). Remove once that SPA is retired.\n
     app.include_router(api_router, prefix=settings.legacy_api_prefix)
 
-    # Legacy static SPA — served until the Next.js frontend replaces it.
+    # Legacy static SPA — served until the Next.js frontend replaces it.\n
     if settings.frontend_dir.exists():
         app.mount("/static", StaticFiles(directory=settings.frontend_dir), name="static")
 
